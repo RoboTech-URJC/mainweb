@@ -57,7 +57,7 @@
     <section class="no-padding" id="portfolio_now">
         <div class="container-fluid">
             <div class="hex-grid">
-                <a href="https://github.com/RoboTech-URJC/Robot-Scara" class="hex">
+                <div class="hex" onclick="openModal('modalScara')">
                     <img src="img/portfolio/noah.jpeg" alt="Robot Scara">
                     <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-weight: bold; text-shadow: 2px 2px 4px #000000; font-size: 36px;">
                       Robot Scara
@@ -65,8 +65,8 @@
                     <div class="hex-content">
                         <h3>Robot Scara</h3>
                     </div>
-                </a>
-                <a href="https://github.com/RoboTech-URJC/Mano-Zeus" class="hex">
+                </div>
+                <div class="hex" onclick="openModal('modalZeus')">
                     <img src="img/portfolio/zeus.jpeg" alt="Proyecto Zeus">
                     <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-weight: bold; text-shadow: 2px 2px 4px #000000; font-size: 36px;">
                       Proyecto Zeus
@@ -74,8 +74,8 @@
                     <div class="hex-content">
                         <h3>Proyecto Zeus</h3>
                     </div>
-                </a>
-                <a href="https://github.com/RoboTech-URJC/HiroBot" class="hex">
+                </div>
+                <div class="hex" onclick="openModal('modalHiroBot')">
                     <img src="img/portfolio/led.png" alt="Proyecto HiroBot">
                     <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-weight: bold; text-shadow: 2px 2px 4px #000000; font-size: 36px;">
                       Proyecto HiroBot
@@ -83,16 +83,16 @@
                     <div class="hex-content">
                         <h3>Proyecto HiroBot</h3>
                     </div>
-                </a>
-                <a href="https://github.com/RoboTech-URJC/Ant-Project" class="hex">
+                </div>
+                <div class="hex" onclick="openModal('modalHormiga')">
                     <img src="img/portfolio/server.jpg" alt="Proyecto Hormiga">
                     <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-weight: bold; text-shadow: 2px 2px 4px #000000; font-size: 36px;">
                       Proyecto Hormiga
                     </div>
                     <div class="hex-content">
                     </div>
-                </a>
-                <a href="https://github.com/RoboTech-URJC/Icarus-Project" class="hex">
+                </div>
+                <div class="hex" onclick="openModal('modalDrone')">
                     <img src="img/portfolio/oasis.jpeg" alt="Proyecto Drone">
                     <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-weight: bold; text-shadow: 2px 2px 4px #000000; font-size: 36px;">
                       Proyecto Drone
@@ -100,32 +100,84 @@
                     <div class="hex-content">
                         <h3>Proyecto Drone</h3>
                     </div>
-                </a>
+                </div>
             </div>
         </div>
     </section>
+
+    <!-- Modals -->
+    <div id="modalScara" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modalScara')">&times;</span>
+            <h2>Robot Scara</h2>
+            <p>Descripción del proyecto Robot Scara.</p>
+            <a href="https://github.com/RoboTech-URJC/Robot-Scara" target="_blank">Ver en GitHub</a>
+        </div>
+    </div>
+
+    <div id="modalZeus" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modalZeus')">&times;</span>
+            <h2>Proyecto Zeus</h2>
+            <p>Descripción del proyecto Zeus.</p>
+            <a href="https://github.com/RoboTech-URJC/Mano-Zeus" target="_blank">Ver en GitHub</a>
+        </div>
+    </div>
+
+    <div id="modalHiroBot" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modalHiroBot')">&times;</span>
+            <h2>Proyecto HiroBot</h2>
+            <p>Descripción del proyecto HiroBot.</p>
+            <a href="https://github.com/RoboTech-URJC/HiroBot" target="_blank">Ver en GitHub</a>
+        </div>
+    </div>
+
+    <div id="modalHormiga" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modalHormiga')">&times;</span>
+            <h2>Proyecto Hormiga</h2>
+            <p>Descripción del proyecto Hormiga.</p>
+            <a href="https://github.com/RoboTech-URJC/Ant-Project" target="_blank">Ver en GitHub</a>
+        </div>
+    </div>
+
+    <div id="modalDrone" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modalDrone')">&times;</span>
+            <h2>Proyecto Drone</h2>
+            <p>Descripción del proyecto Drone.</p>
+            <a href="https://github.com/RoboTech-URJC/Icarus-Project" target="_blank">Ver en GitHub</a>
+        </div>
+    </div>
+
     <!-- Contact Section -->
     <section id="contact">
       <div class="container text-center">
-          <h2 class="section-heading">Ponte en contacto con nosotros</h2>
-          <hr class="primary">
-          <div class="row">
-              <div class="col-lg-4">
-                  <a href="https://twitter.com/{{ site.twitter_username }}">
-                      <i class="fa fa-twitter fa-3x"></i>
-                      <p>{{ site.twitter_username }}</p>
-                  </a>
-              </div>
-              <div class="col-lg-4">
-                  <a href="mailto:{{ site.email }}">
-                      <i class="fa fa-envelope-o fa-3x"></i>
-                      <p>{{ site.email }}</p>
-                  </a>
-              </div>
-              <div class="col-lg-4">
-                  <a href="https://github.com/{{ site.github_username }}">
-                      <i class="fa fa-github fa-3x"></i>
-                      <p>{{ site.github_username }}</p>
+        <h2 class="section-heading">Ponte en contacto con nosotros</h2>
+        <hr class="primary">
+        <div class="row">
+          <div class="col-lg-4">
+            <a href="https://twitter.com/{{ site.twitter_username }}">
+              <i class="fa fa-twitter fa-3x"></i>
+              <p>{{ site.twitter_username }}</p>
+            </a>
+          </div>
+          <div class="col-lg-4">
+            <a href="mailto:{{ site.email }}">
+              <i class="fa fa-envelope-o fa-3x"></i>
+              <p>{{ site.email }}</p>
+            </a>
+          </div>
+          <div class="col-lg-4">
+            <a href="https://github.com/{{ site.github_username }}">
+              <i class="fa fa-github fa-3x"></i>
+              <p>{{ site.github_username }}</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
                   </a>
               </div>
           </div>
