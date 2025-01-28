@@ -1,0 +1,151 @@
+/* Variables de tema */
+:root {
+  --theme-primary: #f00;
+  --theme-dark: #222;
+  --theme-light: #f9f9f9;
+  --hexagon-shadow: rgba(0, 0, 0, 0.3);
+  --hexagon-hover-shadow: rgba(0, 0, 0, 0.5);
+}
+
+/* Sección de hexágonos */
+.hex-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px; /* Increased gap between hexagons */
+  padding: 60px 0;
+  background-color: #ffffff;
+}
+
+.bg-primary {
+  background-color: #f00;
+  color: white;
+  padding: 100px 0;
+}
+
+.bg-primary .section-heading {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.bg-primary .text-faded {
+  font-size: 1.2em;
+}
+
+.bg-primary hr.light {
+  border-top: 1px solid #fff;
+  width: 50%;
+  margin: 20px auto;
+}
+
+/* Hexágono principal */
+.hex {
+  width: 550px;
+  height: 550px;
+  background-color: #000000;
+  position: relative;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  box-shadow: 0 4px 8px var(--hexagon-shadow);
+  cursor: pointer;
+}
+
+.hex:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 15px var(--hexagon-hover-shadow);
+  background-color: #f00;
+}
+
+/* Contenido del hexágono */
+.hex-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--theme-light);
+  text-decoration: none;
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.hex-content h3 {
+  margin: 0;
+  text-align: center;
+  font-size: 1.5rem;
+  line-height: 1.4;
+}
+
+.hex-content:hover {
+  color: #fff;
+}
+
+/* Imagen hexagonal */
+.hex img {
+  width: 90%;
+  height: 90%;
+  object-fit: cover;
+  clip-path: inherit;
+  position: absolute;
+  top: 5%;
+  left: 5%;
+}
+
+/* Animación de entrada */
+.hex {
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .hex {
+      width: 200px;
+      height: 200px;
+  }
+
+  .hex-content h3 {
+      font-size: 1.2rem;
+  }
+
+  .hex img {
+      width: 70%;
+      height: 70%;
+      top: 15%;
+      left: 15%;
+  }
+}
+
+@media (max-width: 480px) {
+  .hex-grid {
+      padding: 4px;
+  }
+
+  .hex {
+      width: 150px;
+      height: 150px;
+  }
+
+  .hex-content h3 {
+      font-size: 1rem;
+  }
+
+  .hex img {
+      width: 60%;
+      height: 60%;
+      top: 20%;
+      left: 20%;
+  }
+}
