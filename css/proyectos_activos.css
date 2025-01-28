@@ -12,13 +12,13 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 40px; /* Increased gap between hexagons */
+  gap: 40px; /* Increased horizontal gap, reduced vertical gap */
   padding: 60px 0;
   background-color: #ffffff;
 }
 
 .bg-primary {
-  background-color: #f00;
+  background-color: #F05F40;
   color: white;
   padding: 100px 0;
 }
@@ -53,7 +53,7 @@
 .hex:hover {
   transform: scale(1.1);
   box-shadow: 0 6px 15px var(--hexagon-hover-shadow);
-  background-color: #f00;
+  background-color: #e05235;
 }
 
 /* Contenido del hexágono */
@@ -91,6 +91,7 @@
   position: absolute;
   top: 5%;
   left: 5%;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 }
 
 /* Animación de entrada */
@@ -150,11 +151,11 @@
   }
 }
 
-/* Modal styles */
-.modal {
+/* Popup styles */
+.popup {
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 1000;
   left: 0;
   top: 0;
   width: 100%;
@@ -163,14 +164,37 @@
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.modal-content {
+.popup-content {
   background-color: #fefefe;
-  margin: 15% auto;
+  margin: 10% auto;
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
   max-width: 600px;
   text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.popup-content h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.popup-content p {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+
+.popup-content a {
+  color: var(--theme-primary);
+  text-decoration: none;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.popup-content a:hover {
+  text-decoration: underline;
 }
 
 .close {

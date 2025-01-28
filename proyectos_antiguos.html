@@ -57,7 +57,7 @@
     <section class="no-padding" id="portfolio">
         <div class="container-fluid">
             <div class="hex-grid">
-                <a href="https://github.com/RoboTech-URJC/noah_hardware" class="hex">
+                <div class="hex" onclick="openPopup('popupNoah')">
                     <img src="img/portfolio/noah.jpeg" alt="Robot Noah">
                     <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-weight: bold; text-shadow: 2px 2px 4px #000000; font-size: 36px;">
                       Robot Noah
@@ -65,36 +65,73 @@
                     <div class="hex-content">
                         <h3>Robot Noah</h3>
                     </div>
-                </a>
-                <a href="https://github.com/RoboTech-URJC/led-race" class="hex">
+                </div>
+                <div class="hex" onclick="openPopup('popupLedRace')">
                     <img src="img/portfolio/led.png" alt="Proyecto LED Race">
                     <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-weight: bold; text-shadow: 2px 2px 4px #000000; font-size: 36px;">
-                      Led race
+                      Proyecto LED Race
                     </div>
                     <div class="hex-content">
                         <h3>Proyecto LED Race</h3>
                     </div>
-                </a>
-                <a href="https://github.com/RoboTech-URJC/RobotechServer-Project" class="hex">
+                </div>
+                <div class="hex" onclick="openPopup('popupServidorRed')">
                     <img src="img/portfolio/server.jpg" alt="Proyecto Servidor-Red">
                     <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-weight: bold; text-shadow: 2px 2px 4px #000000; font-size: 36px;">
                       Proyecto Servidor-Red
                     </div>
                     <div class="hex-content">
                     </div>
-                </a>
-                <a href="https://github.com/RoboTech-URJC/Oasis" class="hex">
+                </div>
+                <div class="hex" onclick="openPopup('popupOasis')">
                     <img src="img/portfolio/oasis.jpeg" alt="Proyecto Oasis">
                     <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-weight: bold; text-shadow: 2px 2px 4px #000000; font-size: 36px;">
                       Proyecto Oasis
-                    </div>                    <div class="hex-content">
+                    </div>
+                    <div class="hex-content">
                         <h3>Proyecto Oasis</h3>
                     </div>
-                </a>
-                
+                </div>
             </div>
         </div>
     </section>
+
+    <!-- Popups -->
+    <div id="popupNoah" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup('popupNoah')">&times;</span>
+            <h2>Robot Noah</h2>
+            <p>Descripción del proyecto Robot Noah.</p>
+            <a href="https://github.com/RoboTech-URJC/noah_hardware" target="_blank">Ver en GitHub</a>
+        </div>
+    </div>
+
+    <div id="popupLedRace" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup('popupLedRace')">&times;</span>
+            <h2>Proyecto LED Race</h2>
+            <p>Descripción del proyecto LED Race.</p>
+            <a href="https://github.com/RoboTech-URJC/led-race" target="_blank">Ver en GitHub</a>
+        </div>
+    </div>
+
+    <div id="popupServidorRed" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup('popupServidorRed')">&times;</span>
+            <h2>Proyecto Servidor-Red</h2>
+            <p>Descripción del proyecto Servidor-Red.</p>
+            <a href="https://github.com/RoboTech-URJC/RobotechServer-Project" target="_blank">Ver en GitHub</a>
+        </div>
+    </div>
+
+    <div id="popupOasis" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup('popupOasis')">&times;</span>
+            <h2>Proyecto Oasis</h2>
+            <p>Descripción del proyecto Oasis.</p>
+            <a href="https://github.com/RoboTech-URJC/Oasis" target="_blank">Ver en GitHub</a>
+        </div>
+    </div>
 
         <!-- Contact Section -->
         <section id="contact">
@@ -103,27 +140,41 @@
               <hr class="primary">
               <div class="row">
                   <div class="col-lg-4">
-                      <a href="https://twitter.com/{{ site.twitter_username }}">
+                      <a href="https://twitter.com/robotech_urjc">
                           <i class="fa fa-twitter fa-3x"></i>
-                          <p>{{ site.twitter_username }}</p>
+                          <p>robotech_urjc</p>
                       </a>
                   </div>
                   <div class="col-lg-4">
-                      <a href="mailto:{{ site.email }}">
+                      <a href="mailto:asociacion.robotech@urjc.es">
                           <i class="fa fa-envelope-o fa-3x"></i>
-                          <p>{{ site.email }}</p>
+                          <p>asociacion.robotech@urjc.es</p>
                       </a>
                   </div>
                   <div class="col-lg-4">
-                      <a href="https://github.com/{{ site.github_username }}">
+                      <a href="https://github.com/robotech-urjc">
                           <i class="fa fa-github fa-3x"></i>
-                          <p>{{ site.github_username }}</p>
+                          <p>robotech-urjc</p>
                       </a>
                   </div>
               </div>
           </div>
       </section>
-  
+    <!-- Scripts -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        function openPopup(popupId) {
+            document.getElementById(popupId).style.display = "block";
+        }
+
+        function closePopup(popupId) {
+            document.getElementById(popupId).style.display = "none";
+        }
+    </script>
 </body>
 
 </html>
