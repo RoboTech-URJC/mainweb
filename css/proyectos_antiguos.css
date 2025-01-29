@@ -72,7 +72,7 @@
 }
 
 /* Prueba para cambiar los hexágonos en la vista móvil*/
-@media (max-width: 768px){
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px){
 
   .hex {
     width: 200px;
