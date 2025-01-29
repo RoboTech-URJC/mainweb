@@ -73,10 +73,20 @@
 
 /* Prueba para cambiar los hexágonos en la vista móvil*/
 @media (max-width: 768px){
+
+  .hex {
+    width: 200px;
+    height: 200px;
+  }
+
   .hex-content {
     width: 100px;
     height: 87px;
     font-size: 16px;
+  }
+
+  .hex-content {
+    font-size: 1rem;
   }
 
 }
