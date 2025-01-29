@@ -71,6 +71,15 @@
   transition: color 0.3s ease;
 }
 
+/* Prueba para cambiar los hexágonos en la vista móvil*/
+@media (max-width: 768px){
+  .hex-content {
+    width: 100px;
+    height: 87px;
+  }
+
+}
+
 .hex-content h3 {
   margin: 0;
   text-align: center;
