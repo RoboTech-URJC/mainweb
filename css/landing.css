@@ -1,0 +1,216 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Changed from center to flex-start */
+  height: 100vh;
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  background-color: #f0f0f0;
+  padding-top: 20px; /* Added padding to ensure title is visible */
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  font-size: 2.5em;
+  color: #f00;
+}
+
+.parent {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  gap: 8px;
+  width: 100%;
+  height: 100%;
+  max-width: 1200px;
+  max-height: 1200px;
+}
+  
+.div1, .div3, .div4, .div6, .div7, .div8, .div9, .div10, .div11, .div27, .div28 {
+  background-color: #ff4d4d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 2em;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.div1:hover, .div3:hover, .div4:hover, .div6:hover, .div7:hover, .div8:hover, .div9:hover, .div10:hover, .div11:hover, .div27:hover, .div28:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.div1 img, .div3 img, .div4 img, .div6 img, .div7 img, .div8 img, .div9 img, .div10 img, .div11 img, .div27 img, .div28 img {
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
+  object-fit: cover;
+  border-radius: 10px;
+  image-rendering: -webkit-optimize-contrast;
+  margin: 10px;
+  aspect-ratio: 1 / 1; /* Ensure images are square */
+}
+
+.div1 {
+  grid-column: span 2 / span 2;
+  grid-row: span 3 / span 3;
+}
+
+.div3 {
+  grid-column: span 2 / span 2;
+  grid-column-start: 1;
+  grid-row-start: 4;
+}
+
+.div4 {
+  grid-column: span 2 / span 2;
+  grid-column-start: 3;
+  grid-row-start: 1;
+}
+
+.div6 {
+  grid-column-start: 3;
+  grid-row-start: 2;
+}
+
+.div7 {
+  grid-column-start: 4;
+  grid-row-start: 2;
+}
+
+.div8 {
+  grid-column-start: 3;
+  grid-row-start: 3;
+}
+
+.div9 {
+  grid-column-start: 4;
+  grid-row-start: 3;
+}
+
+.div10 {
+  grid-column-start: 3;
+  grid-row-start: 4;
+}
+
+.div11 {
+  grid-column-start: 4;
+  grid-row-start: 4;
+}
+
+.div27 {
+  grid-column: span 2 / span 2;
+  grid-row: span 3 / span 3;
+  grid-column-start: 5;
+  grid-row-start: 1;
+}
+
+.div28 {
+  grid-column: span 2 / span 2;
+  grid-column-start: 5;
+  grid-row-start: 4;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .parent {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+  }
+
+  .div1 {
+    grid-column: span 3 / span 3;
+    grid-row: span 2 / span 2;
+  }
+
+  .div3, .div4, .div6, .div7, .div8, .div9, .div10, .div11, .div27, .div28 {
+    grid-column: span 1 / span 1;
+    grid-row: span 1 / span 1;
+  }
+
+  .div27, .div28 {
+    grid-column: span 3 / span 3;
+  }
+}
+
+@media (max-width: 480px) {
+  .header h1 {
+    font-size: 2em;
+  }
+
+  .parent {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(18, 1fr);
+  }
+
+  .div1 {
+    grid-column: span 2 / span 2;
+    grid-row: span 2 / span 2;
+  }
+
+  .div3, .div4, .div6, .div7, .div8, .div9, .div10, .div11, .div27, .div28 {
+    grid-column: span 1 / span 1;
+    grid-row: span 1 / span 1;
+  }
+
+  .div27, .div28 {
+    grid-column: span 2 / span 2;
+  }
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.popup-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 600px;
+  border-radius: 10px;
+}
+
+.popup-content h2 {
+  margin-top: 0;
+}
+
+.popup-content .close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.popup-content .close:hover,
+.popup-content .close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.popup-content a {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
