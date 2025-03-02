@@ -29,7 +29,7 @@
   </header>
 
   <div class="parent">
-    <div class="div1">Conoce más sobre nosotros</div>
+    <div class="div1"><img src="img/about.png" alt="Conocenos más"></div>
     <div class="div3">Inscríbete a la asociación</div>
     <div class="div4">Proyectos Activos</div>
     <div class="div6"><img src="img/portfolio/zeus.jpeg" alt="Proyecto Zeus"></div>
@@ -38,8 +38,8 @@
     <div class="div9"><img src="img/portfolio/hirobot.jpeg" alt="Hirobot"></div>
     <div class="div10"><img src="img/portfolio/hormiga.jpeg" alt="Hormiga"></div>
     <div class="div11"><img src="img/portfolio/led.png" alt="Robotech Led Race"></div>
-    <div class="div27">¿Tienes una idea? Cuéntanosla</div>
-    <div class="div28">Contáctanos</div>
+    <div class="div1"><img src="img/idea.png" alt="Idea"></div>
+    <div class="div28" onclick="openPopup('popupContact')">Contáctanos</div>
   </div>
 
   <!-- Popups -->
@@ -48,7 +48,7 @@
       <span class="close" onclick="closePopup('popupScara')">&times;</span>
       <h2>Robot Scara</h2>
       <p>Este proyecto tiene como objetivo desarrollar el código para que nuestro brazo SCARA pueda realizar operaciones complejas, manipular objetos, repetir movimientos e incluso jugar al ajedrez.</p>
-      <a href="https://github.com/RoboTech-URJC/Robot-Scara" target="_blank"><i class="fa fa-github"></i> Ver en GitHub</a>
+      <a href="https://github.com/RoboTech-URJC/Robot-Scara" target="_blank" class="github"><i class="fa fa-github"></i> Ver en GitHub</a>
       <a href="proyectos_activos.html" class="btn-secondary"><i class="fa fa-folder-open"></i> Ver más proyectos</a>
       <a href="https://www.youtube.com/" class="btn-ideas"><i class="fa fa-lightbulb-o"></i> Cuéntanos tus ideas</a>
     </div>
@@ -63,7 +63,7 @@
       <br>Actualmente contamos con las dos manos y antebrazos, y un software de visión artificial que permite mover las manos. 
       <br>El softwre encargado de mover la mano está basado en arduino, mientras que el de visión artificial ha sido desarrollado en python usando la biblioteca de openCV.
       </p>
-      <a href="https://github.com/RoboTech-URJC/Mano-Zeus" target="_blank"><i class="fa fa-github"></i> Ver en GitHub</a>
+      <a href="https://github.com/RoboTech-URJC/Mano-Zeus" target="_blank" class="github"><i class="fa fa-github"></i> Ver en GitHub</a>
       <a href="proyectos_activos.html" class="btn-secondary"><i class="fa fa-folder-open"></i> Ver más proyectos</a>
       <a href="https://www.youtube.com/" class="btn-ideas"><i class="fa fa-lightbulb-o"></i> Cuéntanos tus ideas</a>
     </div>
@@ -78,7 +78,7 @@
         <br>Con respecto a lo didáctico, tenemos pensado hacer una librería completa para Arduino con el fin de que sea fácil de programar y conseguir que se aprendan los conceptos de programación y se pueda ir avanzando al ritmo que el usuario quiera, adaptados a la robótica. Además, queremos en un futuro que pueda ser programado por bloques, para que así los más pequeños puedan hacer uso de ello y aprender también. También, queremos que pueda ser montado desde cero, así como incluir varios sensores como sensor de luz, de ultrasonidos y un sensor IR, así como actuadores (motores y servos).
         
         <br>Nos parece un proyecto que puede ser muy divertido a la hora de realizarlo y que podemos aprender mucho, y que podamos ayudar a que más gente se interese por la robótica y la programación, y aprenda de una forma divertida.</p>
-      <a href="https://github.com/RoboTech-URJC/HiroBot" target="_blank"><i class="fa fa-github"></i> Ver en GitHub</a>
+      <a href="https://github.com/RoboTech-URJC/HiroBot" target="_blank" class="github"><i class="fa fa-github"></i> Ver en GitHub</a>
       <a href="proyectos_activos.html" class="btn-secondary"><i class="fa fa-folder-open"></i> Ver más proyectos</a>
       <a href="https://www.youtube.com/" class="btn-ideas"><i class="fa fa-lightbulb-o"></i> Cuéntanos tus ideas</a>
     </div>
@@ -89,7 +89,7 @@
       <span class="close" onclick="closePopup('popupHormiga')">&times;</span>
       <h2>Proyecto Hormiga</h2>
       <p>Descripción del proyecto Hormiga.</p>
-      <a href="https://github.com/RoboTech-URJC/Ant-Project" target="_blank"><i class="fa fa-github"></i> Ver en GitHub</a>
+      <a href="https://github.com/RoboTech-URJC/Ant-Project" target="_blank" class="github"><i class="fa fa-github"></i> Ver en GitHub</a>
       <a href="proyectos_activos.html" class="btn-secondary"><i class="fa fa-folder-open"></i> Ver más proyectos</a>
       <a href="https://www.youtube.com/" class="btn-ideas"><i class="fa fa-lightbulb-o"></i> Cuéntanos tus ideas</a>
     </div>
@@ -100,7 +100,7 @@
       <span class="close" onclick="closePopup('popupDrone')">&times;</span>
       <h2>Proyecto Drone</h2>
       <p>Descripción del proyecto Drone.</p>
-      <a href="https://github.com/RoboTech-URJC/Icarus-Project" target="_blank"><i class="fa fa-github"></i> Ver en GitHub</a>
+      <a href="https://github.com/RoboTech-URJC/Icarus-Project" target="_blank" class="github"><i class="fa fa-github"></i> Ver en GitHub</a>
       <a href="proyectos_activos.html" class="btn-secondary"><i class="fa fa-folder-open"></i> Ver más proyectos</a>
       <a href="https://www.youtube.com/" class="btn-ideas"><i class="fa fa-lightbulb-o"></i> Cuéntanos tus ideas</a>
     </div>
@@ -111,9 +111,24 @@
       <span class="close" onclick="closePopup('popupLedRace')">&times;</span>
       <h2>Proyecto LED Race</h2>
       <p>Led Race es un proyecto creado con una finalidad lúdica y competitiva. Una tira led de NeoPixel, y varios pulsadores, son lo único que necesitas para poder jugar este juego, que ganará el que pulse más rápido, consiguiendo que su led gane la carrera.</p>
-      <a href="https://github.com/RoboTech-URJC/led-race" target="_blank"><i class="fa fa-github"></i> Ver en GitHub</a>
+      <a href="https://github.com/RoboTech-URJC/led-race" target="_blank" class="github"><i class="fa fa-github"></i> Ver en GitHub</a>
       <a href="proyectos_activos.html" class="btn-secondary"><i class="fa fa-folder-open"></i> Ver más proyectos</a>
       <a href="https://www.youtube.com/" class="btn-ideas"><i class="fa fa-lightbulb-o"></i> Cuéntanos tus ideas</a>
+    </div>
+  </div>
+
+  <div id="popupContact" class="popup">
+    <div class="popup-content">
+      <span class="close" onclick="closePopup('popupContact')">&times;</span>
+      <h2>Contáctanos</h2>
+      <p>Puedes ponerte en contacto con nosotros a través de los siguientes medios:</p>
+      <ul>
+        <li><i class="fa fa-envelope"></i> Email: <a href="mailto:asociacion.robotech@urjc.es">asociacion.robotech@urjc.es</a></li>
+        <li><i class="fa fa-twitter"></i> Twitter: <a href="https://twitter.com/robotech_urjc" target="_blank">@robotech_urjc</a></li>
+        <li><i class="fa fa-instagram"></i> Instagram: <a href="https://www.instagram.com/robotech_urjc" target="_blank">@robotech_urjc</a></li>
+        <li><i class="fa fa-linkedin"></i> LinkedIn: <a href="https://es.linkedin.com/company/robotech-urjc" target="_blank">Robotech URJC</a></li>
+        <li><i class="fa fa-github"></i> GitHub: <a href="https://github.com/robotech-urjc" target="_blank">robotech-urjc</a></li>
+      </ul>
     </div>
   </div>
 

@@ -4,12 +4,14 @@ document.addEventListener('DOMContentLoaded', function() {
   squares.forEach(square => {
     square.addEventListener('click', function() {
       const altText = this.querySelector('img') ? this.querySelector('img').alt : this.textContent.trim();
-      if (altText === 'Conoce más sobre nosotros') {
+      if (altText === 'Conocenos más') {
         window.location.href = 'index.html';
       } else if (altText === 'Proyectos Activos') {
         window.location.href = 'proyectos_activos.html';
-      } else if (altText === 'Inscríbete a la asociación' || altText === '¿Tienes una idea? Cuéntanosla') {
-        window.location.href = 'https://www.youtube.com/';
+      } else if (altText === 'Inscríbete a la asociación' ) {
+        window.location.href = 'https://forms.office.com/e/RJq49xfKkt';
+      } else if (altText === 'idea') {
+        window.location.href = 'https://forms.office.com/e/LfYXEyiR99';
       } else if (altText === 'Robot Scara') {
         openPopup('popupScara');
       } else if (altText === 'Proyecto Zeus') {
@@ -22,6 +24,8 @@ document.addEventListener('DOMContentLoaded', function() {
         openPopup('popupDrone');
       } else if (altText === 'Robotech Led Race') {
         openPopup('popupLedRace');
+      } else if (altText === 'Contáctanos') {
+        openPopup('popupContact');
       } else {
         alert(`You clicked on square ${altText}`);
       }

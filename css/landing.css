@@ -212,5 +212,34 @@ body {
   display: inline-block;
   margin-top: 10px;
   padding: 10px 20px;
-  background-color: #007bff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.popup-content a.github {
+  background-color: #333;
   color: white;
+}
+
+.popup-content a.github:hover {
+  background-color: #555;
+}
+
+.popup-content a.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.popup-content a.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+.popup-content a.btn-ideas {
+  background-color: #28a745;
+  color: white;
+}
+
+.popup-content a.btn-ideas:hover {
+  background-color: #218838;
+}
