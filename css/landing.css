@@ -23,14 +23,15 @@ body {
 .parent {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(6, 1fr);
+  grid-template-rows: repeat(5, 1fr) auto; /* Adjust the last row to fit the size of the images */
   gap: 8px;
   width: 100%;
   height: 100%;
   max-width: 1200px;
   max-height: 1200px;
 }
-  
+
+
 .div1, .div3, .div4, .div6, .div7, .div8, .div9, .div10, .div11, .div27, .div28 {
   background-color: #ff3131;
   display: flex;
@@ -61,6 +62,12 @@ body {
   aspect-ratio: 1 / 1; /* Ensure images are square */
 }
 
+.div3 img, .div28 img {
+  width: 100%;
+  height: auto;
+  object-fit: contain; /* Ensure images maintain their proportions */
+}
+
 .div1 {
   grid-column: span 2 / span 2;
   grid-row: span 3 / span 3;
@@ -70,6 +77,7 @@ body {
   grid-column: span 2 / span 2;
   grid-column-start: 1;
   grid-row-start: 4;
+  aspect-ratio: auto; /* Remove square aspect ratio */
 }
 
 .div4 {
@@ -119,6 +127,11 @@ body {
   grid-column: span 2 / span 2;
   grid-column-start: 5;
   grid-row-start: 4;
+  aspect-ratio: auto; /* Remove square aspect ratio */
+}
+
+.div10, .div11, .div3, .div28, .div4 {
+  height: 190px; /* Set height to 180 pixels */
 }
 
 /* Responsividad */
@@ -131,12 +144,22 @@ body {
   .div1 {
     grid-column: span 3 / span 3;
     grid-row: span 2 / span 2;
+    height: 600px;
   }
 
-  .div3, .div4, .div6, .div7, .div8, .div9, .div10, .div11, .div27, .div28 {
+  .div6, .div7, .div8, .div9, .div10, .div11, .div27{
     grid-column: span 1 / span 1;
     grid-row: span 1 / span 1;
   }
+  
+  .div3, .div4, .div28{
+    grid-column: span 2 / span 2;
+    grid-row: span 1 / span 1;
+    /* Ajusta la altura aquí */
+    height: 200px; /* Reemplaza 100px con la mitad de la altura real */
+  }
+
+  
 
   .div27, .div28 {
     grid-column: span 3 / span 3;
@@ -156,11 +179,20 @@ body {
   .div1 {
     grid-column: span 2 / span 2;
     grid-row: span 2 / span 2;
+    height: 600px;
+
   }
 
-  .div3, .div4, .div6, .div7, .div8, .div9, .div10, .div11, .div27, .div28 {
+  .div6, .div7, .div8, .div9, .div10, .div11, .div27{
     grid-column: span 1 / span 1;
     grid-row: span 1 / span 1;
+  }
+  
+  .div3, .div4, .div28 {
+    grid-column: span 2 / span 2;
+    grid-row: span 1 / span 1;
+    /* Ajusta la altura aquí */
+    height: 200px; /* Reemplaza 100px con la mitad de la altura real */
   }
 
   .div27, .div28 {
@@ -195,7 +227,7 @@ body {
 }
 
 .popup-content .close {
-  color: #aaa;
+  color: #f00; /* Changed to red */
   float: right;
   font-size: 28px;
   font-weight: bold;
@@ -203,7 +235,7 @@ body {
 
 .popup-content .close:hover,
 .popup-content .close:focus {
-  color: black;
+  color: #d00; /* Darker red on hover */
   text-decoration: none;
   cursor: pointer;
 }
@@ -236,10 +268,87 @@ body {
 }
 
 .popup-content a.btn-ideas {
-  background-color: #28a745;
+  background-color: #f00; /* Changed to red */
   color: white;
 }
 
 .popup-content a.btn-ideas:hover {
-  background-color: #218838;
+  background-color: #d00; /* Darker red on hover */
+}
+
+
+
+
+
+/* Estilos para el popup en móviles */
+.popup {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popup-content {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 15px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.popup-content h2 {
+  font-size: 1.5em;
+}
+
+.popup-content .close {
+  color: #f00;
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.popup-content .close:hover {
+  color: #d00;
+  cursor: pointer;
+}
+
+.popup-content a {
+  display: block;
+  margin-top: 10px;
+  padding: 10px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.popup-content a.github {
+  background-color: #333;
+  color: white;
+}
+
+.popup-content a.github:hover {
+  background-color: #555;
+}
+
+.popup-content a.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.popup-content a.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+.popup-content a.btn-ideas {
+  background-color: #f00;
+  color: white;
+}
+
+.popup-content a.btn-ideas:hover {
+  background-color: #d00;
 }
