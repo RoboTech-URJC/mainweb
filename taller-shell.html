@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Taller de Shell y Git - Robotech Asociación</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --negro: #1a1a1a;
+      --blanco: #fff;
+      --rojo: #fd0010;
+      --rojo-oscuro: #c9000c;
+      --gris-claro: #f8f9fa;
+      --gris-medio: #e0e0e0;
+      --sombra: rgba(0, 0, 0, 0.15);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--gris-claro);
+      color: var(--negro);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--rojo), var(--rojo-oscuro));
+      color: var(--blanco);
+      text-align: center;
+      padding: 20px;
+      box-shadow: 0 4px 12px var(--sombra);
+    }
+
+    .hero {
+      position: relative;
+      background: url('https://images.unsplash.com/photo-1516321310766-61b7b8c99e01?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') no-repeat center/cover;
+      padding: 80px 20px;
+      color: var(--blanco);
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      margin-bottom: 15px;
+      animation: fadeInDown 1s ease-out;
+    }
+
+    .logo {
+      width: 200px;
+      height: auto;
+      margin-top: 10px;
+      filter: drop-shadow(0 2px 4px var(--sombra));
+    }
+
+    nav {
+      margin-top: 20px;
+      background: var(--blanco);
+      padding: 15px;
+      border-radius: 50px;
+      box-shadow: 0 2px 8px var(--sombra);
+    }
+
+    nav ul {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      list-style: none;
+      gap: 15px;
+    }
+
+    nav a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(90deg, var(--rojo), var(--rojo-oscuro));
+      color: var(--blanco);
+      text-decoration: none;
+      padding: 12px 25px;
+      border-radius: 25px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      background: linear-gradient(90deg, var(--rojo-oscuro), var(--rojo));
+      transform: translateY(-2px);
+    }
+
+    main {
+      flex: 1;
+      padding: 40px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .section {
+      background-color: var(--blanco);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px var(--sombra);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px var(--sombra);
+    }
+
+    .section h2 {
+      color: var(--rojo);
+      margin-bottom: 15px;
+      font-size: 1.8rem;
+    }
+
+    .section i {
+      font-size: 2.5rem;
+      color: var(--rojo);
+      margin-bottom: 10px;
+    }
+
+    .section ul {
+      list-style: none;
+      margin: 20px 0;
+      text-align: left;
+    }
+
+    .section ul li {
+      margin-bottom: 10px;
+    }
+
+    .section a {
+      color: var(--rojo);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .section a:hover {
+      color: var(--rojo-oscuro);
+    }
+
+    .cta-button {
+      display: inline-block;
+      background-color: var(--rojo);
+      color: var(--blanco);
+      padding: 12px 30px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .cta-button:hover {
+      background-color: var(--rojo-oscuro);
+      transform: scale(1.05);
+    }
+
+    .cta-button.registration-button {
+      color: var(--blanco) !important;
+    }
+
+    .script-example {
+      background-color: var(--gris-medio);
+      padding: 15px;
+      border-radius: 10px;
+      text-align: left;
+      font-family: 'Courier New', monospace;
+      margin: 20px 0;
+      overflow-x: auto;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: var(--blanco);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px var(--sombra);
+      z-index: 1000;
+      text-align: center;
+    }
+
+    .popup.show {
+      display: block;
+    }
+
+    .popup p {
+      margin-bottom: 20px;
+      color: var(--negro);
+    }
+
+    .popup button {
+      background-color: var(--rojo);
+      color: var(--blanco);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background-color 0.3s ease;
+    }
+
+    .popup button:hover {
+      background-color: var(--rojo-oscuro);
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
+
+    .overlay.show {
+      display: block;
+    }
+
+    footer {
+      background-color: var(--negro);
+      color: var(--blanco);
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+    }
+
+    .social-icons {
+      margin-top: 10px;
+    }
+
+    .social-icons a {
+      color: var(--blanco);
+      margin: 0 10px;
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      color: var(--rojo);
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (min-width: 768px) {
+      .hero h1 {
+        font-size: 3.5rem;
+      }
+
+      .logo {
+        width: 250px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      nav ul {
+        gap: 30px;
+      }
+
+      .section {
+        padding: 40px;
+      }
+
+      .logo {
+        width: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="hero">
+      <div class="hero-content">
+        <h1>Taller de Shell y Git</h1>
+        <img src="/img/logo_no_underscore.png" alt="Logo Robotech" class="logo">
+      </div>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html"><i class="fas fa-home"></i> Inicio</a></li>
+        <li><a href="taller-linux.html"><i class="fas fa-laptop-code"></i> Taller Linux</a></li>
+        <li><a href="index.html#seccion3"><i class="fas fa-users"></i> Forma Parte</a></li>
+        <li><a href="index.html"><i class="fas fa-globe"></i> Visita Nuestra Web</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="section">
+      <i class="fas fa-terminal"></i>
+      <h2>Taller de Shell y Git</h2>
+      <p>Domina la línea de comandos y el control de versiones con Git. Únete a nuestro taller interactivo.</p>
+      <div class="script-example">
+        <pre>
+# Ejemplo de comandos básicos en la shell
+$ pwd
+$ ls -la
+$ git init
+$ git add .
+$ git commit -m "Inicial commit"
+        </pre>
+      </div>
+      <ul>
+        <li><a href="https://github.com/example/repo" target="_blank">Repositorio de Ejemplo</a> - Explora el código del taller.</li>
+        <li><a href="https://forms.gle/example" target="_blank" class="cta-button registration-button">Inscríbete Ahora</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <div class="overlay" id="overlay"></div>
+  <div class="popup" id="popup">
+    <p>Lo sentimos, la inscripción para este taller está temporalmente bloqueada.</p>
+    <button onclick="closePopup()">Cerrar</button>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Robotech Asociación. Tecnología con pasión.</p>
+    <div class="social-icons">
+      <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+      <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+    </div>
+  </footer>
+
+  <script>
+    function showPopup() {
+      document.getElementById('popup').classList.add('show');
+      document.getElementById('overlay').classList.add('show');
+    }
+
+    function closePopup() {
+      document.getElementById('popup').classList.remove('show');
+      document.getElementById('overlay').classList.remove('show');
+    }
+
+    // Add event listeners to registration buttons
+    document.querySelectorAll('.registration-button').forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        showPopup();
+      });
+    });
+  </script>
+</body>
+</html>
