@@ -366,24 +366,5 @@
     </div>
   </footer>
 
-  <script>
-    function showPopup() {
-      document.getElementById('popup').classList.add('show');
-      document.getElementById('overlay').classList.add('show');
-    }
-
-    function closePopup() {
-      document.getElementById('popup').classList.remove('show');
-      document.getElementById('overlay').classList.remove('show');
-    }
-
-    // Add event listeners to registration buttons
-    document.querySelectorAll('.registration-button').forEach(button => {
-      button.addEventListener('click', (e) => {
-        e.preventDefault();
-        showPopup();
-      });
-    });
-  </script>
 </body>
 </html>
