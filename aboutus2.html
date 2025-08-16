@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Asociación Robotech — Quiénes somos, proyectos y contacto" />
+<meta name="author" content="Robotech URJC" />
+<title>Robotech URJC — Sobre Nosotros</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root {
+  --negro: #1a1a1a;
+  --blanco: #fff;
+  --rojo: #fd0010;
+  --rojo-oscuro: #c9000c;
+  --gris-claro: #f8f9fa;
+  --gris-medio: #e0e0e0;
+  --sombra: rgba(0,0,0,0.15);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--gris-claro);
+  color: var(--negro);
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;
+}
+
+header {
+  background: linear-gradient(135deg, var(--rojo), var(--rojo-oscuro));
+  color: var(--blanco);
+  text-align:center;
+  padding:20px;
+  box-shadow:0 4px 12px var(--sombra);
+}
+
+.hero {
+  position: relative;
+  background: url('img/header.jpg') no-repeat center/cover;
+  padding: 60px 20px;
+  color: var(--blanco);
+  text-align: center;
+  margin: 20px auto;
+  border-radius: 20px;
+  overflow: hidden;
+  min-height: 48vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  max-width:1200px;
+}
+
+.hero::before {
+  content:'';
+  position:absolute;
+  inset:0;
+  background: rgba(0,0,0,0.45);
+  z-index:1;
+  border-radius:20px;
+}
+
+.hero-content { position: relative; z-index:2; max-width:1000px; }
+
+.hero h1 { font-size:3rem; margin-bottom:10px; font-weight:600; }
+.hero p { font-size:1.15rem; margin-bottom:8px; color: rgba(255,255,255,0.95); }
+
+nav {
+  margin-top:18px;
+  background: var(--blanco);
+  padding:12px;
+  border-radius: 50px;
+  box-shadow: 0 2px 8px var(--sombra);
+  max-width: 1000px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+nav ul {
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  list-style:none;
+  gap:14px;
+}
+
+nav a {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background: linear-gradient(90deg, var(--rojo), var(--rojo-oscuro));
+  color: var(--blanco);
+  text-decoration:none;
+  padding:10px 20px;
+  border-radius:25px;
+  font-weight:500;
+  transition: all 0.22s ease;
+}
+
+nav a:hover { transform: translateY(-2px); }
+
+main { flex:1; padding:36px 18px; max-width:1200px; margin:0 auto 40px; width:100%; }
+
+/* Secciones */
+.section {
+  background-color: var(--blanco);
+  padding: 36px;
+  border-radius:16px;
+  box-shadow:0 4px 12px var(--sombra);
+  text-align:left;
+  margin-bottom:36px;
+}
+
+.section h2 { color: var(--rojo); margin-bottom:16px; font-size:1.8rem; }
+.section p { color: var(--negro); margin-bottom:16px; line-height:1.7; }
+
+/* Estilo tipo "Nuestros logros" para tarjetas */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  margin-top:24px;
+}
+
+.card {
+  background-color: var(--gris-claro);
+  border-left:6px solid var(--rojo);
+  padding:20px;
+  border-radius:12px;
+  box-shadow:0 3px 10px var(--sombra);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.card h3, .card h4 { color: var(--rojo-oscuro); margin-bottom:10px; font-size:1.2rem; }
+.card p { font-size:0.95rem; color: var(--negro); line-height:1.5; }
+
+/* Botones al lado de los proyectos */
+.project-buttons {
+  display:flex;
+  gap:12px;
+  margin-top:12px;
+}
+
+.project-buttons a {
+  text-decoration:none;
+  font-weight:600;
+  background: linear-gradient(90deg, var(--rojo), var(--rojo-oscuro));
+  color: var(--blanco);
+  padding:10px 20px;
+  border-radius:50px;
+  transition: transform 0.2s ease;
+}
+
+.project-buttons a:hover { transform: translateY(-2px); }
+
+/* Listas */
+.list-left { text-align:left; margin:14px auto 0; max-width:820px; line-height:1.8; }
+.list-left li { margin:8px 0; }
+
+.cta-button {
+  display:inline-block;
+  background: linear-gradient(90deg, var(--rojo), var(--rojo-oscuro));
+  color: var(--blanco);
+  padding:12px 26px;
+  border-radius:50px;
+  text-decoration:none;
+  font-weight:600;
+  transition: transform 0.2s ease;
+}
+
+.cta-button:hover { transform: translateY(-3px); }
+
+footer {
+  background-color: var(--gris-medio);
+  color: var(--negro);
+  text-align:center;
+  padding:20px;
+  font-size:0.88rem;
+}
+
+.social-icons { margin-top:10px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+.social-icons a { color: var(--rojo); text-decoration:none; display:inline-flex; gap:8px; align-items:center; padding:8px 10px; border-radius:10px; background:white; box-shadow:0 2px 8px rgba(0,0,0,.06); }
+
+@media (max-width:980px) {
+  .hero h1 { font-size:2rem; }
+  .card-grid { grid-template-columns: 1fr; gap:20px; }
+  .project-buttons { flex-direction:column; gap:10px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hero">
+    <div class="hero-content">
+      <h1>Robotech URJC</h1>
+      <p>Asociación de ciencia, tecnología y robótica de la Universidad Rey Juan Carlos</p>
+      <p>Encuéntranos en el sótano del Aulario I — Campus de Fuenlabrada</p>
+    </div>
+  </div>
+
+  <nav aria-label="Navegación principal">
+    <ul>
+      <li><a href="index2.html"><i class="fas fa-home"></i> Inicio</a></li>
+      <li><a href="#page-top"><i class="fas fa-users"></i> Quiénes somos</a></li>
+      <li><a href="proyectos_activos2.html"><i class="fas fa-project-diagram"></i> Proyectos activos</a></li>
+      <li><a href="proyectos_antiguos2.html"><i class="fas fa-history"></i> Proyectos antiguos</a></li>
+      <li><a href="#contact"><i class="fas fa-envelope"></i> Contacto</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="page-top">
+  <section id="about" class="section">
+    <h2>Quiénes somos</h2>
+    <p>
+      En <strong>RoboTech URJC</strong> somos una comunidad de estudiantes apasionados por la ciencia, la tecnología y la robótica.
+      Nuestro objetivo es aprender y crear más allá del aula, construyendo proyectos reales y compartiendo conocimiento en abierto.
+    </p>
+    <p>
+      Desde nuestros inicios en el Campus de Fuenlabrada, ofrecemos talleres, mentoría y espacio de fabricación para cualquier estudiante que quiera
+      experimentar con electrónica, programación, mecánica o visión artificial.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2>Proyectos destacados</h2>
+    <p>Trabajamos en hardware y software open-source; aquí algunos proyectos representativos.</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <h4>Proyecto Zeus — Mano robótica</h4>
+        <p>Mano humanoide open-source: diseño mecánico, microcontroladores y visión.</p>
+      </div>
+      <div class="card">
+        <h4>Noah — Plataforma móvil ROS</h4>
+        <p>Robots móviles educativos con sensores, cámara y navegación básica.</p>
+      </div>
+      <div class="card">
+        <h4>LED Race — Electrónica y juego</h4>
+        <p>Carreras lúdicas con tiras NeoPixel y firmware en C/C++.</p>
+      </div>
+      <div class="card">
+        <h4>Proyecto Drone — Autonomía experimental</h4>
+        <p>Dron RC con Raspberry Pi/Pico para pruebas de autonomía y control modular.</p>
+      </div>
+    </div>
+
+    <div class="project-buttons">
+      <a href="proyectos_activos2.html">Proyectos activos</a>
+      <a href="proyectos_antiguos2.html">Proyectos antiguos</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Nuestros logros</h2>
+    <p>Algunos hitos importantes que hemos alcanzado en nuestra trayectoria:</p>
+    <div class="card-grid">
+      <div class="card">
+        <h4>Primer premio RoboCup 2023</h4>
+        <p>Nuestro equipo de robots móviles ganó el primer lugar en la categoría educativa.</p>
+      </div>
+      <div class="card">
+        <h4>100+ estudiantes formados</h4>
+        <p>Más de cien estudiantes han participado en nuestros talleres de robótica y programación.</p>
+      </div>
+      <div class="card">
+        <h4>Proyectos open-source</h4>
+        <p>Todos nuestros proyectos están disponibles en GitHub para la comunidad global.</p>
+      </div>
+      <div class="card">
+        <h4>Participación en ferias tecnológicas</h4>
+        <p>Hemos mostrado nuestras creaciones en eventos nacionales de ciencia y tecnología.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Nuestra filosofía</h2>
+    <p>
+      Nos guían cuatro principios: <strong>aprendizaje práctico</strong>, <strong>compartir en abierto</strong>, <strong>colaboración</strong> y <strong>curiosidad técnica</strong>.
+      Fomentamos el error como método de aprendizaje y apoyamos proyectos que pueden replicarse y mejorarse por terceros.
+    </p>
+
+    <h3 style="color:var(--rojo); margin-top:16px;">Actividades típicas</h3>
+    <div class="card-grid">
+      <div class="card">
+        <h4>Talleres prácticos</h4>
+        <p>Soldadura, impresión 3D y mecanizado básico para principiantes y avanzados.</p>
+      </div>
+      <div class="card">
+        <h4>Bootcamps de software</h4>
+        <p>ROS/ROS2, OpenCV y visión por computador para proyectos robóticos.</p>
+      </div>
+      <div class="card">
+        <h4>Mentoría académica</h4>
+        <p>Acompañamiento en TF(G)/TFM y soporte a proyectos independientes.</p>
+      </div>
+      <div class="card">
+        <h4>Ferias y demostraciones</h4>
+        <p>Participación en eventos universitarios y ferias de ciencia y tecnología.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <h2>Contacto y comunidad</h2>
+    <p style="max-width:820px; margin:0 auto 12px;">
+      ¿Tienes una idea, proyecto o quieres aprender? Escríbenos o encuéntranos en las redes.
+    </p>
+    <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:12px;">
+      <a class="cta-button" href="mailto:asociacion.robotech@urjc.es">asociacion.robotech@urjc.es</a>
+      <a class="cta-button" style="background:linear-gradient(90deg,#0a84ff,#0060d6);" href="https://github.com/robotech-urjc" target="_blank">GitHub</a>
+      <a class="cta-button" style="background:linear-gradient(90deg,#ff7a00,#ff3b00);" href="https://opencollective.com/robotech-urjc" target="_blank">Apóyanos</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <h2>Ponte en contacto con nosotros</h2>
+  <div class="social-icons">
+    <a href="https://twitter.com/robotech_urjc"><i class="fab fa-twitter"></i> robotech_urjc</a>
+    <a href="mailto:asociacion.robotech@urjc.es"><i class="fas fa-envelope"></i> asociacion.robotech@urjc.es</a>
+    <a href="https://github.com/robotech-urjc"><i class="fab fa-github"></i> robotech-urjc</a>
+    <a href="https://www.instagram.com/robotech_urjc"><i class="fab fa-instagram"></i> robotech_urjc</a>
+    <a href="https://es.linkedin.com/company/robotech-urjc"><i class="fab fa-linkedin"></i> robotech-urjc</a>
+    <a href="https://linktr.ee/Robotech_URJC"><i class="fas fa-info-circle"></i> Más información</a>
+  </div>
+  <p style="margin-top:12px;">&copy; 2025 Robotech URJC.</p>
+</footer>
+</body>
+</html>

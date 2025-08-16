@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Página no encontrada - Robotech URJC">
+    <meta name="author" content="Robotech URJC">
+    <title>404 - Página no encontrada</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --negro: #1a1a1a;
+            --blanco: #fff;
+            --rojo: #fd0010;
+            --rojo-oscuro: #c9000c;
+            --gris-claro: #f8f9fa;
+            --gris-medio: #e0e0e0;
+            --sombra: rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--gris-claro);
+            color: var(--negro);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        main {
+            flex: 1;
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .section {
+            background-color: var(--blanco);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px var(--sombra);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px var(--sombra);
+        }
+
+        h1 {
+            color: var(--rojo);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: var(--negro);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .robot {
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
+            cursor: pointer;
+            animation: wobble 2s ease-in-out infinite;
+            transition: transform 0.3s ease;
+        }
+
+        .robot.dance {
+            animation: dance 0.5s ease-in-out infinite alternate;
+        }
+
+        .counter {
+            font-size: 1rem;
+            color: var(--rojo);
+            margin-bottom: 20px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--rojo), var(--rojo-oscuro));
+            color: var(--blanco);
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: linear-gradient(90deg, var(--rojo-oscuro), var(--rojo));
+            transform: scale(1.05);
+        }
+
+        footer {
+            background-color: var(--gris-medio);
+            color: var(--negro);
+            text-align: center;
+            padding: 20px;
+            font-size: 0.8rem;
+        }
+
+        .social-icons {
+            margin-top: 10px;
+        }
+
+        .social-icons a {
+            color: var(--rojo);
+            margin: 0 8px;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: var(--rojo-oscuro);
+        }
+
+        @keyframes wobble {
+            0% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+            100% { transform: rotate(-5deg); }
+        }
+
+        @keyframes dance {
+            0% { transform: rotate(-15deg) scale(1.1); }
+            100% { transform: rotate(15deg) scale(1.1); }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+
+            .robot {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="section">
+            <h1>¡Error 404 - Página no encontrada!</h1>
+            <p>¡Ups, mis circuitos se han enredado! Esta página se ha perdido en el vacío binario. 😵</p>
+
+            <svg class="robot" id="robot" viewBox="0 0 100 100">
+                <rect x="30" y="20" width="40" height="40" fill="var(--negro)" stroke="var(--rojo)" stroke-width="2"/>
+                <rect x="35" y="25" width="10" height="10" fill="var(--rojo)"/>
+                <rect x="55" y="25" width="10" height="10" fill="var(--rojo)"/>
+                <rect x="30" y="60" width="15" height="20" fill="var(--negro)" stroke="var(--rojo)" stroke-width="2"/>
+                <rect x="55" y="60" width="15" height="20" fill="var(--negro)" stroke="var(--rojo)" stroke-width="2"/>
+                <rect x="40" y="80" width="20" height="10" fill="var(--negro)" stroke="var(--rojo)" stroke-width="2"/>
+            </svg>
+            <p class="counter" id="counter">¡Clics: 0 - Dale caña al robot!</p>
+            <a href="index2.html" class="cta-button">Volver al Inicio</a>
+        </div>
+    </main>
+
+    <footer id="contact">
+        <h2>Ponte en contacto con nosotros</h2>
+        <div class="social-icons">
+            <a href="https://twitter.com/robotech_urjc"><i class="fab fa-twitter"></i> robotech_urjc</a>
+            <a href="mailto:asociacion.robotech@urjc.es"><i class="fas fa-envelope"></i> asociacion.robotech@urjc.es</a>
+            <a href="https://github.com/robotech-urjc"><i class="fab fa-github"></i> robotech-urjc</a>
+            <a href="https://www.instagram.com/robotech_urjc"><i class="fab fa-instagram"></i> robotech_urjc</a>
+            <a href="https://es.linkedin.com/company/robotech-urjc"><i class="fab fa-linkedin"></i> robotech-urjc</a>
+            <a href="https://linktr.ee/Robotech_URJC"><i class="fas fa-info-circle"></i> Más información</a>
+        </div>
+        <p>&copy; 2025 Robotech URJC.</p>
+    </footer>
+
+    <script>
+        let clickCount = 0;
+        const robot = document.getElementById('robot');
+        const counter = document.getElementById('counter');
+
+        robot.addEventListener('click', () => {
+            clickCount++;
+            robot.classList.add('dance');
+            setTimeout(() => robot.classList.remove('dance'), 2000);
+
+            if (clickCount === 1) {
+                counter.textContent = `¡Clics: ${clickCount} - ¡Eso es, hazlo bailar!`;
+            } else if (clickCount <= 5) {
+                counter.textContent = `¡Clics: ${clickCount} - ¡Sigue así, está moviendo los engranajes!`;
+            } else if (clickCount <= 10) {
+                counter.textContent = `¡Clics: ${clickCount} - ¡Uff, me estoy mareando!`;
+            } else {
+                counter.textContent = `¡Clics: ${clickCount} - ¡Para, para! Mi procesador no da más!`;
+            }
+        });
+    </script>
+</body>
+</html>

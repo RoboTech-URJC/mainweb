@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Proyectos Antiguos">
+    <meta name="author" content="Robotech URJC">
+    <title>Proyectos Antiguos - Robotech URJC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --negro: #1a1a1a;
+            --blanco: #fff;
+            --rojo: #fd0010;
+            --rojo-oscuro: #c9000c;
+            --gris-claro: #f8f9fa;
+            --gris-medio: #e0e0e0;
+            --sombra: rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--gris-claro);
+            color: var(--negro);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--rojo), var(--rojo-oscuro));
+            color: var(--blanco);
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 4px 12px var(--sombra);
+        }
+
+        .hero {
+            position: relative;
+            background: url('img/header.jpg') no-repeat center/cover;
+            padding: 80px 20px;
+            color: var(--blanco);
+            text-align: center;
+            margin-bottom: 40px;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        nav {
+            margin-top: 20px;
+            background: var(--blanco);
+            padding: 15px;
+            border-radius: 50px;
+            box-shadow: 0 2px 8px var(--sombra);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            list-style: none;
+            gap: 15px;
+        }
+
+        nav a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(90deg, var(--rojo), var(--rojo-oscuro));
+            color: var(--blanco);
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background: linear-gradient(90deg, var(--rojo-oscuro), var(--rojo));
+            transform: translateY(-2px);
+        }
+
+        main {
+            flex: 1;
+            padding: 40px 20px;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        .section {
+            background-color: var(--blanco);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px var(--sombra);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px var(--sombra);
+        }
+
+        .section h2 {
+            color: var(--rojo);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .section img {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .saber-mas {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--rojo), var(--rojo-oscuro));
+            color: var(--blanco);
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .saber-mas:hover {
+            background: linear-gradient(90deg, var(--rojo-oscuro), var(--rojo));
+            transform: translateY(-2px);
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--blanco);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px var(--sombra);
+            z-index: 1000;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+        }
+
+        .popup.show {
+            display: block;
+        }
+
+        .popup h2 {
+            color: var(--rojo);
+            margin-bottom: 15px;
+        }
+
+        .popup p {
+            margin-bottom: 20px;
+            color: var(--negro);
+            line-height: 1.6;
+        }
+
+        .popup a {
+            color: var(--rojo);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .popup a:hover {
+            color: var(--rojo-oscuro);
+        }
+
+        .popup button {
+            background-color: var(--rojo);
+            color: var(--blanco);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .popup button:hover {
+            background-color: var(--rojo-oscuro);
+        }
+
+      .cta-button {
+          display: inline-block;
+          background-color: var(--rojo);
+          color: var(--blanco); /* Changed from var(--rojo) to var(--blanco) */
+          padding: 12px 30px;
+          border-radius: 50px;
+          text-decoration: none;
+          font-weight: 600;
+          transition: background-color 0.3s ease, transform 0.3s ease;
+          margin-bottom: 15px;
+      }
+
+      .cta-button:hover {
+          background-color: var(--rojo-oscuro);
+          transform: scale(1.05);
+      }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .overlay.show {
+            display: block;
+        }
+
+        footer {
+            background-color: var(--gris-medio);
+            color: var(--negro);
+            text-align: center;
+            padding: 20px;
+            font-size: 0.8rem;
+        }
+
+        .social-icons {
+            margin-top: 10px;
+        }
+
+        .social-icons a {
+            color: var(--rojo);
+            margin: 0 8px;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: var(--rojo-oscuro);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            nav ul {
+                gap: 30px;
+            }
+
+            .section {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Proyectos Antiguos</h1>
+                <p>Bienvenido a la sección de proyectos antiguos de Robotech URJC.</p>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index2.html"><i class="fas fa-home"></i> Inicio</a></li>
+                <li><a href="aboutus2.html"><i class="fas fa-users"></i> Quienes somos</a></li>
+                <li><a href="proyectos_activos2.html"><i class="fas fa-project-diagram"></i> Proyectos activos</a></li>
+                <li><a href="proyectos_antiguos2.html"><i class="fas fa-history"></i> Proyectos antiguos</a></li>
+                <li><a href="#contact"><i class="fas fa-envelope"></i> Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="projects-grid">
+            <div class="section">
+                <img src="img/portfolio/noah.jpeg" alt="Robot Noah">
+                <h2>Robot Noah</h2>
+                <button class="saber-mas" onclick="openPopup('popupNoah')">Saber más</button>
+            </div>
+            <div class="section">
+                <img src="img/portfolio/server.jpg" alt="Proyecto Servidor-Red">
+                <h2>Proyecto Servidor-Red</h2>
+                <button class="saber-mas" onclick="openPopup('popupServidorRed')">Saber más</button>
+            </div>
+            <div class="section">
+                <img src="img/portfolio/oasis.jpeg" alt="Proyecto Oasis">
+                <h2>Proyecto Oasis</h2>
+                <button class="saber-mas" onclick="openPopup('popupOasis')">Saber más</button>
+            </div>
+        </div>
+    </main>
+
+    <div class="overlay" id="overlay"></div>
+    <div id="popupNoah" class="popup">
+        <h2>Robot Noah</h2>
+        <p>El proyecto Noah consiste en una flota de robots, impresos en 3D y programados en ROS, que se intercomunican entre ellos para realizar varias misiones.</p>
+        <a href="https://github.com/RoboTech-URJC/noah_hardware" target="_blank" class="cta-button">Ver en GitHub</a>
+        <button onclick="closePopup('popupNoah')">Cerrar</button>
+    </div>
+    <div id="popupServidorRed" class="popup">
+        <h2>Proyecto Servidor-Red</h2>
+        <p>Este proyecto consistió en levantar un servidor de red para realizar diversos proyectos en la nube. Por problemas técnicos, actualmente se encuentra fuera de servicio.</p>
+        <a href="https://github.com/RoboTech-URJC/RobotechServer-Project" target="_blank" class="cta-button">Ver en GitHub</a>
+        <button onclick="closePopup('popupServidorRed')">Cerrar</button>
+    </div>
+    <div id="popupOasis" class="popup">
+        <h2>Proyecto Oasis</h2>
+        <p>Descripción del proyecto Oasis.</p>
+        <a href="#" class="cta-button">Ver más</a>
+        <button onclick="closePopup('popupOasis')">Cerrar</button>
+    </div>
+
+<footer id="contact">
+        <h2>Ponte en contacto con nosotros</h2>
+        <div class="social-icons">
+            <a href="https://twitter.com/robotech_urjc"><i class="fab fa-twitter"></i> robotech_urjc</a>
+            <a href="mailto:asociacion.robotech@urjc.es"><i class="fas fa-envelope"></i> asociacion.robotech@urjc.es</a>
+            <a href="https://github.com/robotech-urjc"><i class="fab fa-github"></i> robotech-urjc</a>
+            <a href="https://www.instagram.com/robotech_urjc"><i class="fab fa-instagram"></i> robotech_urjc</a>
+            <a href="https://es.linkedin.com/company/robotech-urjc"><i class="fab fa-linkedin"></i> robotech-urjc</a>
+            <a href="https://linktr.ee/Robotech_URJC"><i class="fas fa-info-circle"></i> Más información</a>
+        </div>
+        <p>&copy; 2025 Robotech URJC.</p>
+    </footer>
+
+    <script>
+        function openPopup(popupId) {
+            document.getElementById(popupId).classList.add('show');
+            document.getElementById('overlay').classList.add('show');
+        }
+
+        function closePopup(popupId) {
+            document.getElementById(popupId).classList.remove('show');
+            document.getElementById('overlay').classList.remove('show');
+        }
+    </script>
+</body>
+</html>

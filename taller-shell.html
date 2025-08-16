@@ -252,28 +252,28 @@
       display: block;
     }
 
-    footer {
-      background-color: var(--negro);
-      color: var(--blanco);
-      text-align: center;
-      padding: 20px;
-      font-size: 0.9rem;
-    }
+      footer {
+          background-color: var(--gris-medio);
+          color: var(--negro);
+          text-align: center;
+          padding: 20px;
+          font-size: 0.8rem;
+      }
 
-    .social-icons {
-      margin-top: 10px;
-    }
+      .social-icons {
+          margin-top: 10px;
+      }
 
-    .social-icons a {
-      color: var(--blanco);
-      margin: 0 10px;
-      font-size: 1.2rem;
-      transition: color 0.3s ease;
-    }
+      .social-icons a {
+          color: var(--rojo);
+          margin: 0 8px;
+          font-size: 1rem;
+          transition: color 0.3s ease;
+      }
 
-    .social-icons a:hover {
-      color: var(--rojo);
-    }
+      .social-icons a:hover {
+          color: var(--rojo-oscuro);
+      }
 
     @keyframes fadeInDown {
       from {
@@ -361,12 +361,18 @@ $ git commit -m "Inicial commit"
     <button onclick="closePopup()">Cerrar</button>
   </div>
 
-    <footer>
-      <p>&copy; 2025 Robotech URJC.</p>
-
-</div>
-
-  </footer>
+    <footer id="contact">
+        <h2>Ponte en contacto con nosotros</h2>
+        <div class="social-icons">
+            <a href="https://twitter.com/robotech_urjc"><i class="fab fa-twitter"></i> robotech_urjc</a>
+            <a href="mailto:asociacion.robotech@urjc.es"><i class="fas fa-envelope"></i> asociacion.robotech@urjc.es</a>
+            <a href="https://github.com/robotech-urjc"><i class="fab fa-github"></i> robotech-urjc</a>
+            <a href="https://www.instagram.com/robotech_urjc"><i class="fab fa-instagram"></i> robotech_urjc</a>
+            <a href="https://es.linkedin.com/company/robotech-urjc"><i class="fab fa-linkedin"></i> robotech-urjc</a>
+            <a href="https://linktr.ee/Robotech_URJC"><i class="fas fa-info-circle"></i> Más información</a>
+        </div>
+        <p>&copy; 2025 Robotech URJC.</p>
+    </footer>
 
   <script>
     function showPopup() {
