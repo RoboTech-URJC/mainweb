@@ -170,24 +170,21 @@
     }
 
     .cta-button {
-      display: inline-block;
-      background-color: var(--rojo);
-      color: var(--blanco);
-      padding: 12px 30px;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: background-color 0.3s ease, transform 0.3s ease;
-    }
+        display: inline-block;
+        background-color: var(--rojo);
+        color: var(--blanco) !important; /* Ensure text is always white */
+        padding: 12px 30px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+      }
 
-    .cta-button:hover {
-      background-color: var(--rojo-oscuro);
-      transform: scale(1.05);
-    }
-
-    .cta-button.registration-button {
-      color: var(--blanco) !important;
-    }
+      .cta-button:hover {
+        background-color: var(--rojo-oscuro);
+        color: var(--blanco) !important; /* Ensure text remains white on hover */
+        transform: scale(1.05);
+      }
 
     .popup {
       display: none;
