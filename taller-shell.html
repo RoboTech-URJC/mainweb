@@ -169,24 +169,22 @@
       color: var(--rojo-oscuro);
     }
 
-  .cta-button {
-    display: inline-block;
-    background-color: var(--rojo);
-    color: var(--blanco) !important; /* Ensure text is always white */
-    padding: 12px 30px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-  }
+    .cta-button {
+      display: inline-block;
+      background-color: var(--rojo);
+      color: var(--blanco) !important; /* Ensure text is always white */
+      padding: 12px 30px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
 
-  .cta-button:hover {
-    background-color: var(--rojo-oscuro);
-    color: var(--blanco) !important; /* Ensure text remains white on hover */
-    transform: scale(1.05);
-  }
-
-
+    .cta-button:hover {
+      background-color: var(--rojo-oscuro);
+      color: var(--blanco) !important; /* Ensure text remains white on hover */
+      transform: scale(1.05);
+    }
 
     .script-example {
       background-color: var(--gris-medio);
@@ -251,28 +249,28 @@
       display: block;
     }
 
-      footer {
-          background-color: var(--gris-medio);
-          color: var(--negro);
-          text-align: center;
-          padding: 20px;
-          font-size: 0.8rem;
-      }
+    footer {
+      background-color: var(--gris-medio);
+      color: var(--negro);
+      text-align: center;
+      padding: 20px;
+      font-size: 0.8rem;
+    }
 
-      .social-icons {
-          margin-top: 10px;
-      }
+    .social-icons {
+      margin-top: 10px;
+    }
 
-      .social-icons a {
-          color: var(--rojo);
-          margin: 0 8px;
-          font-size: 1rem;
-          transition: color 0.3s ease;
-      }
+    .social-icons a {
+      color: var(--rojo);
+      margin: 0 8px;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
 
-      .social-icons a:hover {
-          color: var(--rojo-oscuro);
-      }
+    .social-icons a:hover {
+      color: var(--rojo-oscuro);
+    }
 
     @keyframes fadeInDown {
       from {
@@ -306,6 +304,25 @@
 
       .logo {
         width: 300px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .script-example {
+        padding: 10px; /* Reduce padding for smaller screens */
+        font-size: 0.85rem; /* Slightly smaller font size for better fit */
+        white-space: pre-wrap; /* Allow text to wrap */
+        word-wrap: break-word; /* Ensure long words break to prevent overflow */
+        max-width: 100%; /* Ensure container doesn't exceed screen width */
+        overflow-x: hidden; /* Remove horizontal scrollbar if not needed */
+      }
+
+      .script-example pre {
+        white-space: pre-wrap; /* Ensure pre tag wraps text */
+        word-wrap: break-word; /* Break long lines */
+        font-size: 0.85rem; /* Match font size for consistency */
+        line-height: 1.4; /* Improve readability with slightly tighter line spacing */
+        margin: 0; /* Remove default margins to avoid extra spacing */
       }
     }
   </style>
@@ -349,7 +366,7 @@ $ git commit -m "Inicial commit"
         <li><a href="materials_acogida/Shell_Git_24.pptx.pdf" target="_blank">Presentación del Taller</a> - Material de apoyo en PDF.</li>
         <li><a href="materials_acogida/setup.sh" target="_blank">Scape Room Setup</a> - Descarga y ejecuta para empezar. La clave inicial es init.</li>
         <li><a href="materials_acogida/manual_escape.pdf" target="_blank">Scape Room Solución</a> - Manual de ayuda para el scape room.</li>
-        <li><a href="https://forms.office.com/e/cpQ2v6dQ5m" target="_blank" class="cta-button" class="registration-button">Inscríbete Ahora</a></li>
+        <li><a href="https://forms.office.com/e/cpQ2v6dQ5m" target="_blank" class="cta-button registration-button">Inscríbete Ahora</a></li>
       </ul>
     </section>
   </main>
@@ -360,18 +377,18 @@ $ git commit -m "Inicial commit"
     <button onclick="closePopup()">Cerrar</button>
   </div>
 
-    <footer id="contact">
-        <h2>Ponte en contacto con nosotros</h2>
-        <div class="social-icons">
-            <a href="https://twitter.com/robotech_urjc"><i class="fab fa-twitter"></i> robotech_urjc</a>
-            <a href="mailto:asociacion.robotech@urjc.es"><i class="fas fa-envelope"></i> asociacion.robotech@urjc.es</a>
-            <a href="https://github.com/robotech-urjc"><i class="fab fa-github"></i> robotech-urjc</a>
-            <a href="https://www.instagram.com/robotech_urjc"><i class="fab fa-instagram"></i> robotech_urjc</a>
-            <a href="https://es.linkedin.com/company/robotech-urjc"><i class="fab fa-linkedin"></i> robotech-urjc</a>
-            <a href="https://linktr.ee/Robotech_URJC"><i class="fas fa-info-circle"></i> Más información</a>
-        </div>
-        <p>&copy; 2025 Robotech URJC.</p>
-    </footer>
+  <footer id="contact">
+    <h2>Ponte en contacto con nosotros</h2>
+    <div class="social-icons">
+      <a href="https://twitter.com/robotech_urjc"><i class="fab fa-twitter"></i> robotech_urjc</a>
+      <a href="mailto:asociacion.robotech@urjc.es"><i class="fas fa-envelope"></i> asociacion.robotech@urjc.es</a>
+      <a href="https://github.com/robotech-urjc"><i class="fab fa-github"></i> robotech-urjc</a>
+      <a href="https://www.instagram.com/robotech_urjc"><i class="fab fa-instagram"></i> robotech_urjc</a>
+      <a href="https://es.linkedin.com/company/robotech-urjc"><i class="fab fa-linkedin"></i> robotech-urjc</a>
+      <a href="https://linktr.ee/Robotech_URJC"><i class="fas fa-info-circle"></i> Más información</a>
+    </div>
+    <p>&copy; 2025 Robotech URJC.</p>
+  </footer>
 
   <script>
     function showPopup() {
