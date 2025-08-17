@@ -125,6 +125,7 @@
             gap: 20px;
             width: 100%;
             padding: 0 20px;
+            justify-items: center;
         }
 
         .section {
@@ -134,6 +135,8 @@
             box-shadow: 0 4px 12px var(--sombra);
             text-align: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+            max-width: 350px;
         }
 
         .section:hover {
@@ -148,11 +151,15 @@
         }
 
         .section img {
-            width: 300px;
+            width: 100%;
+            max-width: 300px;
             height: 300px;
             object-fit: cover;
             border-radius: 10px;
             margin-bottom: 15px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .saber-mas {
@@ -228,22 +235,22 @@
             background-color: var(--rojo-oscuro);
         }
 
-    .cta-button {
-        display: inline-block;
-        background-color: var(--rojo);
-        color: var(--blanco) !important; /* Ensure text is always white */
-        padding: 12px 30px;
-        border-radius: 50px;
-        text-decoration: none;
-        font-weight: 600;
-        transition: background-color 0.3s ease, transform 0.3s ease;
-      }
+        .cta-button {
+            display: inline-block;
+            background-color: var(--rojo);
+            color: var(--blanco) !important;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
 
-      .cta-button:hover {
-        background-color: var(--rojo-oscuro);
-        color: var(--blanco) !important; /* Ensure text remains white on hover */
-        transform: scale(1.05);
-      }
+        .cta-button:hover {
+            background-color: var(--rojo-oscuro);
+            color: var(--blanco) !important;
+            transform: scale(1.05);
+        }
 
         .overlay {
             display: none;
@@ -258,6 +265,113 @@
 
         .overlay.show {
             display: block;
+        }
+
+        /* Floating Donation Button */
+        .floating-donate-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(90deg, var(--rojo), var(--rojo-oscuro));
+            color: var(--blanco);
+            width: 60px;
+            height: 60px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px var(--sombra);
+            cursor: pointer;
+            z-index: 1000;
+            animation: pulse 2s infinite;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .floating-donate-btn i {
+            font-size: 1.5rem;
+            transition: margin-right 0.3s ease;
+        }
+
+        .floating-donate-btn span {
+            display: none;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .floating-donate-btn:hover {
+            width: 180px;
+            background: linear-gradient(90deg, var(--rojo-oscuro), var(--rojo));
+            border-radius: 30px;
+        }
+
+        .floating-donate-btn:hover i {
+            margin-right: 10px;
+        }
+
+        .floating-donate-btn:hover span {
+            display: inline;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: var(--blanco);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 8px 20px var(--sombra);
+            position: relative;
+            animation: popIn 0.5s ease-out;
+        }
+
+        .modal-content i {
+            font-size: 3rem;
+            color: var(--rojo);
+            margin-bottom: 20px;
+        }
+
+        .modal-content h2 {
+            color: var(--rojo);
+            font-size: 2rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .modal-content p {
+            color: var(--negro);
+            margin-bottom: 25px;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.8rem;
+            color: var(--negro);
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-button:hover {
+            color: var(--rojo);
         }
 
         footer {
@@ -281,6 +395,32 @@
 
         .social-icons a:hover {
             color: var(--rojo-oscuro);
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 4px 12px var(--sombra);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 6px 16px var(--sombra);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 4px 12px var(--sombra);
+            }
+        }
+
+        @keyframes popIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         @keyframes fadeInDown {
@@ -307,6 +447,39 @@
 
             .hero h1 {
                 font-size: 2.5rem;
+            }
+
+            .section {
+                max-width: 100%;
+            }
+
+            .floating-donate-btn {
+                width: 50px;
+                height: 50px;
+            }
+
+            .floating-donate-btn:hover {
+                width: 150px;
+            }
+
+            .floating-donate-btn i {
+                font-size: 1.2rem;
+            }
+
+            .floating-donate-btn span {
+                font-size: 0.9rem;
+            }
+
+            .modal-content {
+                padding: 20px;
+            }
+
+            .modal-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .modal-content i {
+                font-size: 2rem;
             }
         }
 
@@ -336,7 +509,6 @@
                 <li><a href="proyectos_activos2.html"><i class="fas fa-project-diagram"></i> Proyectos activos</a></li>
                 <li><a href="proyectos_antiguos2.html"><i class="fas fa-history"></i> Proyectos antiguos</a></li>
                 <li><a href="acogida.html"><i class="fas fa-laptop-code"></i> Nuestros Talleres</a></li>
-
                 <li><a href="#contact"><i class="fas fa-envelope"></i> Contacto</a></li>
             </ul>
         </nav>
@@ -415,6 +587,23 @@
         <button onclick="closePopup('popupLedRace')">Cerrar</button>
     </div>
 
+    <!-- Floating Donation Button -->
+    <div class="floating-donate-btn" onclick="openModal()">
+        <i class="fas fa-coffee"></i>
+        <span>Buy us a coffee</span>
+    </div>
+
+    <!-- Donation Modal -->
+    <div id="donationModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <i class="fas fa-donate"></i>
+            <h2>¡Apoya a Robotech URJC!</h2>
+            <p>Tu donación impulsa nuestra pasión por la robótica y la tecnología. Ayúdanos a seguir creando e innovando a través de una pequeña donación.</p>
+            <a href="https://opencollective.com/robotech-urjc" class="cta-button" target="_blank">Dona Ahora</a>
+        </div>
+    </div>
+
     <footer id="contact">
         <h2>Ponte en contacto con nosotros</h2>
         <div class="social-icons">
@@ -437,6 +626,21 @@
         function closePopup(popupId) {
             document.getElementById(popupId).classList.remove('show');
             document.getElementById('overlay').classList.remove('show');
+        }
+
+        function openModal() {
+            document.getElementById('donationModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('donationModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('donationModal');
+            if (event.target === modal) {
+                closeModal();
+            }
         }
     </script>
 </body>
