@@ -81,7 +81,7 @@ cat > "$TMP_DIR/reto2/README.txt" <<EOT
 
 El sistema generó numerosos registros tras el fallo.  
 Entre ellos se esconde un token que desbloqueará el siguiente paquete.  
-Usa comandos de búsqueda para filtrarlo y encontrar la clave.
+Usa comandos de búsqueda para filtrarlo y encontrar el token.
 EOT
 (cd "$TMP_DIR" && zip -r "$BASE_DIR/reto2.zip" reto2 >/dev/null)
 rm -rf "$TMP_DIR/reto2"
