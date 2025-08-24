@@ -1,243 +1,647 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Proyectos Activos">
     <meta name="author" content="Robotech URJC">
-
     <title>Proyectos Activos - Robotech URJC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --negro: #1a1a1a;
+            --blanco: #fff;
+            --rojo: #fd0010;
+            --rojo-oscuro: #c9000c;
+            --gris-claro: #f8f9fa;
+            --gris-medio: #e0e0e0;
+            --sombra: rgba(0, 0, 0, 0.15);
+        }
 
-    <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <!-- Custom Fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Merriweather:300,400,700,900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--gris-claro);
+            color: var(--negro);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/proyectos_activos.css" type="text/css">
+        header {
+            background: linear-gradient(135deg, var(--rojo), var(--rojo-oscuro));
+            color: var(--blanco);
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 4px 12px var(--sombra);
+        }
+
+        .hero {
+            position: relative;
+            background: url('img/header.jpg') no-repeat center/cover;
+            padding: 80px 20px;
+            color: var(--blanco);
+            text-align: center;
+            margin-bottom: 40px;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        nav {
+            margin-top: 20px;
+            background: var(--blanco);
+            padding: 15px;
+            border-radius: 50px;
+            box-shadow: 0 2px 8px var(--sombra);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            list-style: none;
+            gap: 15px;
+        }
+
+        nav a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(90deg, var(--rojo), var(--rojo-oscuro));
+            color: var(--blanco);
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background: linear-gradient(90deg, var(--rojo-oscuro), var(--rojo));
+            transform: translateY(-2px);
+        }
+
+        main {
+            flex: 1;
+            padding: 40px 20px;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            width: 100%;
+            padding: 0 20px;
+            justify-items: center;
+        }
+
+        .section {
+            background-color: var(--blanco);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px var(--sombra);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+            max-width: 350px;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px var(--sombra);
+        }
+
+        .section h2 {
+            color: var(--rojo);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .section img {
+            width: 100%;
+            max-width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .saber-mas {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--rojo), var(--rojo-oscuro));
+            color: var(--blanco);
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .saber-mas:hover {
+            background: linear-gradient(90deg, var(--rojo-oscuro), var(--rojo));
+            transform: translateY(-2px);
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--blanco);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px var(--sombra);
+            z-index: 1000;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+        }
+
+        .popup.show {
+            display: block;
+        }
+
+        .popup h2 {
+            color: var(--rojo);
+            margin-bottom: 15px;
+        }
+
+        .popup p {
+            margin-bottom: 20px;
+            color: var(--negro);
+            line-height: 1.6;
+        }
+
+        .popup a {
+            color: var(--rojo);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .popup a:hover {
+            color: var(--rojo-oscuro);
+        }
+
+        .popup button {
+            background-color: var(--rojo);
+            color: var(--blanco);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .popup button:hover {
+            background-color: var(--rojo-oscuro);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--rojo);
+            color: var(--blanco) !important;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: var(--rojo-oscuro);
+            color: var(--blanco) !important;
+            transform: scale(1.05);
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .overlay.show {
+            display: block;
+        }
+
+        /* Floating Donation Button */
+        .floating-donate-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(90deg, var(--rojo), var(--rojo-oscuro));
+            color: var(--blanco);
+            width: 60px;
+            height: 60px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px var(--sombra);
+            cursor: pointer;
+            z-index: 1000;
+            animation: pulse 2s infinite;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .floating-donate-btn i {
+            font-size: 1.5rem;
+            transition: margin-right 0.3s ease;
+        }
+
+        .floating-donate-btn span {
+            display: none;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .floating-donate-btn:hover {
+            width: 180px;
+            background: linear-gradient(90deg, var(--rojo-oscuro), var(--rojo));
+            border-radius: 30px;
+        }
+
+        .floating-donate-btn:hover i {
+            margin-right: 10px;
+        }
+
+        .floating-donate-btn:hover span {
+            display: inline;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: var(--blanco);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 8px 20px var(--sombra);
+            position: relative;
+            animation: popIn 0.5s ease-out;
+        }
+
+        .modal-content i {
+            font-size: 3rem;
+            color: var(--rojo);
+            margin-bottom: 20px;
+        }
+
+        .modal-content h2 {
+            color: var(--rojo);
+            font-size: 2rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .modal-content p {
+            color: var(--negro);
+            margin-bottom: 25px;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.8rem;
+            color: var(--negro);
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-button:hover {
+            color: var(--rojo);
+        }
+
+        footer {
+            background-color: var(--gris-medio);
+            color: var(--negro);
+            text-align: center;
+            padding: 20px;
+            font-size: 0.8rem;
+        }
+
+        .social-icons {
+            margin-top: 10px;
+        }
+
+        .social-icons a {
+            color: var(--rojo);
+            margin: 0 8px;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: var(--rojo-oscuro);
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 4px 12px var(--sombra);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 6px 16px var(--sombra);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 4px 12px var(--sombra);
+            }
+        }
+
+        @keyframes popIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section {
+                max-width: 100%;
+            }
+
+            .floating-donate-btn {
+                width: 50px;
+                height: 50px;
+            }
+
+            .floating-donate-btn:hover {
+                width: 150px;
+            }
+
+            .floating-donate-btn i {
+                font-size: 1.2rem;
+            }
+
+            .floating-donate-btn span {
+                font-size: 0.9rem;
+            }
+
+            .modal-content {
+                padding: 20px;
+            }
+
+            .modal-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .modal-content i {
+                font-size: 2rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            nav ul {
+                gap: 30px;
+            }
+
+            .section {
+                padding: 30px;
+            }
+        }
+    </style>
 </head>
-
 <body>
-  <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand page-scroll" href="index.html">Inicio</a>
-        </div>
-
-        <div class="collapse navbar-collapse" id="navbar">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a class="page-scroll" href="index.html">Quienes somos</a></li>
-                <li><a class="page-scroll" href="proyectos_activos.html">Proyectos activos</a></li>
-                <li><a class="page-scroll" href="proyectos_antiguos.html">Proyectos antiguos</a></li>
-                <li><a class="page-scroll" href="#contact">Contacto</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-    <header class="header" style="background-image: url('img/header.jpg'); background-size: cover; background-position: center; height: 50vh;">
-        <div class="header-overlay" style="background-color: rgba(0, 0, 0, 0.5); height: 100%;">
-            <div class="header-content text-center" style="color: white; padding: 20px; position: absolute; top: 25%; left: 50%; transform: translate(-50%, -50%);">
+    <header>
+        <div class="hero">
+            <div class="hero-content">
                 <h1>Proyectos Activos</h1>
                 <p>Bienvenido a la sección de proyectos activos de Robotech URJC.</p>
             </div>
         </div>
+        <nav>
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Inicio</a></li>
+                <li><a href="aboutus.html"><i class="fas fa-users"></i> Quienes somos</a></li>
+                <li><a href="proyectos_activos.html"><i class="fas fa-project-diagram"></i> Proyectos activos</a></li>
+                <li><a href="proyectos_antiguos.html"><i class="fas fa-history"></i> Proyectos antiguos</a></li>
+                <li><a href="acogida.html"><i class="fas fa-laptop-code"></i> Nuestros Talleres</a></li>
+                <li><a href="#contact"><i class="fas fa-envelope"></i> Contacto</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <section class="no-padding" id="portfolio_now">
-        <div class="container-fluid">
-            <div class="hex-grid">
-                <div class="hex" onclick="openPopup('popupScara')">
-                    <img src="img/portfolio/scara.jpeg" alt="Robot Scara">
-                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-weight: bold; text-shadow: 2px 2px 4px #000000; font-size: 36px;">
-                      Robot Scara
-                    </div>
-                    <div class="hex-content">
-                    </div>
-                </div>
-                <div class="hex" onclick="openPopup('popupZeus')">
-                    <img src="img/portfolio/zeus.jpeg" alt="Proyecto Zeus">
-                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-weight: bold; text-shadow: 2px 2px 4px #000000; font-size: 36px;">
-                      Proyecto Zeus
-                    </div>
-                    <div class="hex-content">
-                    </div>
-                </div>
-                <div class="hex" onclick="openPopup('popupHiroBot')">
-                    <img src="img/portfolio/hirobot.jpeg" alt="Proyecto HiroBot">
-                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-weight: bold; text-shadow: 2px 2px 4px #000000; font-size: 36px;">
-                      Proyecto HiroBot
-                    </div>
-                    <div class="hex-content">
-                    </div>
-                </div>
-                <div class="hex" onclick="openPopup('popupHormiga')">
-                    <img src="img/portfolio/hormiga.jpeg" alt="Proyecto Hormiga">
-                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-weight: bold; text-shadow: 2px 2px 4px #000000; font-size: 36px;">
-                      Proyecto Hormiga
-                    </div>
-                    <div class="hex-content">
-                    </div>
-                </div>
-                <div class="hex" onclick="openPopup('popupDrone')">
-                    <img src="img/portfolio/dron.jpeg" alt="Proyecto Drone">
-                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-weight: bold; text-shadow: 2px 2px 4px #000000; font-size: 36px;">
-                      Proyecto Drone
-                    </div>
-                    <div class="hex-content">
-                    </div>
-                </div>
-                <div class="hex" onclick="openPopup('popupLedRace')">
-                    <img src="img/portfolio/led.png" alt="Proyecto LED Race">
-                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-weight: bold; text-shadow: 2px 2px 4px #000000; font-size: 36px;">
-                      LED Race
-                    </div>
-                    <div class="hex-content">
-                    </div>
-                </div>
+    <main>
+        <div class="projects-grid">
+            <div class="section">
+                <img src="img/portfolio/scara.jpeg" alt="Robot Scara">
+                <h2>Robot Scara</h2>
+                <button class="saber-mas" onclick="openPopup('popupScara')">Saber más</button>
+            </div>
+            <div class="section">
+                <img src="img/portfolio/zeus.jpeg" alt="Proyecto Zeus">
+                <h2>Proyecto Zeus</h2>
+                <button class="saber-mas" onclick="openPopup('popupZeus')">Saber más</button>
+            </div>
+            <div class="section">
+                <img src="img/portfolio/hirobot.jpeg" alt="Proyecto HiroBot">
+                <h2>Proyecto HiroBot</h2>
+                <button class="saber-mas" onclick="openPopup('popupHiroBot')">Saber más</button>
+            </div>
+            <div class="section">
+                <img src="img/portfolio/hormiga.jpeg" alt="Proyecto Hormiga">
+                <h2>Proyecto Hormiga</h2>
+                <button class="saber-mas" onclick="openPopup('popupHormiga')">Saber más</button>
+            </div>
+            <div class="section">
+                <img src="img/portfolio/dron.jpeg" alt="Proyecto Drone">
+                <h2>Proyecto Drone</h2>
+                <button class="saber-mas" onclick="openPopup('popupDrone')">Saber más</button>
+            </div>
+            <div class="section">
+                <img src="img/portfolio/led.png" alt="Proyecto LED Race">
+                <h2>Proyecto LED Race</h2>
+                <button class="saber-mas" onclick="openPopup('popupLedRace')">Saber más</button>
             </div>
         </div>
-    </section>
+    </main>
 
-    <!-- Popups -->
+    <div class="overlay" id="overlay"></div>
     <div id="popupScara" class="popup">
-        <div class="popup-content">
-            <span class="close" onclick="closePopup('popupScara')">&times;</span>
-            <h2>Robot Scara</h2>
-            <p>Este proyecto tiene como objetivo desarrollar el código para que nuestro brazo SCARA pueda realizar operaciones complejas, manipular objetos, repetir movimientos e incluso jugar al ajedrez.</p>
-            <a href="https://github.com/RoboTech-URJC/Robot-Scara" target="_blank">Ver en GitHub</a>
-        </div>
+        <h2>Robot Scara</h2>
+        <p>Este proyecto tiene como objetivo desarrollar el código para que nuestro brazo SCARA pueda realizar operaciones complejas, manipular objetos, repetir movimientos e incluso jugar al ajedrez.</p>
+        <a href="https://github.com/RoboTech-URJC/Robot-Scara" target="_blank" class="cta-button">Ver en GitHub</a>
+        <button onclick="closePopup('popupScara')">Cerrar</button>
     </div>
-
     <div id="popupZeus" class="popup">
-        <div class="popup-content">
-            <span class="close" onclick="closePopup('popupZeus')">&times;</span>
-            <h2>Proyecto Zeus</h2>
-            <p>En el proyecto Zeus tenemos como objetivo a largo plazo crear un robot humanoide en un proyecto totalmente OpenSource. 
-            <br>Hemos centrado el desarrollo de nuestro proyecto en el desarrollado por <a href="https://inmoov.fr" target="_blank">InMoov</a>. En el pryecto hemos aaptado el hardware a nuestras necesidades y desarrollado nuestro propio software.
-            <br>Actualmente contamos con las dos manos y antebrazos, y un software de visión artificial que permite mover las manos. 
-            <br>El softwre encargado de mover la mano está basado en arduino, mientras que el de visión artificial ha sido desarrollado en python usando la biblioteca de openCV.
-            </p>
-            <a href="https://github.com/RoboTech-URJC/Mano-Zeus" target="_blank">Ver en GitHub</a>
-        </div>
+        <h2>Proyecto Zeus</h2>
+        <p>En el proyecto Zeus tenemos como objetivo a largo plazo crear un robot humanoide en un proyecto totalmente OpenSource. Hemos centrado el desarrollo en el diseño de <a href="https://inmoov.fr" target="_blank">InMoov</a>, adaptando hardware y desarrollando software propio. Actualmente contamos con las dos manos y antebrazos, y un software de visión artificial que permite mover las manos. El software de la mano está basado en Arduino, mientras que el de visión artificial usa Python y OpenCV.</p>
+        <a href="https://github.com/RoboTech-URJC/Mano-Zeus" target="_blank" class="cta-button">Ver en GitHub</a>
+        <button onclick="closePopup('popupZeus')">Cerrar</button>
     </div>
-
     <div id="popupHiroBot" class="popup">
-        <div class="popup-content">
-            <span class="close" onclick="closePopup('popupHiroBot')">&times;</span>
-            <h2>Proyecto HiroBot</h2>
-            <p>Presentamos a HiroBot.
-                Con este proyecto pretendemos hacer un robot con el fin de aprender a programar y aprender algo de robótica. La idea es crear un robot con forma similar a un tanque, en algunos aspectos (ruedas de oruga, cañón laser, etc.), con una forma y estilo amigable consiguiendo un concepto estético como Wall-E o el Rover de Planet 51. 
-                <br>Con respecto a lo didáctico, tenemos pensado hacer una librería completa para Arduino con el fin de que sea fácil de programar y conseguir que se aprendan los conceptos de programación y se pueda ir avanzando al ritmo que el usuario quiera, adaptados a la robótica. Además, queremos en un futuro que pueda ser programado por bloques, para que así los más pequeños puedan hacer uso de ello y aprender también. También, queremos que pueda ser montado desde cero, así como incluir varios sensores como sensor de luz, de ultrasonidos y un sensor IR, así como actuadores (motores y servos).
-                
-                <br>Nos parece un proyecto que puede ser muy divertido a la hora de realizarlo y que podemos aprender mucho, y que podamos ayudar a que más gente se interese por la robótica y la programación, y aprenda de una forma divertida.</p>
-            <a href="https://github.com/RoboTech-URJC/HiroBot" target="_blank">Ver en GitHub</a>
-        </div>
+        <h2>Proyecto HiroBot</h2>
+        <p>Presentamos a HiroBot. Con este proyecto pretendemos hacer un robot con el fin de aprender a programar y aprender algo de robótica. La idea es crear un robot con forma similar a un tanque, con ruedas de oruga y un cañón láser, pero con un estilo amigable como Wall-E o el Rover de Planet 51. Desarrollamos una librería para Arduino para facilitar la programación y planeamos soporte para programación por bloques para los más pequeños. Incluye sensores de luz, ultrasonidos, IR y actuadores como motores y servos.</p>
+        <a href="https://github.com/RoboTech-URJC/HiroBot" target="_blank" class="cta-button">Ver en GitHub</a>
+        <button onclick="closePopup('popupHiroBot')">Cerrar</button>
     </div>
-
     <div id="popupHormiga" class="popup">
-        <div class="popup-content">
-            <span class="close" onclick="closePopup('popupHormiga')">&times;</span>
-            <h2>Proyecto Hormiga</h2>
-            <p>Descripción del proyecto Hormiga.</p>
-            <a href="https://github.com/RoboTech-URJC/Ant-Project" target="_blank">Ver en GitHub</a>
-        </div>
+        <h2>Proyecto Hormiga</h2>
+        <p>Descripción del proyecto Hormiga.</p>
+        <a href="https://github.com/RoboTech-URJC/Ant-Project" target="_blank" class="cta-button">Ver en GitHub</a>
+        <button onclick="closePopup('popupHormiga')">Cerrar</button>
     </div>
-
     <div id="popupDrone" class="popup">
-        <div class="popup-content">
-            <span class="close" onclick="closePopup('popupDrone')">&times;</span>
-            <h2>Proyecto Drone</h2>
-            <p>
-                Nuestro grupo, compuesto por personas de distintos campos como robótica, telecomunicaciones y aeroespacial, desarrolla un dron RC de aproximadamente 50 cm de envergadura en una primera fase, enfocada en pruebas de vuelo y control manual.
-                
-                <br><br> la segunda fase, el proyecto se divide en dos ramas. La primera consiste en la integración de una Raspberry Pi, permitiendo la carga y ejecución de misiones programadas. La segunda se centra en el desarrollo de un módulo de payload variable, que permitirá acoplar distintos tipos de carga según el propósito de la misión.
-                
-                <br><br>Nos interesa abarcar desde software hasta hardware, combinando distintas especialidades para crear un sistema versátil y funcional.</p>
-            <a href="https://github.com/RoboTech-URJC/Icarus-Project" target="_blank">Ver en GitHub</a>
-        </div>
+        <h2>Proyecto Drone</h2>
+        <p>Nuestro grupo, compuesto por personas de robótica, telecomunicaciones y aeroespacial, desarrolla un dron RC de 50 cm de envergadura. En la primera fase, nos enfocamos en pruebas de vuelo y control manual. En la segunda, integramos una Raspberry Pi para misiones programadas y desarrollamos un módulo de payload variable para diferentes misiones.</p>
+        <a href="https://github.com/RoboTech-URJC/Icarus-Project" target="_blank" class="cta-button">Ver en GitHub</a>
+        <button onclick="closePopup('popupDrone')">Cerrar</button>
     </div>
-
     <div id="popupLedRace" class="popup">
-        <div class="popup-content">
-            <span class="close" onclick="closePopup('popupLedRace')">&times;</span>
-            <h2>Proyecto LED Race</h2>
-            <p>Led Race es un proyecto creado con una finalidad lúdica y competitiva. Una tira led de NeoPixel, y varios pulsadores, son lo único que necesitas para poder jugar este juego, que ganará el que pulse más rápido, consiguiendo que su led gane la carrera.</p>
-            <a href="https://github.com/RoboTech-URJC/led-race" target="_blank">Ver en GitHub</a>
+        <h2>Proyecto LED Race</h2>
+        <p>Led Race es un proyecto creado con una finalidad lúdica y competitiva. Una tira LED de NeoPixel y pulsadores son lo único necesario para jugar, ganando quien pulse más rápido para avanzar su LED.</p>
+        <a href="https://github.com/RoboTech-URJC/led-race" target="_blank" class="cta-button">Ver en GitHub</a>
+        <button onclick="closePopup('popupLedRace')">Cerrar</button>
+    </div>
+
+    <!-- Floating Donation Button -->
+    <div class="floating-donate-btn" onclick="openModal()">
+        <i class="fas fa-coffee"></i>
+        <span>Buy us a coffee</span>
+    </div>
+
+    <!-- Donation Modal -->
+    <div id="donationModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <i class="fas fa-donate"></i>
+            <h2>¡Apoya a Robotech URJC!</h2>
+            <p>Tu donación impulsa nuestra pasión por la robótica y la tecnología. Ayúdanos a seguir creando e innovando a través de una pequeña donación.</p>
+            <a href="https://opencollective.com/robotech-urjc" class="cta-button" target="_blank">Dona Ahora</a>
         </div>
     </div>
 
-    <!-- Contact Section -->
-    <section id="contact">
-      <div class="container text-center">
-          <h2 class="section-heading">Ponte en contacto con nosotros</h2>
-          <hr class="primary">
-          <div class="row">
-              <div class="col-lg-4">
-                  <a href="https://twitter.com/robotech_urjc">
-                      <i class="fa fa-twitter fa-3x"></i>
-                      <p>robotech_urjc</p>
-                  </a>
-              </div>
-              <div class="col-lg-4">
-                  <a href="mailto:asociacion.robotech@urjc.es">
-                      <i class="fa fa-envelope-o fa-3x"></i>
-                      <p>asociacion.robotech@urjc.es</p>
-                  </a>
-              </div>
-              <div class="col-lg-4">
-                  <a href="https://github.com/robotech-urjc">
-                      <i class="fa fa-github fa-3x"></i>
-                      <p>robotech-urjc</p>
-                  </a>
-              </div>
-            </div>
-            <div class="col-lg-4">
-                <a href="https://www.instagram.com/robotech_urjc">
-                    <i class="fa fa-instagram fa-3x"></i>
-                    <p>robotech_urjc</p>
-                </a>
-            </div>
-            <div class="col-lg-4">
-                <a href="https://es.linkedin.com/company/robotech-urjc">
-                    <i class="fa fa-linkedin fa-3x"></i>
-                    <p>robotech-urjc</p>
-                </a>
-            </div>
-            <div class="col-lg-4">
-                <a href="https://linktr.ee/Robotech_URJC">
-                    <i class="fa fa-info-circle fa-3x"></i>
-                    <p>Más información</p>
-                </a>
-            </div>
-          </div>
-      </div>
-  </section>
-    <!-- Scripts -->
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.easing.min.js"></script>
-    <script src="js/wow.min.js"></script>
-    <script src="js/main.js"></script>
+    <footer id="contact">
+        <h2>Ponte en contacto con nosotros</h2>
+        <div class="social-icons">
+            <a href="https://twitter.com/robotech_urjc"><i class="fab fa-twitter"></i> robotech_urjc</a>
+            <a href="mailto:asociacion.robotech@urjc.es"><i class="fas fa-envelope"></i> asociacion.robotech@urjc.es</a>
+            <a href="https://github.com/robotech-urjc"><i class="fab fa-github"></i> robotech-urjc</a>
+            <a href="https://www.instagram.com/robotech_urjc"><i class="fab fa-instagram"></i> robotech_urjc</a>
+            <a href="https://es.linkedin.com/company/robotech-urjc"><i class="fab fa-linkedin"></i> robotech-urjc</a>
+            <a href="https://linktr.ee/Robotech_URJC"><i class="fas fa-info-circle"></i> Más información</a>
+        </div>
+        <p>&copy; 2025 Robotech URJC.</p>
+    </footer>
+
     <script>
         function openPopup(popupId) {
-            document.getElementById(popupId).style.display = "block";
+            document.getElementById(popupId).classList.add('show');
+            document.getElementById('overlay').classList.add('show');
         }
 
         function closePopup(popupId) {
-            document.getElementById(popupId).style.display = "none";
+            document.getElementById(popupId).classList.remove('show');
+            document.getElementById('overlay').classList.remove('show');
+        }
+
+        function openModal() {
+            document.getElementById('donationModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('donationModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('donationModal');
+            if (event.target === modal) {
+                closeModal();
+            }
         }
     </script>
 </body>
-
 </html>

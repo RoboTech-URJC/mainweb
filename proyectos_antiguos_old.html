@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Proyectos Antiguos">
+    <meta name="author" content="Robotech URJC">
+
+    <title>Proyectos Antiguos - Robotech URJC</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+
+    <!-- Custom Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:300,400,700,900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/proyectos_antiguos.css" type="text/css">
+</head>
+
+<body>
+  <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand page-scroll" href="index.html">Inicio</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a class="page-scroll" href="index.html">Quienes somos</a></li>
+                <li><a class="page-scroll" href="proyectos_activos.html">Proyectos activos</a></li>
+                <li><a class="page-scroll" href="proyectos_antiguos.html">Proyectos antiguos</a></li>
+                <li><a class="page-scroll" href="#contact">Contacto</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+    <header class="header" style="background-image: url('img/header.jpg'); background-size: cover; background-position: center; height: 50vh;">
+        <div class="header-overlay" style="background-color: rgba(0, 0, 0, 0.5); height: 100%;">
+            <div class="header-content text-center" style="color: white; padding: 20px; position: absolute; top: 25%; left: 50%; transform: translate(-50%, -50%);">
+                <h1>Proyectos Antiguos</h1>
+                <p>Bienvenido a la sección de proyectos antiguos de Robotech URJC.</p>
+            </div>
+        </div>
+    </header>
+
+    <section class="no-padding" id="portfolio">
+        <div class="container-fluid">
+            <div class="hex-grid">
+                <div class="hex" onclick="openPopup('popupNoah')">
+                    <img src="img/portfolio/noah.jpeg" alt="Robot Noah">
+                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-weight: bold; text-shadow: 2px 2px 4px #000000; font-size: 36px;">
+                      Robot Noah
+                    </div>
+                    <div class="hex-content">
+                    </div>
+                </div>
+                <div class="hex" onclick="openPopup('popupServidorRed')">
+                    <img src="img/portfolio/server.jpg" alt="Proyecto Servidor-Red">
+                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-weight: bold; text-shadow: 2px 2px 4px #000000; font-size: 36px;">
+                      Servidor-Red
+                    </div>
+                    <div class="hex-content">
+                    </div>
+                </div>
+                <div class="hex" onclick="openPopup('popupOasis')">
+                    <img src="img/portfolio/oasis.jpeg" alt="Proyecto Oasis">
+                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-weight: bold; text-shadow: 2px 2px 4px #000000; font-size: 36px;">
+                      Proyecto Oasis
+                    </div>
+                    <div class="hex-content">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popups -->
+    <div id="popupNoah" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup('popupNoah')">&times;</span>
+            <h2>Robot Noah</h2>
+            <p>El proyecto Noah consiste en una flota de robots, impresos en 3d y programados en ROS que se intercomunican entre ellos permitiendo realizar varias misiones.</p>
+            <a href="https://github.com/RoboTech-URJC/noah_hardware" target="_blank">Ver en GitHub</a>
+        </div>
+    </div>
+
+    <div id="popupServidorRed" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup('popupServidorRed')">&times;</span>
+            <h2>Proyecto Servidor-Red</h2>
+            <p>Este proyecto consistió en levantar un servidor de red para realizar diversos proyectos en la nube. Por problemas técnicos, actualmente se encuentra fuera de servicio.</p>
+            <a href="https://github.com/RoboTech-URJC/RobotechServer-Project" target="_blank">Ver en GitHub</a>
+        </div>
+    </div>
+
+    <div id="popupOasis" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup('popupOasis')">&times;</span>
+            <h2>Proyecto Oasis</h2>
+            
+        </div>
+    </div>
+
+        <!-- Contact Section -->
+        <section id="contact">
+          <div class="container text-center">
+              <h2 class="section-heading">Ponte en contacto con nosotros</h2>
+              <hr class="primary">
+              <div class="row">
+                  <div class="col-lg-4">
+                      <a href="https://twitter.com/robotech_urjc">
+                          <i class="fa fa-twitter fa-3x"></i>
+                          <p>robotech_urjc</p>
+                      </a>
+                  </div>
+                  <div class="col-lg-4">
+                      <a href="mailto:asociacion.robotech@urjc.es">
+                          <i class="fa fa-envelope-o fa-3x"></i>
+                          <p>asociacion.robotech@urjc.es</p>
+                      </a>
+                  </div>
+                  <div class="col-lg-4">
+                      <a href="https://github.com/robotech-urjc">
+                          <i class="fa fa-github fa-3x"></i>
+                          <p>robotech-urjc</p>
+                      </a>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                    <a href="https://www.instagram.com/robotech_urjc">
+                        <i class="fa fa-instagram fa-3x"></i>
+                        <p>robotech_urjc</p>
+                    </a>
+                </div>
+                <div class="col-lg-4">
+                    <a href="https://es.linkedin.com/company/robotech-urjc">
+                        <i class="fa fa-linkedin fa-3x"></i>
+                        <p>robotech_urjc</p>
+                    </a>
+                </div>
+                <div class="col-lg-4">
+                    <a href="https://linktr.ee/Robotech_URJC">
+                        <i class="fa fa-info-circle fa-3x"></i>
+                        <p>Más información</p>
+                    </a>
+                </div>
+              </div>
+          </div>
+      </section>
+    <!-- Scripts -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        function openPopup(popupId) {
+            document.getElementById(popupId).style.display = "block";
+        }
+
+        function closePopup(popupId) {
+            document.getElementById(popupId).style.display = "none";
+        }
+    </script>
+</body>
+
+</html>
