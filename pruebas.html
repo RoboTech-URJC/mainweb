@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Check-in Asociación</title>
+  <link rel="stylesheet" href="prueba.css">
+</head>
+<body>
+  <div class="card" id="status-container">
+    <div class="status-indicator">
+      <div id="status-light" class="green"></div>
+      <span id="status-text">Asociación vacía</span>
+    </div>
+    <h2>Personas en el local: <span id="people-count">0</span></h2>
+  </div>
+
+  <div id="login-container" class="card">
+    <h2>Iniciar sesión</h2>
+    <input type="email" id="email" placeholder="Correo">
+    <input type="password" id="password" placeholder="Contraseña">
+    <button id="login-btn">Entrar</button>
+    <button id="register-btn">Registrarse</button>
+  </div>
+
+  <div id="app-container" class="hidden">
+    <button id="checkin-btn">Entrar</button>
+    <button id="checkout-btn">Salir</button>
+    <button id="logout-btn" class="secondary">Cerrar sesión</button>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
