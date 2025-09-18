@@ -8,8 +8,9 @@ echo "===> Creando escape room en $BASE_DIR..."
 rm -rf "$BASE_DIR"
 mkdir -p "$BASE_DIR" "$TMP_DIR"
 
-# Función mejorada para crear los scripts de desbloqueo.
-# Se ha modificado para manejar el último reto, que no es un archivo zip.
+#################################
+# Función para generar unlock.sh
+#################################
 crear_unlock() {
     reto_num="$1"
     clave="$2"
@@ -20,8 +21,40 @@ crear_unlock() {
 read -p "Introduce la clave para desbloquear el siguiente reto: " entrada
 if [[ "\$entrada" == "$clave" ]]; then
     echo "✅ Correcto, desbloqueando reto $siguiente..."
+
     if [ "$siguiente" == "reto3" ]; then
         echo ""
+        #################################
+        # Reto 3 - Archivo sin permisos
+        #################################
+        mkdir -p "$TMP_DIR/reto3"
+        echo "CLAVE=merge" > "$TMP_DIR/reto3/siguiente.txt"
+        chmod 000 "$TMP_DIR/reto3/siguiente.txt"
+
+        cat > "$TMP_DIR/reto3/README.txt" <<EOT
+🔒 Reto 3 - El Archivo Prohibido
+
+El archivo con la clave ha sido bloqueado por el sistema.  
+Necesitarás encontrar la forma de **leerlo** y así avanzar en la recuperación de tus créditos RAC.
+Pista: puede que los permisos tengan algo que ver... 🤔
+EOT
+
+        mv "$TMP_DIR/reto3" "$BASE_DIR/reto3"
+
+        # Generar manualmente el unlock.sh de reto 3
+        mkdir -p "$BASE_DIR/reto3"
+        cat > "$BASE_DIR/reto3/unlock.sh" <<EOT2
+#!/bin/bash
+read -p "Introduce la clave para desbloquear el siguiente reto: " entrada
+if [[ "\$entrada" == "merge" ]]; then
+    echo "✅ Correcto, desbloqueando reto reto4..."
+    unzip -o "$BASE_DIR/reto4.zip" -d "$BASE_DIR" >/dev/null
+else
+    echo "❌ Clave incorrecta."
+fi
+EOT2
+        chmod +x "$BASE_DIR/reto3/unlock.sh"
+
     elif [ "$siguiente" == "reto6" ]; then
         echo ""
         echo "🎉 ¡Has completado todos los retos de la terminal! Ahora, la misión final:"
@@ -87,32 +120,12 @@ EOT
 rm -rf "$TMP_DIR/reto2"
 crear_unlock 2 "fork" "reto3"
 
-
-#################################
-# Reto 3 - Archivo sin permisos
-#################################
-mkdir -p "$TMP_DIR/reto3"
-echo "CLAVE=merge" > "$TMP_DIR/reto3/siguiente.txt"
-chmod 000 "$TMP_DIR/reto3/siguiente.txt"
-cat > "$TMP_DIR/reto3/README.txt" <<EOT
-🔒 Reto 3 - El Archivo Prohibido
-
-El archivo con la clave ha sido bloqueado por el sistema.  
-Necesitarás leerlo y avanzar en la recuperación de tus créditos RAC.
-EOT
-
-
-mv "$TMP_DIR/reto3" "$BASE_DIR/reto3"
-
-crear_unlock 3 "merge" "reto4"
-
-
 #################################
 # Reto 4 - Git básico
 #################################
 mkdir -p "$TMP_DIR/reto4"
 cd "$TMP_DIR/reto4"
-git init -q
+git init -b master -q
 echo "CLAVE=debug" > pista.txt
 git add pista.txt
 git commit -m "Añadir pista" -q
@@ -134,7 +147,7 @@ crear_unlock 4 "debug" "reto5"
 #################################
 mkdir -p "$TMP_DIR/reto5"
 cd "$TMP_DIR/reto5"
-git init -q
+git init -b master -q
 
 # Rama master con primera parte de la clave
 echo "CLAVE_PARTE1=commit" > clave.txt
@@ -146,7 +159,7 @@ git checkout -b dev -q
 echo "CLAVE_PARTE2=Hash" >> clave.txt
 git commit -am "hash: Segunda parte de la clave" -q
 
-# Volver a main
+# Volver a master
 git checkout master -q
 
 cat > README.txt <<EOT
@@ -165,7 +178,6 @@ zip -r "$BASE_DIR/reto5.zip" reto5 >/dev/null
 rm -rf "$TMP_DIR/reto5"
 crear_unlock 5 "commitHash" "reto6"
 
-
 #################################
 # Reto 6 - Misión Final (GitHub)
 #################################
@@ -175,14 +187,13 @@ cat > "$BASE_DIR/reto6/README.txt" <<'EOT'
 
 ¡La última misión tiene parte fuera de la terminal! Para demostrar que has recuperado tus créditos, debes:
 
-1.  Crear un **repositorio público** en tu cuenta de GitHub.
-2.  Volver a terminal. Crear un archivo llamado **mail.txt** dentro de ese repositorio.
-3.  El archivo `mail.txt` debe contener tu dirección de correo electrónico.
-4.  Sube el archivo a tu repositorio (commit, push ...) y envía el **link del repositorio** a través de este formulario para confirmar la recuperación.
+1. Crear un **repositorio público** en tu cuenta de GitHub.
+2. En la terminal, crea un archivo llamado **mail.txt** dentro de ese repositorio.
+3. El archivo `mail.txt` debe contener tu dirección de correo electrónico.
+4. Sube el archivo a tu repositorio (commit, push ...) y envía el **link del repositorio** a través de este formulario para confirmar la recuperación.
 
 👉 Formulario de confirmación: https://forms.office.com/e/DtCQiq26r1
 EOT
-
 
 rm -rf "$TMP_DIR"
 
