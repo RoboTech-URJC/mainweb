@@ -434,7 +434,7 @@
               </div>
               <div class="hint-item">
                 <div class="hint-header" onclick="this.nextElementSibling.classList.toggle('show')">Pista 2</div>
-                <div class="hint-content">Puedes moverte por el historial con git checkout &lt;commit&gt;.</div>
+                <div class="hint-content">Puedes moverte por el historial con git restore &lt;commit&gt;.</div>
               </div>
               <div class="hint-item">
                 <div class="hint-header" onclick="this.nextElementSibling.classList.toggle('show')">Pista 3</div>
@@ -442,7 +442,7 @@
               </div>
             </div>
             <h3>Solución</h3>
-            <div class="solution-box" onclick="this.classList.toggle('unblurred')">git log<br>git checkout &lt;id_del_primer_commit&gt;<br>cat pista.txt<br># Clave: debug</div>
+            <div class="solution-box" onclick="this.classList.toggle('unblurred')">git log<br>git restore &lt;id_del_primer_commit&gt;<br>cat pista.txt<br># Clave: debug</div>
           </div>
         </div>
 
@@ -466,7 +466,7 @@
               </div>
             </div>
             <h3>Solución</h3>
-            <div class="solution-box" onclick="this.classList.toggle('unblurred')">git checkout master<br>cat clave.txt<br># Primera parte: commit<br>git checkout dev<br>cat clave.txt<br># Segunda parte: Hash<br># Clave final: commitHash</div>
+            <div class="solution-box" onclick="this.classList.toggle('unblurred')">git switch master<br>cat clave.txt<br># Primera parte: commit<br>git switch dev<br>cat clave.txt<br># Segunda parte: Hash<br># Clave final: commitHash</div>
           </div>
         </div>
 
