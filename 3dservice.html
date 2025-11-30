@@ -202,10 +202,11 @@
             <div id="result-container">
                 <h3>Presupuesto Estimado</h3>
                 
+
                 <div class="final-price-box">
                     <span id="finalPrice">0.00 €</span>
                 </div>
-                <p style="font-size: 0.8rem; color: #888; margin-top: 10px;">Precio estimado para PLA estándar. Escribenos para un precio cerrado</p>
+                <p style="font-size: 0.8rem; color: #888; margin-top: 10px;">IVA incluido. Precio estimado para PLA estándar.</p>
             </div>
         </section>
 
@@ -325,11 +326,9 @@
                             const finalPrice = totalBase * (1 + CONSTANTS.MARGIN);
 
                             // Mostrar Resultados (Ahora los elementos SÍ existen)
-                            document.getElementById('displayGrams').textContent = `${Math.round(weightGrams)}g`;
                             
                             const h = Math.floor(timeHours);
                             const m = Math.round((timeHours - h) * 60);
-                            document.getElementById('displayHours').textContent = `${h}h ${m}m`;
 
                             document.getElementById('finalPrice').textContent = `${finalPrice.toFixed(2)} €`;
                             
