@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calculadora de costes de impresión 3D - Robotech URJC">
+    <title>Calculadora de Costes 3D | Robotech URJC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- ESTILOS GENERALES Y TEMA --- */
+        :root {
+            --negro: #1a1a1a;
+            --blanco: #fff;
+            --rojo: #fd0010;
+            --rojo-oscuro: #c9000c;
+            --gris-claro: #f8f9fa;
+            --gris-medio: #e0e0e0;
+            --sombra: rgba(0, 0, 0, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--gris-claro);
+            color: var(--negro);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- HEADER & NAV --- */
+        header {
+            background: linear-gradient(135deg, var(--rojo), var(--rojo-oscuro));
+            color: var(--blanco);
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 4px 12px var(--sombra);
+        }
+
+        .hero {
+            position: relative;
+            background: url('img/header.jpg') no-repeat center/cover;
+            background-color: #333;
+            padding: 40px 20px;
+            color: var(--blanco);
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 20px;
+            overflow: hidden;
+            min-height: 25vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6); z-index: 1;
+        }
+
+        .hero-content { position: relative; z-index: 2; }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 10px; font-weight: 600; }
+        .hero p { font-size: 1.1rem; }
+
+        nav {
+            margin-top: 20px; background: var(--blanco); padding: 15px;
+            border-radius: 50px; box-shadow: 0 2px 8px var(--sombra);
+        }
+
+        nav ul { display: flex; justify-content: center; flex-wrap: wrap; list-style: none; gap: 15px; }
+        nav a {
+            display: flex; align-items: center; gap: 8px;
+            background: linear-gradient(90deg, var(--rojo), var(--rojo-oscuro));
+            color: var(--blanco); text-decoration: none; padding: 12px 25px;
+            border-radius: 25px; font-weight: 500; transition: all 0.3s ease; font-size: 0.9rem;
+        }
+        nav a:hover { transform: translateY(-2px); background: linear-gradient(90deg, var(--rojo-oscuro), var(--rojo)); }
+
+        /* --- LAYOUT PRINCIPAL --- */
+        main {
+            flex: 1; padding: 40px 20px; max-width: 1200px; margin: 0 auto; width: 100%;
+        }
+
+        .section {
+            background-color: var(--blanco); padding: 30px; border-radius: 20px;
+            box-shadow: 0 4px 12px var(--sombra); text-align: center;
+            margin-bottom: 30px; transition: transform 0.3s ease;
+        }
+        .section:hover { transform: translateY(-5px); }
+        .section h2 { color: var(--rojo); margin-bottom: 15px; font-size: 1.8rem; }
+        
+        /* --- ESTILOS CALCULADORA --- */
+        #calculator-section { max-width: 500px; margin: 0 auto 30px auto; text-align: left; }
+
+        /* Área de carga de archivo */
+        .file-upload-wrapper {
+            border: 2px dashed var(--rojo);
+            border-radius: 15px;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 25px;
+            background-color: rgba(253, 0, 16, 0.05);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .file-upload-wrapper:hover { background-color: rgba(253, 0, 16, 0.1); transform: scale(1.02); }
+        .file-upload-wrapper i { font-size: 3rem; color: var(--rojo); margin-bottom: 15px; }
+        .file-upload-wrapper p { font-size: 1rem; color: var(--negro); margin-bottom: 10px; }
+        #stlInput { display: none; }
+        
+        /* Spinner y Nombre de archivo */
+        #fileNameDisplay { font-weight: 600; color: var(--rojo-oscuro); font-size: 1rem; margin-top: 10px; }
+        .loading-spinner { display: none; margin-top: 15px; color: var(--rojo); font-size: 1.2rem; }
+
+        /* Resultados */
+        #result-container {
+            margin-top: 20px; padding: 30px; border-radius: 20px;
+            background-color: var(--negro); color: var(--blanco); text-align: center;
+            display: none; animation: popIn 0.5s ease-out;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+        }
+        
+        /* Detalles técnicos (peso/tiempo) */
+        .tech-details {
+            display: flex; justify-content: center; gap: 20px; margin-bottom: 20px;
+            border-bottom: 1px solid #333; padding-bottom: 20px;
+        }
+        .tech-item { font-size: 0.9rem; color: var(--gris-medio); }
+        .tech-item strong { color: var(--blanco); display: block; font-size: 1.1rem; }
+
+        .final-price-box {
+            font-size: 4rem; font-weight: 700; color: var(--rojo);
+            margin: 10px 0; line-height: 1; text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .cta-button {
+            display: inline-block; background: linear-gradient(90deg, var(--rojo), var(--rojo-oscuro));
+            color: var(--blanco); padding: 12px 30px; border-radius: 50px; text-decoration: none;
+            font-weight: 600; transition: all 0.3s ease;
+        }
+        .cta-button:hover { background: linear-gradient(90deg, var(--rojo-oscuro), var(--rojo)); transform: scale(1.05); }
+
+        /* --- CONTACTO & FOOTER --- */
+        .contact-mail-box { text-align: center; padding: 20px; }
+        footer {
+            background-color: var(--gris-medio); color: var(--negro);
+            text-align: center; padding: 30px 20px; margin-top: auto;
+        }
+        .social-icons a { margin: 0 10px; color: var(--rojo); font-size: 1.2rem; }
+
+        /* Animaciones */
+        @keyframes popIn { 0% { opacity: 0; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1); } }
+
+        /* Modal y Botón Flotante */
+        .floating-donate-btn {
+            position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px;
+            background: linear-gradient(90deg, var(--rojo), var(--rojo-oscuro)); color: var(--blanco);
+            border-radius: 30px; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 12px var(--sombra); cursor: pointer; z-index: 1000;
+        }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; align-items: center; justify-content: center; }
+        .modal-content { background: var(--blanco); padding: 40px; border-radius: 20px; text-align: center; max-width: 500px; width: 90%; position: relative; }
+        .close-button { position: absolute; top: 15px; right: 15px; font-size: 1.8rem; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Calculadora 3D</h1>
+                <p>Sube tu archivo STL y obtén precio al instante.</p>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#page-top"><i class="fas fa-calculator"></i> Calculadora</a></li>
+                <li><a href="aboutus.html"><i class="fas fa-users"></i> Nosotros</a></li>
+                <li><a href="proyectos_activos.html"><i class="fas fa-project-diagram"></i> Proyectos</a></li>
+                <li><a href="#contact"><i class="fas fa-envelope"></i> Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="calculator-section" class="section">
+            <h2><i class="fas fa-file-upload"></i> Presupuesto Automático</h2>
+            
+            <div class="file-upload-wrapper" onclick="document.getElementById('stlInput').click()">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p><strong>Haz clic o arrastra tu STL aquí</strong></p>
+                <p style="font-size: 0.9rem; color: #666;">Analizaremos la geometría para darte un precio exacto.</p>
+                <input type="file" id="stlInput" accept=".stl">
+                <div id="fileNameDisplay"></div>
+                <div id="loadingSpinner" class="loading-spinner"><i class="fas fa-spinner fa-spin"></i> Calculando costes...</div>
+            </div>
+
+            <div id="result-container">
+                <h3>Presupuesto - Precio aproximado</h3>
+                
+
+                <div class="final-price-box">
+                    <span id="finalPrice">0.00 €</span>
+                </div>
+                <p style="font-size: 0.8rem; color: #888; margin-top: 10px;">IVA incluido. Precio válido para impresión en PLA estándar. Para unn precio definitivo, mandanos tu archivo por mail.</p>
+            </div>
+        </section>
+
+        <section class="section" style="max-width: 500px; margin: 0 auto;">
+            <h2>¿Problemas con el archivo?</h2>
+            <p>Si el precio no te cuadra o tienes dudas, envíanos el archivo por correo.</p>
+            <div class="contact-mail-box">
+                <a href="mailto:asociacion.robotech@urjc.es" class="cta-button">
+                    <i class="fas fa-envelope"></i> Contactar por Correo
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <div class="floating-donate-btn" onclick="openModal()">
+        <i class="fas fa-coffee"></i>
+    </div>
+
+    <div id="donationModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <i class="fas fa-donate" style="font-size: 3rem; color: var(--rojo); margin-bottom: 20px;"></i>
+            <h2>¡Apoya a Robotech URJC!</h2>
+            <p>Tu donación impulsa nuestra pasión por la robótica.</p>
+            <a href="https://opencollective.com/robotech-urjc" class="cta-button" target="_blank">Dona Ahora</a>
+        </div>
+    </div>
+
+    <footer id="contact">
+        <h2>Robotech URJC</h2>
+        <div class="social-icons">
+            <a href="https://twitter.com/robotech_urjc"><i class="fab fa-twitter"></i></a>
+            <a href="mailto:asociacion.robotech@urjc.es"><i class="fas fa-envelope"></i></a>
+            <a href="https://github.com/robotech-urjc"><i class="fab fa-github"></i></a>
+            <a href="https://www.instagram.com/robotech_urjc"><i class="fab fa-instagram"></i></a>
+        </div>
+        <p>&copy; 2025 Asociación de Robótica URJC.</p>
+    </footer>
+
+    <script>
+        // --- 1. CONFIGURACIÓN Y CONSTANTES ---
+        const CONSTANTS = {
+            FILAMENT_PRICE: 30.00,       // €/kg
+            POWER_KW: 0.150,             // Ender 3 consumo medio
+            ELEC_PRICE: 1.4,            // €/kWh
+            PREP_COST_FIXED: 2.00,       // Mano de obra fija
+            MARGIN: 0.60,                // 30% beneficio
+            PLA_DENSITY: 1.24,           // g/cm3
+            PRINT_SPEED_FACTOR: 12.0     // Gramos/hora (estimación Ender 3)
+        };
+
+        // --- 2. LÓGICA DE PROCESAMIENTO ---
+        document.getElementById('stlInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            // UI Feedback
+            document.getElementById('fileNameDisplay').textContent = file.name;
+            document.getElementById('loadingSpinner').style.display = 'block';
+            document.getElementById('result-container').style.display = 'none';
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const buffer = e.target.result;
+                
+                // Simular un pequeño delay para que se vea el spinner (opcional, por UX)
+                setTimeout(() => {
+                    try {
+                        const volumeCm3 = parseSTL(buffer); 
+                        
+                        if (volumeCm3 > 0) {
+                            // Cálculos internos
+                            const weightGrams = volumeCm3 * CONSTANTS.PLA_DENSITY; 
+                            const timeHours = weightGrams / CONSTANTS.PRINT_SPEED_FACTOR;
+
+                            // Calcular Precio
+                            const materialCost = (weightGrams / 1000) * CONSTANTS.FILAMENT_PRICE;
+                            const electricCost = timeHours * CONSTANTS.POWER_KW * CONSTANTS.ELEC_PRICE;
+                            const prepCost = CONSTANTS.PREP_COST_FIXED;
+                            
+                            const totalBase = materialCost + electricCost + prepCost;
+                            const finalPrice = totalBase * (1 + CONSTANTS.MARGIN);
+
+                            // Mostrar Resultados
+                            document.getElementById('displayGrams').textContent = `${Math.round(weightGrams)}g`;
+                            
+                            // Formato tiempo bonito (e.g., 2h 30m)
+                            const h = Math.floor(timeHours);
+                            const m = Math.round((timeHours - h) * 60);
+                            document.getElementById('displayHours').textContent = `${h}h ${m}m`;
+
+                            document.getElementById('finalPrice').textContent = `${finalPrice.toFixed(2)} €`;
+                            
+                            // Mostrar contenedor
+                            document.getElementById('result-container').style.display = 'block';
+                            document.getElementById('result-container').scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                        } else {
+                            alert("El archivo parece vacío o corrupto.");
+                        }
+                    } catch (err) {
+                        console.error(err);
+                        alert("Error al leer el STL. Asegúrate de que es formato Binario (no ASCII).");
+                    } finally {
+                        document.getElementById('loadingSpinner').style.display = 'none';
+                    }
+                }, 800); // 800ms de delay artificial para "sensación" de cálculo
+            };
+            reader.readAsArrayBuffer(file);
+        });
+
+        // Función ligera para leer STL Binario y calcular volumen
+        function parseSTL(buffer) {
+            const view = new DataView(buffer);
+            // Cabecera STL son 80 bytes + 4 bytes (int) cantidad de triángulos
+            if (buffer.byteLength < 84) throw new Error("Archivo muy pequeño");
+
+            const numTriangles = view.getUint32(80, true); 
+            let totalVolume = 0;
+            let offset = 84;
+
+            // Protección básica contra bucles infinitos en archivos corruptos
+            const expectedSize = 84 + (numTriangles * 50);
+            if (buffer.byteLength !== expectedSize) {
+                console.warn("El tamaño del archivo no coincide con el número de triángulos declarado. Intentando leer de todas formas...");
+            }
+
+            for (let i = 0; i < numTriangles; i++) {
+                if (offset + 50 > buffer.byteLength) break;
+
+                // Vectores de vértices (saltamos la Normal 12 bytes)
+                const v1x = view.getFloat32(offset + 12, true);
+                const v1y = view.getFloat32(offset + 16, true);
+                const v1z = view.getFloat32(offset + 20, true);
+
+                const v2x = view.getFloat32(offset + 24, true);
+                const v2y = view.getFloat32(offset + 28, true);
+                const v2z = view.getFloat32(offset + 32, true);
+
+                const v3x = view.getFloat32(offset + 36, true);
+                const v3y = view.getFloat32(offset + 40, true);
+                const v3z = view.getFloat32(offset + 44, true);
+
+                // Cálculo de volumen firmado (Producto mixto / 6)
+                // v3 . (v1 x v2)
+                const v321 = v3x * v2y * v1z;
+                const v231 = v2x * v3y * v1z;
+                const v312 = v3x * v1y * v2z;
+                const v132 = v1x * v3y * v2z;
+                const v213 = v2x * v1y * v3z;
+                const v123 = v1x * v2y * v3z;
+
+                totalVolume += (1.0 / 6.0) * (-v321 + v231 + v312 - v132 - v213 + v123);
+
+                offset += 50; // Cada triángulo son 50 bytes
+            }
+            
+            // Convertir mm3 a cm3 y absoluto
+            return Math.abs(totalVolume) / 1000.0; 
+        }
+
+        // --- 4. MODAL ---
+        function openModal() { document.getElementById('donationModal').style.display = 'flex'; }
+        function closeModal() { document.getElementById('donationModal').style.display = 'none'; }
+        window.onclick = function(e) { if(e.target == document.getElementById('donationModal')) closeModal(); }
+    </script>
+</body>
+</html>
