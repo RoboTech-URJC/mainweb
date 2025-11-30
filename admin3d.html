@@ -75,6 +75,13 @@
             border: 2px dashed var(--rojo); background: rgba(253, 0, 16, 0.03);
             border-radius: 10px; padding: 30px; text-align: center;
             cursor: pointer; transition: 0.3s;
+            position: relative; /* Para efectos visuales */
+        }
+        /* Estilo para cuando arrastras encima */
+        .upload-area.dragover {
+            background: rgba(253, 0, 16, 0.15);
+            transform: scale(1.02);
+            border-color: var(--rojo-oscuro);
         }
         .upload-area:hover { background: rgba(253, 0, 16, 0.08); }
 
@@ -186,9 +193,9 @@
 
             <hr style="margin: 20px 0; border:0; border-top:1px solid #eee;">
 
-            <div class="upload-area" onclick="document.getElementById('stlInput').click()">
+            <div class="upload-area" id="dropZone" onclick="document.getElementById('stlInput').click()">
                 <i class="fas fa-cube" style="font-size: 2rem; color: var(--rojo);"></i>
-                <p style="margin-top:10px; font-weight:600;">Subir archivo STL</p>
+                <p style="margin-top:10px; font-weight:600;">Arrastra o Sube tu STL</p>
                 <p style="font-size:0.8rem; color:#666;">Cálculo automático</p>
                 <input type="file" id="stlInput" accept=".stl" style="display:none;">
             </div>
@@ -283,8 +290,50 @@
             calculate();
         }
 
-        // Lógica STL Automática
-        document.getElementById('stlInput').addEventListener('change', function(e) {
+        // ==========================================
+        //  NUEVA LÓGICA DRAG & DROP
+        // ==========================================
+        const dropZone = document.getElementById('dropZone');
+        const stlInput = document.getElementById('stlInput');
+
+        // Prevenir comportamientos por defecto
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        // Añadir/Quitar clase para efectos visuales
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => dropZone.classList.add('dragover'), false);
+        });
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => dropZone.classList.remove('dragover'), false);
+        });
+
+        // Manejar el Drop (Soltar)
+        dropZone.addEventListener('drop', handleDrop, false);
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            
+            if (files.length > 0) {
+                // Asignar los archivos al input
+                stlInput.files = files;
+                // Disparar manualmente el evento de cambio para que ejecute el análisis STL
+                const event = new Event('change');
+                stlInput.dispatchEvent(event);
+            }
+        }
+
+        // ==========================================
+        //  LÓGICA STL Y CÁLCULO
+        // ==========================================
+        stlInput.addEventListener('change', function(e) {
             const file = e.target.files[0];
             if(!file) return;
 
@@ -311,6 +360,11 @@
         function parseSTL(buffer) {
             const view = new DataView(buffer);
             try {
+                // Detección simple ASCII
+                if (buffer.byteLength > 5 && view.getUint8(0) === 115 && view.getUint8(4) === 100) {
+                     alert("Cuidado: Has subido un ASCII STL. Por favor usa BINARY STL.");
+                }
+
                 const numTriangles = view.getUint32(80, true);
                 if (numTriangles > 5000000) return 0; 
                 let totalVol = 0; let offset = 84;
@@ -375,7 +429,11 @@
             formData.append('material_tipo', document.getElementById('filamentPreset').value);
             formData.append('peso', document.getElementById('grams').value);
             formData.append('tiempo', document.getElementById('hours').value);
-            formData.append('precio_final', document.getElementById('finalPrice').innerText);
+            
+            // LIMPIEZA DEL PRECIO: Quitamos " €" y cambiamos coma por punto
+            let precioTexto = document.getElementById('finalPrice').innerText;
+            let precioLimpio = precioTexto.replace(' €', '').replace(',', '.');
+            formData.append('precio_final', parseFloat(precioLimpio));
 
             // Adjuntar archivo si existe
             const fileInput = document.getElementById('stlInput');
