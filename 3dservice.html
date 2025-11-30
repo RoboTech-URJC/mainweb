@@ -243,16 +243,16 @@
         <p>&copy; 2025 Asociación de Robótica URJC.</p>
     </footer>
 
-    <script>
+   <script>
         // --- 1. CONFIGURACIÓN Y CONSTANTES ---
         const CONSTANTS = {
-            FILAMENT_PRICE: 30.00,       // €/kg
-            POWER_KW: 0.150,             // Ender 3 consumo medio
-            ELEC_PRICE: 1.4,            // €/kWh
-            PREP_COST_FIXED: 2.00,       // Mano de obra fija
-            MARGIN: 0.60,                // 30% beneficio
-            PLA_DENSITY: 1.24,           // g/cm3
-            PRINT_SPEED_FACTOR: 12.0     // Gramos/hora (estimación Ender 3)
+            FILAMENT_PRICE: 30.00,       
+            POWER_KW: 0.150,             
+            ELEC_PRICE: 1.4,            
+            PREP_COST_FIXED: 2.00,       
+            MARGIN: 0.60,                
+            PLA_DENSITY: 1.24,           
+            PRINT_SPEED_FACTOR: 12.0     
         };
 
         // --- 2. LÓGICA DE PROCESAMIENTO ---
@@ -269,17 +269,15 @@
             reader.onload = function(e) {
                 const buffer = e.target.result;
                 
-                // Simular un pequeño delay para que se vea el spinner (opcional, por UX)
                 setTimeout(() => {
                     try {
                         const volumeCm3 = parseSTL(buffer); 
                         
                         if (volumeCm3 > 0) {
-                            // Cálculos internos
+                            // Cálculos
                             const weightGrams = volumeCm3 * CONSTANTS.PLA_DENSITY; 
                             const timeHours = weightGrams / CONSTANTS.PRINT_SPEED_FACTOR;
 
-                            // Calcular Precio
                             const materialCost = (weightGrams / 1000) * CONSTANTS.FILAMENT_PRICE;
                             const electricCost = timeHours * CONSTANTS.POWER_KW * CONSTANTS.ELEC_PRICE;
                             const prepCost = CONSTANTS.PREP_COST_FIXED;
@@ -290,51 +288,61 @@
                             // Mostrar Resultados
                             document.getElementById('displayGrams').textContent = `${Math.round(weightGrams)}g`;
                             
-                            // Formato tiempo bonito (e.g., 2h 30m)
                             const h = Math.floor(timeHours);
                             const m = Math.round((timeHours - h) * 60);
                             document.getElementById('displayHours').textContent = `${h}h ${m}m`;
 
                             document.getElementById('finalPrice').textContent = `${finalPrice.toFixed(2)} €`;
                             
-                            // Mostrar contenedor
                             document.getElementById('result-container').style.display = 'block';
                             document.getElementById('result-container').scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-                        } else {
-                            alert("El archivo parece vacío o corrupto.");
                         }
                     } catch (err) {
                         console.error(err);
-                        alert("Error al leer el STL. Asegúrate de que es formato Binario (no ASCII).");
+                        alert(err.message); // Muestra el error específico (ASCII o Corrupto)
                     } finally {
                         document.getElementById('loadingSpinner').style.display = 'none';
                     }
-                }, 800); // 800ms de delay artificial para "sensación" de cálculo
+                }, 800);
             };
             reader.readAsArrayBuffer(file);
         });
 
-        // Función ligera para leer STL Binario y calcular volumen
+        // --- FUNCIÓN PARSE STL MEJORADA ---
         function parseSTL(buffer) {
             const view = new DataView(buffer);
-            // Cabecera STL son 80 bytes + 4 bytes (int) cantidad de triángulos
-            if (buffer.byteLength < 84) throw new Error("Archivo muy pequeño");
+            
+            // 1. COMPROBACIÓN: ¿Es ASCII?
+            // Los archivos ASCII empiezan con la palabra "solid" (5 bytes: 115, 111, 108, 105, 100)
+            if (buffer.byteLength > 5) {
+                if (view.getUint8(0) === 115 && view.getUint8(1) === 111 && view.getUint8(2) === 108 && view.getUint8(3) === 105 && view.getUint8(4) === 100) {
+                    throw new Error("El archivo es formato ASCII (Texto). Por favor, expórtalo como STL BINARIO.");
+                }
+            }
+
+            // 2. COMPROBACIÓN: Tamaño mínimo (Header 80b + Count 4b = 84 bytes)
+            if (buffer.byteLength < 84) {
+                throw new Error("El archivo está corrupto o es demasiado pequeño.");
+            }
 
             const numTriangles = view.getUint32(80, true); 
+            
+            // 3. COMPROBACIÓN: Integridad del archivo
+            // Cada triángulo ocupa 50 bytes. El tamaño debe coincidir.
+            const expectedSize = 84 + (numTriangles * 50);
+            if (buffer.byteLength !== expectedSize) {
+                console.warn("El tamaño del archivo no coincide exactamente con los triángulos declarados. Intentando leer...");
+            }
+
             let totalVolume = 0;
             let offset = 84;
 
-            // Protección básica contra bucles infinitos en archivos corruptos
-            const expectedSize = 84 + (numTriangles * 50);
-            if (buffer.byteLength !== expectedSize) {
-                console.warn("El tamaño del archivo no coincide con el número de triángulos declarado. Intentando leer de todas formas...");
-            }
-
             for (let i = 0; i < numTriangles; i++) {
+                // Protección para no leer fuera de memoria
                 if (offset + 50 > buffer.byteLength) break;
 
-                // Vectores de vértices (saltamos la Normal 12 bytes)
+                // Vectores (Normal se salta)
                 const v1x = view.getFloat32(offset + 12, true);
                 const v1y = view.getFloat32(offset + 16, true);
                 const v1z = view.getFloat32(offset + 20, true);
@@ -347,8 +355,7 @@
                 const v3y = view.getFloat32(offset + 40, true);
                 const v3z = view.getFloat32(offset + 44, true);
 
-                // Cálculo de volumen firmado (Producto mixto / 6)
-                // v3 . (v1 x v2)
+                // Producto mixto / 6
                 const v321 = v3x * v2y * v1z;
                 const v231 = v2x * v3y * v1z;
                 const v312 = v3x * v1y * v2z;
@@ -358,10 +365,9 @@
 
                 totalVolume += (1.0 / 6.0) * (-v321 + v231 + v312 - v132 - v213 + v123);
 
-                offset += 50; // Cada triángulo son 50 bytes
+                offset += 50; 
             }
             
-            // Convertir mm3 a cm3 y absoluto
             return Math.abs(totalVolume) / 1000.0; 
         }
 
