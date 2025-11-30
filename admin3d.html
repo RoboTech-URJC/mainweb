@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Robotech URJC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --negro: #1a1a1a;
+            --blanco: #fff;
+            --rojo: #fd0010;
+            --rojo-oscuro: #c9000c;
+            --gris-claro: #f4f6f9;
+            --gris-oscuro: #343a40;
+            --verde: #28a745;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--gris-claro);
+            color: var(--negro);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+        aside {
+            width: 250px;
+            background-color: var(--negro);
+            color: var(--blanco);
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            position: fixed;
+            height: 100%;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        aside h2 { color: var(--rojo); margin-bottom: 30px; font-size: 1.5rem; text-align: center; }
+        
+        .control-group { margin-bottom: 20px; }
+        .control-group label { display: block; font-size: 0.85rem; color: #aaa; margin-bottom: 5px; }
+        .control-group input, .control-group select {
+            width: 100%; padding: 8px; background: #333; border: 1px solid #444;
+            color: var(--blanco); border-radius: 5px; font-size: 0.9rem;
+        }
+        /* Inputs claros en tarjetas */
+        .card .control-group input, .card .control-group select {
+            background: #fff; border: 1px solid #ccc; color: #000;
+        }
+        .control-group input:focus { border-color: var(--rojo); outline: none; }
+        .divider { border-top: 1px solid #444; margin: 20px 0; }
+
+        /* MAIN CONTENT */
+        main {
+            flex: 1; margin-left: 250px; padding: 40px;
+            display: flex; gap: 30px; flex-wrap: wrap;
+        }
+
+        /* CARDS */
+        .card {
+            background: var(--blanco); border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); padding: 25px;
+            flex: 1; min-width: 300px;
+        }
+        .card h3 { border-bottom: 2px solid var(--rojo); padding-bottom: 10px; margin-bottom: 20px; }
+
+        /* UPLOAD AREA */
+        .upload-area {
+            border: 2px dashed var(--rojo); background: rgba(253, 0, 16, 0.03);
+            border-radius: 10px; padding: 30px; text-align: center;
+            cursor: pointer; transition: 0.3s;
+        }
+        .upload-area:hover { background: rgba(253, 0, 16, 0.08); }
+
+        /* TICKET STYLES */
+        .ticket {
+            font-family: 'Courier New', monospace; border: 1px solid #ddd;
+            padding: 20px; background: #fff; position: relative;
+        }
+        .ticket-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.95rem; }
+        .ticket-divider { border-bottom: 1px dashed #ccc; margin: 15px 0; }
+        .ticket-total { font-weight: 700; font-size: 1.4rem; color: var(--rojo); text-align: right; }
+        .ticket-sub { font-size: 0.8rem; color: #666; text-align: right; }
+
+        /* BUTTONS */
+        .btn {
+            display: block; width: 100%; padding: 12px; border: none; border-radius: 8px;
+            cursor: pointer; font-weight: 600; margin-top: 10px; transition: 0.3s;
+            text-align: center; color: white;
+        }
+        .btn-notion { background: var(--rojo); margin-top: 20px; }
+        .btn-notion:hover { background: var(--rojo-oscuro); }
+        .btn-reset { background: #666; font-size: 0.8rem; margin-top: 30px; }
+
+        /* NOTIFICATION */
+        #notification {
+            position: fixed; top: 20px; right: 20px; background: var(--verde); color: white;
+            padding: 15px 25px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            display: none; animation: slideIn 0.5s; z-index: 9999;
+        }
+        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+
+        @media (max-width: 900px) {
+            aside { position: relative; width: 100%; height: auto; }
+            main { margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <aside>
+        <h2><i class="fas fa-cogs"></i> Admin Panel</h2>
+        
+        <div class="control-group">
+            <label>Tipo Material</label>
+            <select id="filamentPreset" onchange="applyPreset()">
+                <option value="PLA">PLA (Estándar)</option>
+                <option value="PETG">PETG (Resistente)</option>
+                <option value="TPU">TPU (Flexible)</option>
+                <option value="ABS">ABS</option>
+                <option value="CUSTOM">Otro / Manual</option>
+            </select>
+        </div>
+
+        <div class="divider"></div>
+        <p style="font-size:0.8rem; color:#888; margin-bottom:10px;">COSTES BASE</p>
+
+        <div class="control-group">
+            <label>Precio Filamento (€/kg)</label>
+            <input type="number" id="priceKg" step="0.01" value="30.00">
+        </div>
+        
+        <div class="control-group">
+            <label>Precio Luz (€/kWh)</label>
+            <input type="number" id="priceElec" step="0.01" value="1.40">
+        </div>
+
+        <div class="control-group">
+            <label>Consumo Máquina (kW)</label>
+            <input type="number" id="machineKw" step="0.001" value="0.150">
+        </div>
+
+        <div class="control-group">
+            <label>Coste Fijo Preparación (€)</label>
+            <input type="number" id="fixedPrepCost" step="0.1" value="2.00">
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="control-group">
+            <label>Margen Beneficio (%)</label>
+            <input type="number" id="margin" step="1" value="60">
+        </div>
+
+        <button class="btn btn-reset" onclick="location.reload()">⟳ Restaurar Valores</button>
+    </aside>
+
+    <main>
+        
+        <div class="card">
+            <h3>1. Datos del Pedido</h3>
+            
+            <div class="control-group">
+                <label style="color:#333;">Nombre Cliente</label>
+                <input type="text" id="clientName" placeholder="Nombre completo">
+            </div>
+
+            <div class="control-group">
+                <label style="color:#333;">Email Cliente</label>
+                <input type="email" id="clientEmail" placeholder="correo@ejemplo.com">
+            </div>
+
+            <div class="control-group">
+                <label style="color:#333;">Color / Código Filamento</label>
+                <div style="display:flex; gap:10px;">
+                    <input type="text" id="filamentColor" placeholder="Ej: Rojo, #FF0000" style="flex:1;">
+                    <input type="color" id="colorPicker" value="#ff0000" style="width:50px; padding:0; height:38px; cursor:pointer;" oninput="document.getElementById('filamentColor').value = this.value">
+                </div>
+            </div>
+
+            <hr style="margin: 20px 0; border:0; border-top:1px solid #eee;">
+
+            <div class="upload-area" onclick="document.getElementById('stlInput').click()">
+                <i class="fas fa-cube" style="font-size: 2rem; color: var(--rojo);"></i>
+                <p style="margin-top:10px; font-weight:600;">Subir archivo STL</p>
+                <p style="font-size:0.8rem; color:#666;">Cálculo automático</p>
+                <input type="file" id="stlInput" accept=".stl" style="display:none;">
+            </div>
+            <div id="fileInfo" style="margin-top:10px; font-size:0.8rem; color:var(--rojo); font-weight:bold;"></div>
+
+            <div style="display:flex; gap:15px; margin-top:20px;">
+                <div class="control-group" style="flex:1;">
+                    <label style="color:#333;">Peso (g)</label>
+                    <input type="number" id="grams" value="0" style="font-weight:bold;">
+                </div>
+                <div class="control-group" style="flex:1;">
+                    <label style="color:#333;">Tiempo (h)</label>
+                    <input type="number" id="hours" value="0" style="font-weight:bold;">
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>2. Ticket de Costes</h3>
+            
+            <div id="ticket" class="ticket">
+                <div style="text-align:center; margin-bottom:15px;">
+                    <strong style="font-size:1.2rem; color:var(--negro);">ROBOTECH URJC</strong><br>
+                    <span style="font-size:0.8rem; color:#666;">Hoja de Presupuesto</span>
+                </div>
+                
+                <div class="ticket-row">
+                    <span>Material (<span id="t-grams">0</span>g)</span>
+                    <span id="cost-material">0.00 €</span>
+                </div>
+                <div class="ticket-row">
+                    <span>Luz (<span id="t-hours">0</span>h)</span>
+                    <span id="cost-elec">0.00 €</span>
+                </div>
+                <div class="ticket-row">
+                    <span>Coste Fijo Prep.</span>
+                    <span id="cost-prep">0.00 €</span>
+                </div>
+                
+                <div class="ticket-divider"></div>
+                
+                <div class="ticket-row">
+                    <span>Subtotal</span>
+                    <span id="cost-base">0.00 €</span>
+                </div>
+                <div class="ticket-row">
+                    <span>Beneficio (<span id="t-margin">60</span>%)</span>
+                    <span id="cost-margin">0.00 €</span>
+                </div>
+                
+                <div class="ticket-divider"></div>
+                
+                <div class="ticket-total" id="finalPrice">0.00 €</div>
+                <div class="ticket-sub">IVA incluido</div>
+            </div>
+
+            <button class="btn btn-notion" id="sendBtn" onclick="sendToNotion()">
+                <i class="fas fa-paper-plane"></i> Guardar Pedido (Notion)
+            </button>
+        </div>
+    </main>
+
+    <div id="notification"><i class="fas fa-check-circle"></i> Pedido y archivo enviados</div>
+
+    <script>
+        // ---------------------------------------------------------
+        //  Pega aquí tu URL del Webhook de Make
+        // ---------------------------------------------------------
+        const WEBHOOK_URL = "https://hook.eu1.make.com/g4ugd7lnd906hpzbyv4gihqlx9nep4ew"; 
+
+        // Presets
+        const PRESETS = {
+            'PLA': { density: 1.24, price: 30.00 },
+            'PETG': { density: 1.27, price: 35.00 },
+            'ABS': { density: 1.04, price: 28.00 },
+            'TPU': { density: 1.21, price: 45.00 },
+            'CUSTOM': { density: 1.24, price: 30.00 }
+        };
+        let currentDensity = 1.24;
+
+        // Listeners
+        const inputs = document.querySelectorAll('input, select');
+        inputs.forEach(input => input.addEventListener('input', calculate));
+
+        function applyPreset() {
+            const type = document.getElementById('filamentPreset').value;
+            const data = PRESETS[type];
+            if(type !== 'CUSTOM') {
+                document.getElementById('priceKg').value = data.price;
+                currentDensity = data.density;
+            }
+            calculate();
+        }
+
+        // Lógica STL Automática
+        document.getElementById('stlInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if(!file) return;
+
+            document.getElementById('fileInfo').innerHTML = `<i class="fas fa-file-code"></i> ${file.name} (${(file.size/1024/1024).toFixed(2)} MB)`;
+            
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                try {
+                    const buffer = ev.target.result;
+                    const volCm3 = parseSTL(buffer);
+                    if(volCm3 > 0) {
+                        const weight = volCm3 * currentDensity;
+                        const time = weight / 12.0; 
+                        document.getElementById('grams').value = Math.round(weight);
+                        document.getElementById('hours').value = time.toFixed(2);
+                        calculate();
+                    }
+                } catch(err) { console.error("Error leyendo STL"); }
+            };
+            reader.readAsArrayBuffer(file);
+        });
+
+        // Parser Binario STL
+        function parseSTL(buffer) {
+            const view = new DataView(buffer);
+            try {
+                const numTriangles = view.getUint32(80, true);
+                if (numTriangles > 5000000) return 0; 
+                let totalVol = 0; let offset = 84;
+                for(let i=0; i<numTriangles; i++) {
+                    if(offset + 50 > buffer.byteLength) break;
+                    const v1x = view.getFloat32(offset+12, true); const v1y = view.getFloat32(offset+16, true); const v1z = view.getFloat32(offset+20, true);
+                    const v2x = view.getFloat32(offset+24, true); const v2y = view.getFloat32(offset+28, true); const v2z = view.getFloat32(offset+32, true);
+                    const v3x = view.getFloat32(offset+36, true); const v3y = view.getFloat32(offset+40, true); const v3z = view.getFloat32(offset+44, true);
+                    totalVol += (1/6)*(-v3x*v2y*v1z + v2x*v3y*v1z + v3x*v1y*v2z - v1x*v3y*v2z - v2x*v1y*v3z + v1x*v2y*v3z);
+                    offset += 50;
+                }
+                return Math.abs(totalVol)/1000;
+            } catch(e) { return 0; }
+        }
+
+        // Cálculo de Precio
+        function calculate() {
+            const priceKg = parseFloat(document.getElementById('priceKg').value) || 0;
+            const priceElec = parseFloat(document.getElementById('priceElec').value) || 0;
+            const machineKw = parseFloat(document.getElementById('machineKw').value) || 0;
+            const fixedPrep = parseFloat(document.getElementById('fixedPrepCost').value) || 0; 
+            const marginPercent = parseFloat(document.getElementById('margin').value) || 0;
+            const grams = parseFloat(document.getElementById('grams').value) || 0;
+            const hours = parseFloat(document.getElementById('hours').value) || 0;
+
+            const costMat = (grams / 1000) * priceKg;
+            const costElec = hours * machineKw * priceElec;
+            const costPrep = fixedPrep;
+            
+            const subtotal = costMat + costElec + costPrep;
+            const marginVal = subtotal * (marginPercent / 100);
+            const total = subtotal + marginVal;
+
+            document.getElementById('t-grams').innerText = grams;
+            document.getElementById('t-hours').innerText = hours.toFixed(1);
+            document.getElementById('t-margin').innerText = marginPercent;
+
+            document.getElementById('cost-material').innerText = costMat.toFixed(2) + " €";
+            document.getElementById('cost-elec').innerText = costElec.toFixed(2) + " €";
+            document.getElementById('cost-prep').innerText = costPrep.toFixed(2) + " €";
+            document.getElementById('cost-base').innerText = subtotal.toFixed(2) + " €";
+            document.getElementById('cost-margin').innerText = marginVal.toFixed(2) + " €";
+            
+            document.getElementById('finalPrice').innerText = total.toFixed(2) + " €";
+        }
+
+        // ENVÍO DE DATOS Y ARCHIVO (FORMDATA)
+        function sendToNotion() {
+            const btn = document.getElementById('sendBtn');
+            const originalText = btn.innerHTML;
+            
+            const client = document.getElementById('clientName').value;
+            if(!client) { alert("Error: Introduce el nombre del cliente."); return; }
+            if(WEBHOOK_URL.includes("TU_WEBHOOK")) { alert("Error: Configura la URL del Webhook."); return; }
+
+            // Construir envío multiparte (Texto + Archivo)
+            const formData = new FormData();
+            formData.append('fecha', new Date().toISOString());
+            formData.append('cliente', client);
+            formData.append('email', document.getElementById('clientEmail').value);
+            formData.append('color', document.getElementById('filamentColor').value || "No especificado");
+            formData.append('material_tipo', document.getElementById('filamentPreset').value);
+            formData.append('peso', document.getElementById('grams').value);
+            formData.append('tiempo', document.getElementById('hours').value);
+            formData.append('precio_final', document.getElementById('finalPrice').innerText);
+
+            // Adjuntar archivo si existe
+            const fileInput = document.getElementById('stlInput');
+            if (fileInput.files.length > 0) {
+                formData.append('archivo_stl', fileInput.files[0]);
+            }
+
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+            btn.disabled = true;
+
+            fetch(WEBHOOK_URL, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if(response.ok) {
+                    showNotification();
+                } else {
+                    alert("Error enviando datos.");
+                }
+            })
+            .catch(error => { console.error(error); alert("Error de conexión."); })
+            .finally(() => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            });
+        }
+
+        function showNotification() {
+            const notif = document.getElementById('notification');
+            notif.style.display = 'block';
+            setTimeout(() => { notif.style.display = 'none'; }, 3000);
+        }
+
+        // Iniciar
+        calculate();
+    </script>
+</body>
+</html>
