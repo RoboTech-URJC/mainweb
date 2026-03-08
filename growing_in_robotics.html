@@ -1,4 +1,3 @@
-<!-- FILE: concurso.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -8,11 +7,10 @@
   <meta name="author" content="RoboTech" />
   <title>Growing in Robotics by RoboTech</title>
 
-  <!-- ESTILOS ORIGINALES (NO MODIFICADOS) -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
-    /* --- NO SE HA MODIFICADO NADA DE TU CSS ORIGINAL --- */
+    /* --- CSS ORIGINAL SIN MODIFICACIONES --- */
     :root { --negro:#1a1a1a; --blanco:#fff; --rojo:#fd0010; --rojo-oscuro:#c9000c; --gris-claro:#f8f9fa; --gris-medio:#e0e0e0; --sombra:rgba(0,0,0,.15); }
     *{margin:0;padding:0;box-sizing:border-box}
     body{font-family:'Poppins',sans-serif;background:var(--gris-claro);color:var(--negro)}
@@ -45,6 +43,12 @@
     .milestone{position:relative;margin-left:30px;padding-left:14px;margin-bottom:14px}
     .milestone::before{content:"";position:absolute;left:-20px;top:4px;width:10px;height:10px;background:var(--rojo);border-radius:50%;box-shadow:0 0 0 4px #ffe5e7}
     footer{text-align:center;color:#555;padding:24px}
+    
+    /* Estilos para tablas simples dentro de cards */
+    .table-simple { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    .table-simple th, .table-simple td { border: 1px solid #ddd; padding: 8px; text-align: left; font-size: 0.9rem; }
+    .table-simple th { background-color: var(--rojo); color: white; }
+    .table-simple tr:nth-child(even){background-color: #f2f2f2;}
 
     .colaboran-logos{
       display:flex;
@@ -54,13 +58,11 @@
       margin-top:20px;
       flex-wrap:wrap;
     }
-
     .colaboran-logos img{
       height:80px;
       object-fit:contain;
       filter:drop-shadow(0 2px 4px rgba(0,0,0,.2));
     }
-
     @media(max-width:900px){
       .grid-2,.grid-3{grid-template-columns:1fr}
       .hero h1{font-size:2.2rem}
@@ -109,9 +111,6 @@
 
 <body>
 
-  <!-- ======================================================= -->
-  <!-- ENCABEZADO -->
-  <!-- ======================================================= -->
   <header>
     <div class="hero">
       <div class="hero-content">
@@ -138,53 +137,37 @@
     </nav>
   </header>
 
-  <!-- ======================================================= -->
-  <!-- CONTENIDO PRINCIPAL -->
-  <!-- ======================================================= -->
   <main>
 
-    <!-- ======================================================= -->
-    <!-- RESUMEN -->
-    <!-- ======================================================= -->
     <section class="section" id="resumen">
-      <h2>Resumen</h2>
+      <h2>Resumen del Reto</h2>
 
       <p>
-        <strong>Growing in Robotics by RoboTech</strong> es un concurso donde el alumnado deberá programar robots en 
-        <strong><a href="https://kibotics.org" target="_blank">Kibotics</a></strong>
-        para superar uno de los dos escenarios disponibles.  
+        <strong>Growing in Robotics by RoboTech</strong> presenta el desafío final: 
+        <strong>GoPiGo SigueLíneas</strong>.
+      </p>
+      <p>
+        El alumnado deberá programar el robot GoPiGo utilizando <strong>Scratch</strong> (bloques) dentro de la plataforma 
+        <strong><a href="https://kibotics.org" target="_blank">Kibotics</a></strong>. 
+        El objetivo es utilizar los <strong>sensores infrarrojos (IR)</strong> para detectar la línea negra y completar el circuito de forma autónoma.
       </p>
 
-      <!-- BLOQUE DE EXPECTATIVA -->
-      <div class="card" style="text-align:center; padding:25px; margin-top:20px; border:2px solid var(--rojo);">
-        <h2 style="color:var(--rojo)">⏳ ¡Muy pronto!</h2>
-        <p style="font-size:1.1rem; margin-top:8px;">
-          El <strong>reto oficial</strong> se liberará el  
-          <span style="color:var(--rojo); font-weight:600;">15 de diciembre a las 12:00</span>.
-        </p>
-        <p class="muted">Prepárate para el siguelíneas, el bosque, monedas, obstáculos y mucha creatividad…</p>
+      <div class="grid grid-3" style="margin-top:24px">
+        <div class="card"><strong><i class="fa-solid fa-gift"></i> Premio</strong><br/>Starter Kit GoPiGo + menciones.</div>
+        <div class="card"><strong><i class="fa-solid fa-shapes"></i> Plataforma</strong><br/>Programación por bloques (Scratch).</div>
+        <div class="card"><strong><i class="fa-solid fa-flag-checkered"></i> Objetivo</strong><br/>Completar el circuito sin salirse.</div>
       </div>
 
-      <!-- BOTÓN SUPER LLAMATIVO PARA KIBOTICS -->
       <div style="text-align:center; margin-top:25px;">
         <a href="https://kibotics.org"
            target="_blank"
            class="cta-button"
            style="font-size:1.4rem; padding:18px 40px; border-radius:50px; display:inline-block;">
-          🤖 PROGRAMAR AQUÍ
+          🤖 IR AL ESCENARIO
         </a>
-      </div>
-
-      <div class="grid grid-3" style="margin-top:24px">
-        <div class="card"><strong><i class="fa-solid fa-gift"></i> Premio</strong><br/>Starter Kit ESP32 + menciones.</div>
-        <div class="card"><strong><i class="fa-solid fa-robot"></i> Plataforma</strong><br/>Simulación en <a href="https://kibotics.org" target="_blank">Kibotics</a>.</div>
-        <div class="card"><strong><i class="fa-solid fa-people-group"></i> Público</strong><br/>Estudiantes seleccionados por RoboTech o centros colaboradores.</div>
       </div>
     </section>
 
-    <!-- ======================================================= -->
-    <!-- PUZZLE DIARIO -->
-    <!-- ======================================================= -->
     <section class="section" id="puzzle">
       <h2>Cuenta atrás del reto</h2>
       <p class="muted">Cada día se desbloquea una pieza hasta el <strong>15 de diciembre a las 12:00</strong>.</p>
@@ -196,14 +179,10 @@
       </div>
     </section>
 
-    <!-- ======================================================= -->
-    <!-- BASES -->
-    <!-- ======================================================= -->
     <section class="section" id="bases">
       <h2>Bases del concurso</h2>
 
       <div class="grid grid-2">
-
         <div class="card">
           <h3>Participantes</h3>
           <ul>
@@ -212,94 +191,96 @@
             <li>Puede requerirse validación de identidad.</li>
           </ul>
         </div>
-
         <div class="card">
-          <h3>Formato</h3>
+          <h3>Formato Técnico</h3>
           <ul>
             <li>Reto realizado en <a href="https://kibotics.org" target="_blank">Kibotics</a>.</li>
-            <li>Lenguaje: Python.</li>
-            <li>Entrega por correo con asunto <code>XXXXX</code>.</li>
-            <li>Archivo: <code>nombre_apellidos.py</code>.</li>
+            <li>Lenguaje: <strong>Scratch</strong> (Bloques).</li>
+            <li>Entrega: Archivo XML o Captura del proyecto.</li>
           </ul>
         </div>
-
         <div class="card">
           <h3>Derechos de imagen</h3>
-          <p>La organización podrá usar imágenes generadas durante el concurso.</p>
+          <p>La organización podrá usar imágenes y vídeos generados durante la simulación del concurso.</p>
         </div>
-
         <div class="card">
           <h3>Final</h3>
-          <p>Los 10 mejores proyectos serán finalistas y presentarán su trabajo en formato profesional.</p>
+          <p>Los 10 mejores proyectos (más rápidos y estables) pasarán a la fase final de evaluación.</p>
         </div>
-
       </div>
     </section>
 
+    <section class="section" id="escenarios">
+      <h2>Escenario: GoPiGo SigueLíneas IR</h2>
+      
+      <p>
+        El objetivo es programar el robot GoPiGo para que recorra un circuito siguiendo una línea negra sobre suelo blanco. 
+        Deberás usar los <strong>sensores infrarrojos</strong> para tomar decisiones y mover los motores.
+      </p>
 
-    <!-- ======================================================= -->
-    <!-- ENTREGA -->
-    <!-- ======================================================= -->
-    <section class="section" id="entrega">
-      <h2>Entrega</h2>
-      <p>Envía tu archivo <code>nombre_apellidos.py</code> al correo oficial con asunto <strong>XXXXX</strong>.</p>
-      <p>El reto se resolverá en <a href="https://kibotics.org" target="_blank">Kibotics</a>.</p>
+      <div class="grid grid-2">
+        <div class="card" style="border-left: 4px solid var(--rojo);">
+          <h3>🎯 Misión</h3>
+          <p>Crear un algoritmo en Scratch que lea los sensores continuamente y ajuste la dirección para no perder la línea.</p>
+        </div>
+        <div class="card">
+          <h3>⚙️ Requisitos</h3>
+          <ul>
+            <li><strong>Input:</strong> 2 Sensores IR (Izq/Der).</li>
+            <li><strong>Output:</strong> Motores (Velocidad/Giro).</li>
+            <li><strong>Lógica:</strong> Tabla de verdad de 4 estados.</li>
+          </ul>
+        </div>
+      </div>
+
+      <br>
+
+      
     </section>
 
-    <!-- ======================================================= -->
-    <!-- EVALUACIÓN -->
-    <!-- ======================================================= -->
+    <section class="section" id="entrega">
+      <h2>Entrega</h2>
+      <p>Envía tu proyecto al correo oficial con asunto <strong>RETO GOPIGO</strong>.</p>
+      <p>Formatos aceptados: Archivo <code>.xml</code>, <code>.sb3</code> o enlace al proyecto guardado en <a href="https://kibotics.org" target="_blank">Kibotics</a>.</p>
+    </section>
+
     <section class="section" id="evaluacion">
       <h2>Evaluación</h2>
 
       <div class="grid grid-2">
-
         <div class="card">
-          <h3>Criterios comunes</h3>
+          <h3>Criterios de Lógica</h3>
           <ul>
-            <li>Limpieza del código</li>
-            <li>Buenas prácticas</li>
-            <li>Eficiencia</li>
-            <li>Estabilidad</li>
-            <li>Escalabilidad</li>
-            <li>Creatividad técnica</li>
+            <li>Correcta implementación de los estados (0, 1, 2, 3).</li>
+            <li>Uso eficiente de los bloques condicionales.</li>
+            <li>Limpieza del diagrama de bloques.</li>
           </ul>
         </div>
-
         <div class="card">
-          <h3>Criterios por escenario</h3>
-          <p><strong>Siguelíneas:</strong> seguimiento, monedas, tiempo, estabilidad.</p>
-          <p><strong>Bosque:</strong> obstáculos, choques, monedas, tiempo, adaptación.</p>
+          <h3>Desempeño en Pista</h3>
+          <p><strong>Fiabilidad:</strong> El robot no debe perder la línea en las curvas cerradas.</p>
+          <p><strong>Suavidad:</strong> Se valora que el movimiento no sea excesivamente brusco (zig-zag constante).</p>
+          <p><strong>Recuperación:</strong> Capacidad de volver a la línea si se sale.</p>
         </div>
-
       </div>
     </section>
 
-    <!-- ======================================================= -->
-    <!-- PREMIOS -->
-    <!-- ======================================================= -->
     <section class="section" id="premios">
       <h2>Premios</h2>
       <ul>
-        <li><strong>Primer premio:</strong> Starter Kit ESP32.</li>
-        <li><strong>Menciones especiales:</strong> certificado + difusión.</li>
+        <li><strong>Primer premio:</strong> Kit de Robótica Educativa.</li>
+        <li><strong>Menciones especiales:</strong> Certificado de Programación en Bloques.</li>
       </ul>
     </section>
 
-    <!-- ======================================================= -->
-    <!-- CONTACTO -->
-    <!-- ======================================================= -->
     <section class="section" id="contacto">
       <h2>Contacto</h2>
       <p>Correo: <a href="mailto:robotech.urjc@gmail.com">robotech.urjc@gmail.com</a></p>
     </section>
 
-    <!-- ======================================================= -->
-    <!-- INSCRIPCIÓN -->
-    <!-- ======================================================= -->
     <section class="section" id="inscripcion">
-      <h2>Pre-inscripción</h2>
-      <p>Rellena el formulario para inscribirte en el concurso:</p>
+      <h2>Inscripción</h2>
+      <p>Si ya tienes tu equipo, rellena el formulario:</p>
 
       <a class="cta-button" 
          href="https://docs.google.com/forms/d/e/1FAIpQLSdXXXXX/viewform"
@@ -309,17 +290,12 @@
       </a>
     </section>
 
-    <!-- ======================================================= -->
-    <!-- COLABORAN -->
-    <!-- ======================================================= -->
     <section class="section" id="colaboran">
       <h2>Colaboran</h2>
       <p class="muted">Gracias a nuestros colaboradores oficiales:</p>
 
       <div class="colaboran-logos">
-        <!-- LOGO KIBOTICS -->
         <img src="https://kibotics.org/static/img/logo_sin_fondo-vertical_azul.png" alt="Kibotics">
-        <!-- LOGO IES ANTONIO MACHADO -->
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRINIflitClnTcKDBAWeSF3OPhSV4Och9hoXA&s"
              alt="IES Antonio Machado (Soria)">
       </div>
@@ -331,10 +307,8 @@
     <p>&copy; 2025 RoboTech</p>
   </footer>
 
-  <!-- ======================================================= -->
-  <!-- SCRIPT PUZZLE + CUENTA ATRÁS (CAÓTICO) -->
-  <!-- ======================================================= -->
   <script>
+    // FECHA OBJETIVO: 15 DE DICIEMBRE A LAS 12:00
     const releaseDate = new Date("2025-12-15T12:00:00");
     const today = new Date();
 
@@ -342,36 +316,30 @@
     const cols = 4;
     const totalPieces = rows * cols;
 
-    const puzzleDays = totalPieces; // nº de días antes del release
+    const puzzleDays = totalPieces; 
     const firstUnlockDate = new Date(releaseDate);
     firstUnlockDate.setDate(releaseDate.getDate() - puzzleDays);
 
     const grid = document.getElementById("puzzle-grid");
 
-    // Cuántas piezas deberían estar desbloqueadas hoy
+    // Lógica de desbloqueo de piezas
     let piecesUnlocked = 0;
     if (today >= releaseDate) {
       piecesUnlocked = totalPieces;
     } else if (today >= firstUnlockDate) {
       const diffDays = Math.floor((today - firstUnlockDate) / (1000 * 60 * 60 * 24));
-      piecesUnlocked = Math.min(diffDays + 1, totalPieces); // +1 para que el primer día ya haya algo
+      piecesUnlocked = Math.min(diffDays + 1, totalPieces); 
     }
 
-    // Orden caótico de revelación (array barajado)
-    // ORDEN FIJO DE REVELACIÓN
-    const indices = [
-      0,3,8,12,9,5,7,11,1,6,2,4,10,11
-    ];
+    // Orden pseudo-aleatorio de revelación (fijo para todos los usuarios)
+    const indices = [0,3,8,12,9,5,7,11,1,6,2,4,10,11]; // Índices manuales
 
-
-
-    // Mapa: pieza -> orden de revelación
     const revealRank = {};
     indices.forEach((pieceIndex, order) => {
       revealRank[pieceIndex] = order;
     });
 
-    // Generar piezas
+    // Generar grid de piezas
     for (let i = 0; i < totalPieces; i++) {
       const piece = document.createElement("div");
       piece.className = "piece locked";
@@ -379,10 +347,12 @@
       const row = Math.floor(i / cols);
       const col = i % cols;
 
+      // Imagen de fondo (Sprite sheet lógico)
       piece.style.backgroundImage = "url('img/reto.png')";
       piece.style.backgroundSize = `${cols * 100}% ${rows * 100}%`;
       piece.style.backgroundPosition = `${(col / (cols - 1)) * 100}% ${(row / (rows - 1)) * 100}%`;
 
+      // Si le toca estar desbloqueada, quitamos el candado
       if (revealRank[i] < piecesUnlocked) {
         piece.classList.remove("locked");
         piece.classList.add("revealed");
