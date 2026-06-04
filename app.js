@@ -780,6 +780,7 @@ async function translateDocument(language) {
   }
 
   await Promise.all(textTasks);
+  updateProjectDossierLinks();
 
   const assistant = document.querySelector(".pet-assistant");
   const assistantAnswer = assistant && assistant.querySelector(".pet-assistant__answer");
@@ -787,6 +788,33 @@ async function translateDocument(language) {
     const answerKey = assistant.dataset.answer || "start";
     assistantAnswer.textContent = assistantAnswerTranslations[currentLanguage][answerKey];
   }
+}
+
+const projectsWithoutDossier = new Set(["noah", "servidor-red", "oasis"]);
+
+function getProjectDossierHref(projectKey) {
+  const safeKey = String(projectKey || "proyecto").trim() || "proyecto";
+  return currentLanguage === "es" ? `pdf/${safeKey}.pdf` : `pdf/${safeKey}_english.pdf`;
+}
+
+function updateProjectDossierLinks() {
+  document.querySelectorAll("[data-project-dossier]").forEach((link) => {
+    link.href = getProjectDossierHref(link.dataset.projectDossier);
+  });
+}
+
+function injectProjectDossierButtons() {
+  document.querySelectorAll(".project-detail[id] .detail-actions").forEach((actions) => {
+    const detail = actions.closest(".project-detail[id]");
+    if (!detail || projectsWithoutDossier.has(detail.id) || actions.querySelector("[data-project-dossier]")) return;
+    const link = document.createElement("a");
+    link.className = "button secondary project-dossier-link";
+    link.dataset.projectDossier = detail.id;
+    link.href = getProjectDossierHref(detail.id);
+    link.textContent = "Dossier técnico";
+    link.setAttribute("download", "");
+    actions.append(link);
+  });
 }
 
 function createLanguageSwitch(extraClass = "") {
@@ -863,10 +891,9 @@ if (contactForm) {
   });
 }
 
-const storageKey = "robotech-v8-theme";
-const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+const storageKey = "robotech-v9-theme";
 const savedTheme = localStorage.getItem(storageKey);
-const initialTheme = savedTheme || (prefersDark ? "dark" : "light");
+const initialTheme = savedTheme || "light";
 
 function setTheme(theme) {
   document.documentElement.dataset.theme = theme;
@@ -1290,6 +1317,7 @@ function initProjectImageCarousel() {
   });
 }
 
+injectProjectDossierButtons();
 initProjectImageCarousel();
 
 
@@ -1341,6 +1369,15 @@ initProjectImageCarousel();
         repo.textContent = "Repositorio";
         links.append(repo);
       }
+      if (!projectsWithoutDossier.has(project.key)) {
+        const dossier = document.createElement("a");
+        dossier.href = getProjectDossierHref(project.key);
+        dossier.dataset.projectDossier = project.key || "proyecto";
+        dossier.className = "project-dossier-link";
+        dossier.textContent = "Dossier técnico";
+        dossier.setAttribute("download", "");
+        links.append(dossier);
+      }
 
       body.append(meta, makeText("h3", "", project.title || "Proyecto"), makeText("p", "", project.description || ""), links);
       article.append(image, body);
@@ -1348,6 +1385,8 @@ initProjectImageCarousel();
     });
 
     document.querySelector(".image-carousel")?.remove();
+    injectProjectDossierButtons();
+    updateProjectDossierLinks();
     initProjectImageCarousel();
   }
 
@@ -1390,70 +1429,59 @@ initProjectImageCarousel();
     });
 
     const cards = Array.from(featuredProjectsRoot.querySelectorAll(".project-card"));
-    const getStep = () => {
-      const firstCard = cards[0];
-      if (!firstCard) return featuredProjectsRoot.clientWidth * 0.8;
-      const styles = getComputedStyle(featuredProjectsRoot);
-      const gap = parseFloat(styles.columnGap || styles.gap || "0") || 0;
-      return firstCard.getBoundingClientRect().width + gap;
-    };
-    const getMiddleOffset = () => getStep() * activeProjects.length;
-    let isRecentering = false;
+    const projectCount = activeProjects.length;
+    let activeIndex = 0;
+    let scrollEndTimer = 0;
+
+    const getCardForIndex = (index) => cards[projectCount + index] || cards[index];
 
     const updateActiveCard = () => {
+      const target = getCardForIndex(activeIndex);
+      cards.forEach((card) => card.classList.toggle("is-active", card === target));
+    };
+
+    const scrollToFeaturedIndex = (index, behavior = "smooth") => {
+      if (!projectCount) return;
+      activeIndex = ((index % projectCount) + projectCount) % projectCount;
+      const target = getCardForIndex(activeIndex);
+      if (!target) return;
+      target.scrollIntoView({ behavior, block: "nearest", inline: "center" });
+      updateActiveCard();
+    };
+
+    const syncActiveFromScroll = () => {
+      if (!projectCount) return;
       const trackRect = featuredProjectsRoot.getBoundingClientRect();
       const center = trackRect.left + trackRect.width / 2;
       let selected = null;
       let bestDistance = Infinity;
       cards.forEach((card) => {
         const rect = card.getBoundingClientRect();
-        const cardCenter = rect.left + rect.width / 2;
-        const distance = Math.abs(center - cardCenter);
+        const distance = Math.abs(center - (rect.left + rect.width / 2));
         if (distance < bestDistance) {
           selected = card;
           bestDistance = distance;
         }
       });
-      cards.forEach((card) => card.classList.toggle("is-active", card === selected));
+      if (!selected) return;
+      activeIndex = Number(selected.dataset.carouselIndex || 0) % projectCount;
+      updateActiveCard();
+      window.clearTimeout(scrollEndTimer);
+      scrollEndTimer = window.setTimeout(() => scrollToFeaturedIndex(activeIndex, "auto"), 140);
     };
 
-    const recenterIfNeeded = () => {
-      if (isRecentering || !activeProjects.length) return;
-      const step = getStep();
-      const min = step * (activeProjects.length * 0.45);
-      const max = step * (activeProjects.length * 1.95);
-      if (featuredProjectsRoot.scrollLeft < min || featuredProjectsRoot.scrollLeft > max) {
-        isRecentering = true;
-        const normalized = ((featuredProjectsRoot.scrollLeft % (step * activeProjects.length)) + (step * activeProjects.length)) % (step * activeProjects.length);
-        featuredProjectsRoot.scrollLeft = step * activeProjects.length + normalized;
-        requestAnimationFrame(() => {
-          isRecentering = false;
-          updateActiveCard();
-        });
-      }
-    };
-
-    const scrollFeatured = (direction) => {
-      featuredProjectsRoot.scrollBy({ left: direction * getStep(), behavior: "smooth" });
-    };
+    const scrollFeatured = (direction) => scrollToFeaturedIndex(activeIndex + direction);
 
     document.querySelector("[data-featured-projects-prev]")?.addEventListener("click", () => scrollFeatured(-1));
     document.querySelector("[data-featured-projects-next]")?.addEventListener("click", () => scrollFeatured(1));
-    featuredProjectsRoot.addEventListener("scroll", () => {
-      updateActiveCard();
-      window.requestAnimationFrame(recenterIfNeeded);
-    }, { passive: true });
-    window.addEventListener("resize", () => {
-      featuredProjectsRoot.scrollLeft = getMiddleOffset();
-      updateActiveCard();
-    });
+    featuredProjectsRoot.addEventListener("scroll", () => window.requestAnimationFrame(syncActiveFromScroll), { passive: true });
+    window.addEventListener("resize", () => scrollToFeaturedIndex(activeIndex, "auto"));
 
-    requestAnimationFrame(() => {
-      featuredProjectsRoot.scrollLeft = getMiddleOffset();
-      updateActiveCard();
-    });
+    requestAnimationFrame(() => scrollToFeaturedIndex(0, "auto"));
 
     document.querySelector(".image-carousel")?.remove();
+    injectProjectDossierButtons();
+    updateProjectDossierLinks();
     initProjectImageCarousel();
   }
 
