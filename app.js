@@ -1433,24 +1433,37 @@ initProjectImageCarousel();
     let activeIndex = 0;
     let scrollEndTimer = 0;
 
-    const getCardForIndex = (index) => cards[projectCount + index] || cards[index];
+    const getCardForIndex = (index, set = 1) => cards[set * projectCount + index] || cards[index];
+    let isProgrammaticScroll = false;
 
-    const updateActiveCard = () => {
-      const target = getCardForIndex(activeIndex);
-      cards.forEach((card) => card.classList.toggle("is-active", card === target));
+    const updateActiveCard = (visibleCard = getCardForIndex(activeIndex)) => {
+      cards.forEach((card) => card.classList.toggle("is-active", card === visibleCard));
+    };
+
+    const scrollCardIntoView = (card, behavior = "smooth") => {
+      if (!card) return;
+      card.scrollIntoView({ behavior, block: "nearest", inline: "center" });
+      updateActiveCard(card);
+    };
+
+    const recenterFeatured = () => {
+      const centerCard = getCardForIndex(activeIndex, 1);
+      if (!centerCard) return;
+      isProgrammaticScroll = true;
+      scrollCardIntoView(centerCard, "auto");
+      window.requestAnimationFrame(() => {
+        isProgrammaticScroll = false;
+      });
     };
 
     const scrollToFeaturedIndex = (index, behavior = "smooth") => {
       if (!projectCount) return;
       activeIndex = ((index % projectCount) + projectCount) % projectCount;
-      const target = getCardForIndex(activeIndex);
-      if (!target) return;
-      target.scrollIntoView({ behavior, block: "nearest", inline: "center" });
-      updateActiveCard();
+      scrollCardIntoView(getCardForIndex(activeIndex, 1), behavior);
     };
 
     const syncActiveFromScroll = () => {
-      if (!projectCount) return;
+      if (!projectCount || isProgrammaticScroll) return;
       const trackRect = featuredProjectsRoot.getBoundingClientRect();
       const center = trackRect.left + trackRect.width / 2;
       let selected = null;
@@ -1465,12 +1478,24 @@ initProjectImageCarousel();
       });
       if (!selected) return;
       activeIndex = Number(selected.dataset.carouselIndex || 0) % projectCount;
-      updateActiveCard();
+      updateActiveCard(selected);
       window.clearTimeout(scrollEndTimer);
-      scrollEndTimer = window.setTimeout(() => scrollToFeaturedIndex(activeIndex, "auto"), 140);
+      scrollEndTimer = window.setTimeout(recenterFeatured, 180);
     };
 
-    const scrollFeatured = (direction) => scrollToFeaturedIndex(activeIndex + direction);
+    const scrollFeatured = (direction) => {
+      if (!projectCount) return;
+      const nextIndex = ((activeIndex + direction) % projectCount + projectCount) % projectCount;
+      const wrapsRight = direction > 0 && activeIndex === projectCount - 1;
+      const wrapsLeft = direction < 0 && activeIndex === 0;
+      activeIndex = nextIndex;
+      const targetSet = wrapsRight ? 2 : wrapsLeft ? 0 : 1;
+      scrollCardIntoView(getCardForIndex(activeIndex, targetSet));
+      if (wrapsRight || wrapsLeft) {
+        window.clearTimeout(scrollEndTimer);
+        scrollEndTimer = window.setTimeout(recenterFeatured, 420);
+      }
+    };
 
     document.querySelector("[data-featured-projects-prev]")?.addEventListener("click", () => scrollFeatured(-1));
     document.querySelector("[data-featured-projects-next]")?.addEventListener("click", () => scrollFeatured(1));
