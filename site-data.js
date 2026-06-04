@@ -58,7 +58,7 @@ window.ROBOTECH_DATA = {
     {
       key: "led-race",
       title: "LED Race",
-      image: "img/led_race/led_race_2.jpeg",
+      image: "img/led_race/led_race_1.jpeg",
       alt: "Proyecto LED Race",
       tags: ["electronica", "arduino", "neopixel", "juego", "firmware", "soldadura"],
       visibleTags: ["Electronica", "Juego", "NeoPixel"],
