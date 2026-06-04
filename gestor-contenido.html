@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Gestor estatico de contenido de Robotech URJC.">
+    <title>Gestor de contenido | Robotech URJC</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main id="contenido" class="container admin-tool">
+      <section class="page-hero">
+        <p class="eyebrow">Gestor estatico</p>
+        <h1>Editar talleres y patrocinadores.</h1>
+        <p>Herramienta local: no necesita backend ni tokens. Edita los datos y guarda <code>site-data.js</code> en tu copia del repositorio antes de hacer commit y push.</p>
+        <div class="button-row"><a class="button secondary" href="gestor-linktree.html">Gestionar linktree</a><a class="button secondary" href="qr.html">Ver QR</a></div>
+      </section>
+
+      <section class="section admin-grid admin-grid--three">
+        <form class="panel admin-panel" data-admin-form="projects">
+          <div class="section-title"><p class="eyebrow">Proyectos</p><h2>Nuevo proyecto</h2></div>
+          <label>Clave<input name="key" placeholder="robot-nuevo"></label>
+          <label>Titulo<input name="title" placeholder="Robot nuevo"></label>
+          <label>Descripcion<textarea name="description" rows="4" placeholder="Resumen corto que aparecera en la pagina de proyectos"></textarea></label>
+          <div class="field-grid"><label>Imagen<input name="image" value="img/dash/idea.png"></label><label>Alt<input name="alt" value="Imagen del proyecto"></label></div>
+          <label>Tags para filtrar<input name="tags" placeholder="robotica arduino 3d-printed"></label>
+          <label>Tags visibles<input name="visibleTags" placeholder="Robotica, Arduino, 3D printed"></label>
+          <div class="field-grid"><label>Detalle<input name="detailHref" placeholder="#robot-nuevo"></label><label>Repositorio<input name="repoHref" placeholder="https://github.com/..."></label></div>
+          <button class="button primary" type="submit">Guardar proyecto</button>
+        </form>
+
+        <form class="panel admin-panel" data-admin-form="workshops">
+          <div class="section-title"><p class="eyebrow">Talleres</p><h2>Nuevo taller</h2></div>
+          <label>Clave<input name="key" placeholder="linux-avanzado"></label>
+          <label>Etiqueta<input name="label" placeholder="Linux avanzado"></label>
+          <label>Titulo<input name="title" placeholder="Automatizar tareas"></label>
+          <label>Descripcion<textarea name="description" rows="4" placeholder="Resumen corto que aparecera en la pagina de talleres"></textarea></label>
+          <div class="field-grid"><label>Imagen<input name="image" value="img/workshops/linux.png"></label><label>Alt<input name="alt" value="Icono del taller"></label></div>
+          <label>Pagina detalle<input name="href" placeholder="taller-linux-avanzado.html"></label>
+          <button class="button primary" type="submit">Guardar taller</button>
+        </form>
+
+        <form class="panel admin-panel" data-admin-form="sponsors">
+          <div class="section-title"><p class="eyebrow">Patrocinadores</p><h2>Nuevo patrocinador</h2></div>
+          <label>Clave<input name="key" placeholder="empresa"></label>
+          <label>Nombre<input name="name" placeholder="Nombre del patrocinador"></label>
+          <div class="field-grid"><label>Logo texto<input name="logo" placeholder="ABC"></label><label>Etiqueta<input name="tag" placeholder="Tecnologia"></label></div>
+          <label>Imagen de logo<input name="image" placeholder="img/patrocinadores/logo.png"></label>
+          <label>Clase visual
+            <select name="logoClass">
+              <option value="sponsor-logo--imq">Rojo superior</option>
+              <option value="sponsor-logo--yumi">Negro superior</option>
+              <option value="sponsor-logo--swarming">Rojo oscuro superior</option>
+            </select>
+          </label>
+          <label>Descripcion<textarea name="description" rows="4" placeholder="Como apoya a Robotech URJC"></textarea></label>
+          <button class="button primary" type="submit">Guardar patrocinador</button>
+        </form>
+      </section>
+
+      <section class="section admin-output">
+        <div class="section-title split">
+          <div><p class="eyebrow">Datos actuales</p><h2>Revisa, borra y descarga.</h2></div>
+          <div class="button-row"><button class="button secondary" type="button" id="copyData">Copiar JS</button><button class="button secondary" type="button" id="saveData">Guardar archivo</button><button class="button primary" type="button" id="downloadData">Descargar site-data.js</button></div>
+        </div>
+        <div class="admin-lists"><div><h3>Proyectos</h3><div data-admin-list="projects"></div></div><div><h3>Talleres</h3><div data-admin-list="workshops"></div></div><div><h3>Patrocinadores</h3><div data-admin-list="sponsors"></div></div></div>
+        <label class="admin-code-label">site-data.js generado<textarea id="dataOutput" rows="16" spellcheck="false"></textarea></label>
+      </section>
+    </main>
+
+    <script src="site-data.js"></script>
+    <script>
+      const state = structuredClone(window.ROBOTECH_DATA || { projects: [], workshops: [], sponsors: [] });
+      const output = document.getElementById('dataOutput');
+      const lists = {
+        projects: document.querySelector('[data-admin-list="projects"]'),
+        workshops: document.querySelector('[data-admin-list="workshops"]'),
+        sponsors: document.querySelector('[data-admin-list="sponsors"]')
+      };
+
+      const slug = value => String(value || '').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+      const dataFile = () => `window.ROBOTECH_DATA = ${JSON.stringify(state, null, 2)};\n`;
+
+      function sync() {
+        output.value = dataFile();
+        renderList('projects');
+        renderList('workshops');
+        renderList('sponsors');
+      }
+
+      function renderList(type) {
+        lists[type].replaceChildren();
+        state[type].forEach((item, index) => {
+          const row = document.createElement('article');
+          row.className = 'admin-row';
+          const title = document.createElement('strong');
+          title.textContent = item.name || item.label || item.title || item.key;
+          const meta = document.createElement('span');
+          meta.textContent = item.href || item.tag || item.key;
+          const remove = document.createElement('button');
+          remove.className = 'button secondary';
+          remove.type = 'button';
+          remove.textContent = 'Quitar';
+          remove.addEventListener('click', () => { state[type].splice(index, 1); sync(); });
+          row.append(title, meta, remove);
+          lists[type].append(row);
+        });
+      }
+
+      document.querySelectorAll('[data-admin-form]').forEach(form => {
+        form.addEventListener('submit', event => {
+          event.preventDefault();
+          const type = form.dataset.adminForm;
+          const data = Object.fromEntries(new FormData(form).entries());
+          if (type === 'projects') {
+            data.tags = String(data.tags || '').split(/\s+/).map(item => item.trim()).filter(Boolean);
+            data.visibleTags = String(data.visibleTags || '').split(',').map(item => item.trim()).filter(Boolean);
+          }
+          data.key = slug(data.key || data.name || data.label || data.title);
+          const existing = state[type].findIndex(item => item.key === data.key);
+          if (existing >= 0) state[type][existing] = data;
+          else state[type].push(data);
+          form.reset();
+          sync();
+        });
+      });
+
+      document.getElementById('copyData').addEventListener('click', async () => {
+        await navigator.clipboard.writeText(output.value);
+      });
+
+
+      document.getElementById('saveData').addEventListener('click', async () => {
+        if (!window.showSaveFilePicker) {
+          alert('Tu navegador no permite guardar directamente. Usa Descargar site-data.js y sustituye el fichero manualmente.');
+          return;
+        }
+        const handle = await window.showSaveFilePicker({
+          suggestedName: 'site-data.js',
+          types: [{ description: 'JavaScript', accept: { 'text/javascript': ['.js'] } }]
+        });
+        const writable = await handle.createWritable();
+        await writable.write(output.value);
+        await writable.close();
+      });
+
+      document.getElementById('downloadData').addEventListener('click', () => {
+        const blob = new Blob([output.value], { type: 'text/javascript' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'site-data.js';
+        link.click();
+        URL.revokeObjectURL(link.href);
+      });
+
+      sync();
+    </script>
+  </body>
+</html>

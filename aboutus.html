@@ -1,341 +1,98 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="Asociación Robotech — Quiénes somos, proyectos y contacto" />
-<meta name="author" content="Robotech URJC" />
-<title>Robotech URJC — Sobre Nosotros</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-<style>
-:root {
-  --negro: #1a1a1a;
-  --blanco: #fff;
-  --rojo: #fd0010;
-  --rojo-oscuro: #c9000c;
-  --gris-claro: #f8f9fa;
-  --gris-medio: #e0e0e0;
-  --sombra: rgba(0,0,0,0.15);
-}
-
-* { margin:0; padding:0; box-sizing:border-box; }
-
-body {
-  font-family: 'Poppins', sans-serif;
-  background-color: var(--gris-claro);
-  color: var(--negro);
-  display:flex;
-  flex-direction:column;
-  min-height:100vh;
-}
-
-header {
-  background: linear-gradient(135deg, var(--rojo), var(--rojo-oscuro));
-  color: var(--blanco);
-  text-align:center;
-  padding:20px;
-  box-shadow:0 4px 12px var(--sombra);
-}
-
-.hero {
-  position: relative;
-  background: url('img/header.jpg') no-repeat center/cover;
-  padding: 60px 20px;
-  color: var(--blanco);
-  text-align: center;
-  margin: 20px auto;
-  border-radius: 20px;
-  overflow: hidden;
-  min-height: 48vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  max-width:1200px;
-}
-
-.hero::before {
-  content:'';
-  position:absolute;
-  inset:0;
-  background: rgba(0,0,0,0.45);
-  z-index:1;
-  border-radius:20px;
-}
-
-.hero-content { position: relative; z-index:2; max-width:1000px; }
-
-.hero h1 { font-size:3rem; margin-bottom:10px; font-weight:600; }
-.hero p { font-size:1.15rem; margin-bottom:8px; color: rgba(255,255,255,0.95); }
-
-nav {
-  margin-top:18px;
-  background: var(--blanco);
-  padding:12px;
-  border-radius: 50px;
-  box-shadow: 0 2px 8px var(--sombra);
-  max-width: 1000px;
-  margin-left:auto;
-  margin-right:auto;
-}
-
-nav ul {
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  list-style:none;
-  gap:14px;
-}
-
-nav a {
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  background: linear-gradient(90deg, var(--rojo), var(--rojo-oscuro));
-  color: var(--blanco);
-  text-decoration:none;
-  padding:10px 20px;
-  border-radius:25px;
-  font-weight:500;
-  transition: all 0.22s ease;
-}
-
-nav a:hover { transform: translateY(-2px); }
-
-main { flex:1; padding:36px 18px; max-width:1200px; margin:0 auto 40px; width:100%; }
-
-/* Secciones */
-.section {
-  background-color: var(--blanco);
-  padding: 36px;
-  border-radius:16px;
-  box-shadow:0 4px 12px var(--sombra);
-  text-align:left;
-  margin-bottom:36px;
-}
-
-.section h2 { color: var(--rojo); margin-bottom:16px; font-size:1.8rem; }
-.section p { color: var(--negro); margin-bottom:16px; line-height:1.7; }
-
-/* Estilo tipo "Nuestros logros" para tarjetas */
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 24px;
-  margin-top:24px;
-}
-
-.card {
-  background-color: var(--gris-claro);
-  border-left:6px solid var(--rojo);
-  padding:20px;
-  border-radius:12px;
-  box-shadow:0 3px 10px var(--sombra);
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-}
-
-.card h3, .card h4 { color: var(--rojo-oscuro); margin-bottom:10px; font-size:1.2rem; }
-.card p { font-size:0.95rem; color: var(--negro); line-height:1.5; }
-
-/* Botones al lado de los proyectos */
-.project-buttons {
-  display:flex;
-  gap:12px;
-  margin-top:12px;
-}
-
-.project-buttons a {
-  text-decoration:none;
-  font-weight:600;
-  background: linear-gradient(90deg, var(--rojo), var(--rojo-oscuro));
-  color: var(--blanco);
-  padding:10px 20px;
-  border-radius:50px;
-  transition: transform 0.2s ease;
-}
-
-.project-buttons a:hover { transform: translateY(-2px); }
-
-/* Listas */
-.list-left { text-align:left; margin:14px auto 0; max-width:820px; line-height:1.8; }
-.list-left li { margin:8px 0; }
-
-.cta-button {
-  display:inline-block;
-  background: linear-gradient(90deg, var(--rojo), var(--rojo-oscuro));
-  color: var(--blanco);
-  padding:12px 26px;
-  border-radius:50px;
-  text-decoration:none;
-  font-weight:600;
-  transition: transform 0.2s ease;
-}
-
-.cta-button:hover { transform: translateY(-3px); }
-
-footer {
-  background-color: var(--gris-medio);
-  color: var(--negro);
-  text-align:center;
-  padding:20px;
-  font-size:0.88rem;
-}
-
-.social-icons { margin-top:10px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
-.social-icons a { color: var(--rojo); text-decoration:none; display:inline-flex; gap:8px; align-items:center; padding:8px 10px; border-radius:10px; background:white; box-shadow:0 2px 8px rgba(0,0,0,.06); }
-
-@media (max-width:980px) {
-  .hero h1 { font-size:2rem; }
-  .card-grid { grid-template-columns: 1fr; gap:20px; }
-  .project-buttons { flex-direction:column; gap:10px; }
-}
-</style>
-</head>
-<body>
-
-<header>
-  <div class="hero">
-    <div class="hero-content">
-      <h1>Robotech URJC</h1>
-      <p>Asociación de ciencia, tecnología y robótica de la Universidad Rey Juan Carlos</p>
-      <p>Encuéntranos en el sótano del Aulario I — Campus de Fuenlabrada</p>
-    </div>
-  </div>
-
-  <nav aria-label="Navegación principal">
-    <ul>
-      <li><a href="index.html"><i class="fas fa-home"></i> Inicio</a></li>
-      <li><a href="aboutus.html"><i class="fas fa-users"></i> Quienes somos</a></li>
-      <li><a href="proyectos_activos.html"><i class="fas fa-project-diagram"></i> Proyectos activos</a></li>
-      <li><a href="proyectos_antiguos.html"><i class="fas fa-history"></i> Proyectos antiguos</a></li>
-      <li><a href="acogida.html"><i class="fas fa-laptop-code"></i> Nuestros Talleres</a></li>
-      <li><a href="colaboradores.html"><i class="fas fa-laptop-code"></i> Colabora con nosotros</a></li>
-      <li><a href="#contact"><i class="fas fa-envelope"></i> Contacto</a></li>
-    </ul>
-  </nav>
-</header>
-
-<main id="page-top">
-  <section id="about" class="section">
-    <h2>Quiénes somos</h2>
-    <p>
-      En <strong>RoboTech URJC</strong> somos una comunidad de estudiantes apasionados por la ciencia, la tecnología y la robótica.
-      Nuestro objetivo es aprender y crear más allá del aula, construyendo proyectos reales y compartiendo conocimiento en abierto.
-    </p>
-    <p>
-      Desde nuestros inicios en el Campus de Fuenlabrada, ofrecemos talleres, mentoría y espacio de fabricación para cualquier estudiante que quiera
-      experimentar con electrónica, programación, mecánica o visión artificial.
-    </p>
-  </section>
-
-  <section class="section">
-    <h2>Proyectos destacados</h2>
-    <p>Trabajamos en hardware y software open-source; aquí algunos proyectos representativos.</p>
-
-    <div class="card-grid">
-      <div class="card">
-        <h4>Proyecto Zeus — Mano robótica</h4>
-        <p>Mano humanoide open-source: diseño mecánico, microcontroladores y visión.</p>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Quiénes somos en Robotech URJC.">
+    <title>Quiénes somos | Robotech URJC</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="index.html"><img src="img/logo_no_underscore.png" alt=""><span>Robotech URJC <small>Quiénes somos</small></span></a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+        <nav class="nav-menu" aria-label="Navegación principal">
+          <a href="index.html">Inicio</a><a href="aboutus.html" aria-current="page">Quiénes somos</a><a href="proyectos.html">Proyectos</a><a href="talleres.html">Talleres</a><a href="colabora.html">Colabora</a><a href="contacto.html">Contacto</a><a class="nav-cta" href="https://discord.gg/k9nKDrDQaC" target="_blank" rel="noreferrer">Discord</a>
+        </nav>
       </div>
-      <div class="card">
-        <h4>Noah — Plataforma móvil ROS</h4>
-        <p>Robots móviles educativos con sensores, cámara y navegación básica.</p>
-      </div>
-      <div class="card">
-        <h4>LED Race — Electrónica y juego</h4>
-        <p>Carreras lúdicas con tiras NeoPixel y firmware en C/C++.</p>
-      </div>
-      <div class="card">
-        <h4>Proyecto Drone — Autonomía experimental</h4>
-        <p>Dron RC con Raspberry Pi/Pico para pruebas de autonomía y control modular.</p>
-      </div>
-    </div>
+    </header>
 
-    <div class="project-buttons">
-      <a href="proyectos_activos.html">Proyectos activos</a>
-      <a href="proyectos_antiguos.html">Proyectos antiguos</a>
-    </div>
-  </section>
+    <main id="contenido" class="container">
+      <section class="page-hero about-hero">
+        <div>
+          <p class="eyebrow">Quiénes somos</p>
+          <h1>Un taller universitario para aprender construyendo.</h1>
+          <p>Robotech URJC es una asociación de estudiantes de la Universidad Rey Juan Carlos centrada en robótica, electrónica, software y fabricación digital.</p>
+          <div class="button-row"><a class="button primary" href="talleres.html">Ver talleres</a><a class="button secondary" href="proyectos.html">Ver proyectos</a></div>
+        </div>
+        <img src="img/header.jpg" alt="Espacio de trabajo de Robotech URJC">
+      </section>
 
-  <section class="section">
-    <h2>Nuestros logros</h2>
-    <p>Algunos hitos importantes que hemos alcanzado en nuestra trayectoria:</p>
-    <div class="card-grid">
-      <div class="card">
-        <h4>Participación de asociados de ToboTech en la RoboCup </h4>
-        <p>Varios miembros de la asociación han participado en esta competición obteniendo muy buenos resultados.</p>
-      </div>
-      <div class="card">
-        <h4>100+ estudiantes formados</h4>
-        <p>Más de cien estudiantes han participado en nuestros talleres de robótica y programación.</p>
-      </div>
-      <div class="card">
-        <h4>Proyectos open-source</h4>
-        <p>Todos nuestros proyectos están disponibles en GitHub para la comunidad global.</p>
-      </div>
-      <div class="card">
-        <h4>Participación en ferias tecnológicas</h4>
-        <p>Hemos mostrado nuestras creaciones en eventos nacionales de ciencia y tecnología.</p>
-      </div>
-    </div>
-  </section>
+      <section class="about-values" aria-label="Resumen de Robotech">
+        <div><strong>Hands-on</strong><span>Aprendemos con prototipos, pruebas y errores reales.</span></div>
+        <div><strong>Abierto</strong><span>Documentamos proyectos y compartimos repositorios.</span></div>
+        <div><strong>Comunidad</strong><span>Mentoria entre estudiantes y equipos de trabajo.</span></div>
+      </section>
 
-  <section class="section">
-    <h2>Nuestra filosofía</h2>
-    <p>
-      Nos guían cuatro principios: <strong>aprendizaje práctico</strong>, <strong>compartir en abierto</strong>, <strong>colaboración</strong> y <strong>curiosidad técnica</strong>.
-      Fomentamos el error como método de aprendizaje y apoyamos proyectos que pueden replicarse y mejorarse por terceros.
-    </p>
+      <section class="container section two-col about-story">
+        <div class="section-title">
+          <p class="eyebrow">Nuestra forma de trabajar</p>
+          <h2>De la idea al prototipo, sin quedarse solo en teoría.</h2>
+        </div>
+        <div class="panel">
+          <p>La asociación existe para cubrir el espacio entre clase y proyecto funcional: planteamos objetivos pequeños, repartimos tareas, probamos piezas, versionamos código y documentamos lo que funciona.</p>
+          <p>Puede entrar gente con experiencia o desde cero. Lo importante es tener curiosidad técnica, respeto por el trabajo compartido y ganas de aprender con otras personas.</p>
+        </div>
+      </section>
 
-    <h3 style="color:var(--rojo); margin-top:16px;">Actividades típicas</h3>
-    <div class="card-grid">
-      <div class="card">
-        <h4>Talleres </h4>
-        <p>Diseño e impresión 3D, instalación de linux, manejo de shell y git.</p>
-      </div>
-      <div class="card">
-        <h4>Proyectos innovadores</h4>
-        <p>Hacemos que el futuro sea hoy, acercando a todos las nuevas tecnolgías.</p>
-      </div>
-      <div class="card">
-        <h4>Mentoría académica</h4>
-        <p>Acompañamiento a nuevos alumnos y soporte a proyectos independientes.</p>
-      </div>
-      <div class="card">
-        <h4>Ferias y demostraciones</h4>
-        <p>Participación en eventos universitarios y ferias de ciencia y tecnología.</p>
-      </div>
-    </div>
-  </section>
 
-  <section class="section" id="contact">
-    <h2>Contacto y comunidad</h2>
-    <p style="max-width:820px; margin:0 auto 12px;">
-      ¿Tienes una idea, proyecto o quieres aprender? Escríbenos o encuéntranos en las redes.
-    </p>
-    <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:12px;">
-      <a class="cta-button" href="mailto:asociacion.robotech@urjc.es">asociacion.robotech@urjc.es</a>
-      <a class="cta-button" style="background:linear-gradient(90deg,#0a84ff,#0060d6);" href="https://github.com/robotech-urjc" target="_blank">GitHub</a>
-      <a class="cta-button" style="background:linear-gradient(90deg,#ff7a00,#ff3b00);" href="https://opencollective.com/robotech-urjc" target="_blank">Apóyanos</a>
-    </div>
-  </section>
-</main>
+      <section class="section fabrication-spotlight" aria-label="Fabricación digital e impresión 3D">
+        <div class="fabrication-spotlight__copy">
+          <p class="eyebrow">Fabricación digital</p>
+          <h2>También hacemos impresión 3D.</h2>
+          <p>En el local trabajamos con dos Ender 3 para fabricar piezas de proyectos, hacer iteraciones rápidas y aprender diseño pensando en montaje real, tolerancias y mantenimiento.</p>
+          <p>Ahora mismo estamos buscando financiación para dar el salto a una Bambu Lab de gama alta. Nos permitiría imprimir más rápido, con más fiabilidad y con materiales más exigentes para prototipos que hoy nos cuestan demasiado tiempo.</p>
+          <div class="fabrication-spotlight__stats" aria-label="Recursos de impresión 3D">
+            <span><strong>2</strong> Ender 3 en uso</span>
+            <span><strong>24/7</strong> cuando hay proyecto</span>
+            <span><strong>Objetivo</strong> Bambu Lab</span>
+          </div>
+        </div>
+        <figure class="fabrication-spotlight__media">
+          <img src="img/printers/printers_1.jpeg" alt="Dos impresoras Ender 3 del local de Robotech URJC">
+          <figcaption>Prototipos, piezas de repuesto y muchas pruebas antes de que algo encaje.</figcaption>
+        </figure>
+      </section>
 
-<footer>
-  <h2>Ponte en contacto con nosotros</h2>
-  <div class="social-icons">
-    <a href="https://twitter.com/robotech_urjc"><i class="fab fa-twitter"></i> robotech_urjc</a>
-    <a href="mailto:asociacion.robotech@urjc.es"><i class="fas fa-envelope"></i> asociacion.robotech@urjc.es</a>
-    <a href="https://github.com/robotech-urjc"><i class="fab fa-github"></i> robotech-urjc</a>
-    <a href="https://www.instagram.com/robotech_urjc"><i class="fab fa-instagram"></i> robotech_urjc</a>
-    <a href="https://es.linkedin.com/company/robotech-urjc"><i class="fab fa-linkedin"></i> robotech-urjc</a>
-    <a href="https://linktr.ee/Robotech_URJC"><i class="fas fa-info-circle"></i> Más información</a>
-  </div>
-  <p style="margin-top:12px;">&copy; 2025 Robotech URJC.</p>
-</footer>
-</body>
+      <section class="section local-preview" aria-label="Vista del local de Robotech">
+        <div class="section-title split">
+          <div>
+            <p class="eyebrow">Conoce el local</p>
+            <h2>Un vistazo al espacio donde trabajamos.</h2>
+          </div>
+        </div>
+        <figure class="local-preview__frame">
+          <img src="img/local/local_pano.jpeg" alt="Local de Robotech URJC">
+        </figure>
+      </section>
+
+
+      <section class="section about-location">
+        <div>
+          <p class="eyebrow">Visítanos</p>
+          <h2>Pásate por el local en el Campus de Fuenlabrada.</h2>
+          <p>Estamos en el sótano del Aulario I. Puedes venir a conocernos, preguntar por proyectos o ver cómo trabajamos antes de apuntarte a nada.</p>
+        </div>
+        <div class="button-row"><a class="button primary" href="contacto.html">Contactar</a><a class="button secondary" href="https://discord.gg/k9nKDrDQaC" target="_blank" rel="noreferrer">Discord</a></div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><div class="container footer-inner"><div><a class="brand" href="index.html"><img src="img/logo_no_underscore.png" alt=""><span>Robotech URJC</span></a><p class="muted">Asociación de ciencia, tecnología y robótica.</p></div><div class="footer-links contact-links"><a href="mailto:asociacion.robotech@urjc.es"><span class="footer-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6h16v12H4z"></path><path d="m4 7 8 6 8-6"></path></svg></span>Email</a><a href="https://github.com/robotech-urjc" target="_blank" rel="noreferrer"><span class="footer-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 19c-4 1.5-4-2-6-2.5"></path><path d="M15 22v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6A4.6 4.6 0 0 0 18.7 7c.1-.3.6-1.6-.1-3.3 0 0-1.1-.3-3.5 1.3a12.2 12.2 0 0 0-6.2 0C6.5 3.4 5.4 3.7 5.4 3.7 4.7 5.4 5.2 6.7 5.3 7A4.6 4.6 0 0 0 4 10.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V22"></path></svg></span>GitHub</a><a href="https://www.instagram.com/robotech_urjc" target="_blank" rel="noreferrer"><span class="footer-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4"></rect><circle cx="12" cy="12" r="3.2"></circle><path d="M17.5 6.5h.01"></path></svg></span>Instagram</a><a href="https://es.linkedin.com/company/robotech-urjc" target="_blank" rel="noreferrer"><span class="footer-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.5 10v8"></path><path d="M6.5 6v.01"></path><path d="M10.5 18v-8"></path><path d="M10.5 13.5c0-2 1.2-3.8 3.5-3.8 2 0 3.5 1.3 3.5 4V18"></path><rect x="3" y="3" width="18" height="18" rx="2"></rect></svg></span>LinkedIn</a></div></div></footer>
+    <script src="app.js"></script>
+  </body>
 </html>

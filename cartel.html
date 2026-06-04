@@ -1,0 +1,697 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Generador de carteles de Robotech URJC.">
+    <title>Generador de cartel | Robotech URJC</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main id="contenido" class="container poster-tool">
+      <section class="page-hero">
+        <p class="eyebrow">Carteles</p>
+        <h1>Generador de cartel Robotech.</h1>
+        <p>Elige estilo, formato, imagen y enlace. La vista previa se actualiza antes de descargar.</p>
+      </section>
+      <section class="section form-shell poster-layout">
+        <form class="panel poster-form" id="posterForm">
+          <label>Taller<input name="title" value="Taller de Git y GitHub"></label>
+
+          <input type="hidden" name="theme" value="tecnico">
+          <input type="hidden" name="posterPreset" value="tecnico-a">
+
+          <fieldset class="poster-format-picker">
+            <legend>Formato</legend>
+            <input class="sr-only" type="radio" name="format" id="format-feed" value="feed" checked>
+            <label for="format-feed"><span class="format-icon format-icon--feed"></span><strong>Vertical</strong><small>IG feed</small></label>
+            <input class="sr-only" type="radio" name="format" id="format-story" value="story">
+            <label for="format-story"><span class="format-icon format-icon--story"></span><strong>Story</strong><small>Reel</small></label>
+            <input class="sr-only" type="radio" name="format" id="format-square" value="square">
+            <label for="format-square"><span class="format-icon format-icon--square"></span><strong>Cuadrado</strong><small>Post</small></label>
+            <input class="sr-only" type="radio" name="format" id="format-landscape" value="landscape">
+            <label for="format-landscape"><span class="format-icon format-icon--landscape"></span><strong>Horizontal</strong><small>LinkedIn/X</small></label>
+            <input class="sr-only" type="radio" name="format" id="format-a4" value="a4">
+            <label for="format-a4"><span class="format-icon format-icon--a4"></span><strong>A4</strong><small>Imprimir</small></label>
+          </fieldset>
+
+          <label>Imagen de taller
+            <select name="image">
+              <option value="img/workshops/git.png">Git</option>
+              <option value="img/workshops/linux.png">Linux</option>
+              <option value="img/workshops/shell.png">Shell</option>
+              <option value="img/workshops/blender.png">Blender</option>
+              <option value="img/workshops/fusion.png">Fusión</option>
+            </select>
+          </label>
+          <div class="field-grid">
+            <label>Foto desde URL<input name="imageUrl" placeholder="https://.../foto.jpg"></label>
+            <label>Foto desde tu equipo<input name="imageFile" type="file" accept="image/*"></label>
+          </div>
+
+          <div class="field-grid"><label>Fecha<input name="date" value="Jueves 20 de junio"></label><label>Hora<input name="time" value="17:00 - 18:30"></label></div>
+          <label>Lugar<input name="place" value="Campus de Fuenlabrada · Aulario I"></label>
+          <label>Enlace para el QR<input name="link" value="https://robotech-urjc.github.io"></label>
+          <div class="field-grid poster-credit-grid">
+            <label>Créditos RAC<input name="credits" value="0,1 créditos RAC solicitados"></label>
+            <label class="check-field"><input type="checkbox" name="showCredits" checked> Mostrar créditos RAC</label>
+          </div>
+          <div class="button-row poster-actions">
+            <button class="button primary" type="submit">Generar cartel</button>
+            <button class="button secondary" type="button" id="downloadPoster">Descargar PNG</button>
+          </div>
+          <a class="text-link" href="talleres.html">Volver a talleres</a>
+        </form>
+        <aside class="poster-preview" aria-label="Previsualización de carteles">
+          <div class="poster-mini-grid" id="posterPresetGrid"></div>
+          <canvas id="posterCanvas" width="1080" height="1350" aria-label="Cartel ampliado"></canvas>
+        </aside>
+      </section>
+    </main>
+    <script src="qrcode.min.js"></script>
+    <script>
+      const canvas = document.getElementById('posterCanvas');
+      const ctx = canvas.getContext('2d');
+      const form = document.getElementById('posterForm');
+      const presetGrid = document.getElementById('posterPresetGrid');
+      const logo = new Image();
+      const posterImage = new Image();
+      let objectImageUrl = '';
+      let drawToken = 0;
+      logo.src = 'img/logo_no_underscore.png';
+      posterImage.crossOrigin = 'anonymous';
+      posterImage.src = form.elements.image.value;
+
+      const formats = {
+        feed: { width: 1080, height: 1350, label: 'instagram-vertical' },
+        story: { width: 1080, height: 1920, label: 'story-reel' },
+        square: { width: 1080, height: 1080, label: 'post-cuadrado' },
+        landscape: { width: 1200, height: 627, label: 'linkedin-x' },
+        a4: { width: 1240, height: 1754, label: 'a4' }
+      };
+
+      const themes = {
+        tecnico: { name: 'Técnica', bg: '#f7f8fb', ink: '#111216', muted: '#4b5563', panel: '#111216', panelText: '#ffffff', accent: '#e30613', accentText: '#ffffff', soft: '#ffffff', line: '#d8dde6', media: '#ffffff', motif: 'rails' },
+        noche: { name: 'Nocturna', bg: '#0d1017', ink: '#ffffff', muted: '#c7ceda', panel: '#171c26', panelText: '#ffffff', accent: '#e30613', accentText: '#ffffff', soft: '#ffffff', line: '#343b49', media: '#f8fafc', motif: 'night' },
+        limpio: { name: 'Limpia', bg: '#ffffff', ink: '#111216', muted: '#58616d', panel: '#ffffff', panelText: '#111216', accent: '#e30613', accentText: '#ffffff', soft: '#f3f5f8', line: '#d6dbe3', media: '#ffffff', motif: 'minimal' },
+        editorial: { name: 'Editorial', bg: '#f4f1eb', ink: '#121212', muted: '#5c554c', panel: '#ffffff', panelText: '#121212', accent: '#c91623', accentText: '#ffffff', soft: '#fffaf2', line: '#d9d0c1', media: '#ffffff', motif: 'editorial' },
+        industrial: { name: 'Industrial', bg: '#20242b', ink: '#f7f9fc', muted: '#d0d6df', panel: '#f3f4f6', panelText: '#111216', accent: '#e30613', accentText: '#ffffff', soft: '#ffffff', line: '#454b55', media: '#ffffff', motif: 'industrial' },
+        club: { name: 'Club', bg: '#e30613', ink: '#ffffff', muted: '#ffe1e4', panel: '#111216', panelText: '#ffffff', accent: '#ffffff', accentText: '#111216', soft: '#fff', line: '#ff9aa0', media: '#ffffff', motif: 'club' },
+        laboratorio: { name: 'Laboratorio', bg: '#f7f8fb', ink: '#101820', muted: '#52625b', panel: '#ffffff', panelText: '#101820', accent: '#e30613', accentText: '#ffffff', soft: '#ffffff', line: '#d8dde6', media: '#ffffff', motif: 'lab' },
+        plano: { name: 'Plano', bg: '#111216', ink: '#ffffff', muted: '#d8dde7', panel: '#191d25', panelText: '#ffffff', accent: '#e30613', accentText: '#ffffff', soft: '#ffffff', line: '#424a57', media: '#ffffff', motif: 'blueprint' }
+      };
+
+      const posterPresets = [
+        { id: 'tecnico-a', theme: 'tecnico', name: 'Técnica' },
+        { id: 'noche-a', theme: 'noche', name: 'Nocturna' },
+        { id: 'limpio-a', theme: 'limpio', name: 'Limpia' },
+        { id: 'editorial-a', theme: 'editorial', name: 'Editorial' },
+        { id: 'industrial-a', theme: 'industrial', name: 'Industrial' },
+        { id: 'club-a', theme: 'club', name: 'Club' },
+        { id: 'laboratorio-a', theme: 'laboratorio', name: 'Laboratorio' },
+        { id: 'plano-a', theme: 'plano', name: 'Plano' }
+      ];
+
+      function roundedRectOn(context, x, y, width, height, radius) {
+        const r = Math.min(radius, width / 2, height / 2);
+        context.beginPath();
+        context.moveTo(x + r, y);
+        context.arcTo(x + width, y, x + width, y + height, r);
+        context.arcTo(x + width, y + height, x, y + height, r);
+        context.arcTo(x, y + height, x, y, r);
+        context.arcTo(x, y, x + width, y, r);
+        context.closePath();
+      }
+
+      function roundedRect(x, y, width, height, radius) {
+        roundedRectOn(ctx, x, y, width, height, radius);
+      }
+
+      function drawContained(context, image, x, y, width, height) {
+        if (!image.complete || !image.naturalWidth) return false;
+        const scale = Math.min(width / image.naturalWidth, height / image.naturalHeight);
+        const drawWidth = image.naturalWidth * scale;
+        const drawHeight = image.naturalHeight * scale;
+        context.drawImage(image, x + (width - drawWidth) / 2, y + (height - drawHeight) / 2, drawWidth, drawHeight);
+        return true;
+      }
+
+      function drawCover(context, image, x, y, width, height) {
+        if (!image.complete || !image.naturalWidth) return false;
+        const scale = Math.max(width / image.naturalWidth, height / image.naturalHeight);
+        const sw = width / scale;
+        const sh = height / scale;
+        const sx = (image.naturalWidth - sw) / 2;
+        const sy = (image.naturalHeight - sh) / 2;
+        context.drawImage(image, sx, sy, sw, sh, x, y, width, height);
+        return true;
+      }
+
+      function normalizeLink(value) {
+        const link = String(value || '').trim();
+        if (!link) return 'https://robotech-urjc.github.io';
+        return /^https?:\/\//i.test(link) ? link : 'https://' + link;
+      }
+
+      async function buildQr(link, size) {
+        const qrWrapper = document.createElement('div');
+        qrWrapper.style.position = 'absolute';
+        qrWrapper.style.left = '-99999px';
+        qrWrapper.style.top = '0';
+        qrWrapper.style.width = `${size}px`;
+        qrWrapper.style.height = `${size}px`;
+        document.body.appendChild(qrWrapper);
+        try {
+          if (window.QRCode) {
+            new QRCode(qrWrapper, {
+              width: size,
+              height: size,
+              text: normalizeLink(link),
+              correctLevel: QRCode.CorrectLevel.M,
+              colorDark: '#111216',
+              colorLight: '#ffffff'
+            });
+            const rendered = qrWrapper.querySelector('canvas, img');
+            if (rendered) {
+              if (rendered.tagName === 'IMG' && rendered.decode) await rendered.decode().catch(() => {});
+              const qrCanvas = document.createElement('canvas');
+              qrCanvas.width = size;
+              qrCanvas.height = size;
+              const q = qrCanvas.getContext('2d');
+              q.fillStyle = '#ffffff';
+              q.fillRect(0, 0, size, size);
+              q.imageSmoothingEnabled = false;
+              q.drawImage(rendered, 0, 0, size, size);
+              return qrCanvas;
+            }
+          }
+        } finally {
+          qrWrapper.remove();
+        }
+        const qrCanvas = document.createElement('canvas');
+        qrCanvas.width = size;
+        qrCanvas.height = size;
+        const q = qrCanvas.getContext('2d');
+        q.fillStyle = '#ffffff';
+        q.fillRect(0, 0, size, size);
+        q.strokeStyle = '#111216';
+        q.lineWidth = Math.max(8, size * 0.04);
+        q.strokeRect(size * 0.08, size * 0.08, size * 0.84, size * 0.84);
+        q.fillStyle = '#111216';
+        q.font = `900 ${Math.round(size * 0.16)}px Inter, sans-serif`;
+        q.textAlign = 'center';
+        q.fillText('QR', size / 2, size * 0.56);
+        q.textAlign = 'start';
+        return qrCanvas;
+      }
+
+      function splitText(context, text, maxWidth) {
+        const words = String(text || '').trim().split(/\s+/).filter(Boolean);
+        const lines = [];
+        let row = '';
+        for (const word of words) {
+          const test = row ? `${row} ${word}` : word;
+          if (context.measureText(test).width > maxWidth && row) {
+            lines.push(row);
+            row = word;
+          } else {
+            row = test;
+          }
+        }
+        if (row) lines.push(row);
+        return lines;
+      }
+
+      function fitTextBlock(context, text, x, y, maxWidth, maxHeight, options) {
+        const weight = options.weight || 900;
+        const minSize = options.minSize || 28;
+        const maxLines = options.maxLines || 4;
+        let size = options.size;
+        let lines = [];
+        while (size >= minSize) {
+          context.font = `${weight} ${size}px Inter, sans-serif`;
+          lines = splitText(context, text, maxWidth);
+          if (lines.length <= maxLines && lines.length * size * 1.08 <= maxHeight) break;
+          size -= 4;
+        }
+        context.font = `${weight} ${size}px Inter, sans-serif`;
+        lines = splitText(context, text, maxWidth).slice(0, maxLines);
+        if (lines.length === maxLines) {
+          let last = lines[lines.length - 1];
+          while (context.measureText(last + '...').width > maxWidth && last.length > 4) last = last.slice(0, -1);
+          lines[lines.length - 1] = last.trim() + (splitText(context, text, maxWidth).length > maxLines ? '...' : '');
+        }
+        const lineHeight = size * 1.08;
+        lines.forEach((line, index) => context.fillText(line, x, y + index * lineHeight));
+        return { height: lines.length * lineHeight, size, lines };
+      }
+
+
+      function clampText(value, fallback) {
+        return String(value || fallback || '').replace(/\s+/g, ' ').trim();
+      }
+
+      function drawTextBox(context, text, box, options) {
+        context.save();
+        context.beginPath();
+        context.rect(box.x, box.y, box.w, box.h);
+        context.clip();
+        context.fillStyle = options.color;
+        context.textBaseline = 'alphabetic';
+        const result = fitTextBlock(context, clampText(text, options.fallback), box.x, box.y + options.firstBaseline, box.w, box.h - options.topPad, {
+          size: options.size,
+          minSize: options.minSize,
+          weight: options.weight,
+          maxLines: options.maxLines
+        });
+        context.restore();
+        return result;
+      }
+
+      function drawLabel(context, text, x, y, size, color) {
+        context.fillStyle = color;
+        context.font = `900 ${size}px Inter, sans-serif`;
+        context.fillText(text, x, y);
+      }
+
+      function drawInfoPanel(x, y, width, height, theme, scale) {
+        ctx.fillStyle = theme.panel;
+        roundedRect(x, y, width, height, Math.max(10, 14 * scale));
+        ctx.fill();
+        ctx.fillStyle = theme.accent;
+        ctx.fillRect(x, y, Math.max(10, 16 * scale), height);
+      }
+
+      function drawQrBlock(qrCanvas, x, y, size, scale) {
+        ctx.save();
+        ctx.imageSmoothingEnabled = false;
+        ctx.fillStyle = '#ffffff';
+        roundedRect(x, y, size, size, Math.max(8, 12 * scale));
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(17,18,22,0.18)';
+        ctx.lineWidth = Math.max(1, 2 * scale);
+        ctx.stroke();
+        ctx.drawImage(qrCanvas, x + size * 0.06, y + size * 0.06, size * 0.88, size * 0.88);
+        ctx.restore();
+      }
+
+      function drawCreditPill(text, x, y, maxWidth, theme, scale) {
+        const pillH = Math.max(38 * scale, 52 * scale);
+        let size = Math.round(pillH * 0.42);
+        ctx.font = `850 ${size}px Inter, sans-serif`;
+        while (ctx.measureText(text).width + pillH * 1.15 > maxWidth && size > 14 * scale) {
+          size -= 2;
+          ctx.font = `850 ${size}px Inter, sans-serif`;
+        }
+        const pillW = Math.min(maxWidth, ctx.measureText(text).width + pillH * 1.15);
+        ctx.fillStyle = theme.accent;
+        roundedRect(x, y, pillW, pillH, pillH / 2);
+        ctx.fill();
+        ctx.fillStyle = theme.accentText;
+        ctx.fillText(text, x + pillH * 0.48, y + pillH * 0.66);
+      }
+
+      function drawLogoPlate(x, y, width, height, scale = 1) {
+        ctx.fillStyle = '#ffffff';
+        roundedRect(x, y, width, height, Math.max(8, height * 0.18));
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(17,18,22,0.12)';
+        ctx.lineWidth = Math.max(1, 2 * scale);
+        ctx.stroke();
+        drawContained(ctx, logo, x + width * 0.08, y + height * 0.18, width * 0.84, height * 0.64);
+      }
+
+      function drawMotif(theme, w, h) {
+        ctx.fillStyle = theme.bg;
+        ctx.fillRect(0, 0, w, h);
+        if (theme.motif === 'rails') {
+          ctx.fillStyle = 'rgba(227,6,19,0.10)';
+          ctx.fillRect(w * 0.78, 0, w * 0.22, h);
+          ctx.fillStyle = theme.accent;
+          ctx.fillRect(0, 0, w, Math.max(12, h * 0.016));
+        }
+        if (theme.motif === 'night') {
+          const gradient = ctx.createLinearGradient(0, 0, w, h);
+          gradient.addColorStop(0, '#0d1017');
+          gradient.addColorStop(1, '#232837');
+          ctx.fillStyle = gradient;
+          ctx.fillRect(0, 0, w, h);
+          ctx.fillStyle = 'rgba(227,6,19,0.20)';
+          ctx.fillRect(w * 0.72, 0, w * 0.28, h);
+        }
+        if (theme.motif === 'minimal') {
+          ctx.fillStyle = '#f3f5f8';
+          ctx.fillRect(0, h * 0.72, w, h * 0.28);
+          ctx.fillStyle = theme.accent;
+          ctx.fillRect(0, 0, w, Math.max(10, h * 0.012));
+        }
+        if (theme.motif === 'editorial') {
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(w * 0.06, h * 0.08, w * 0.88, h * 0.84);
+          ctx.fillStyle = 'rgba(201,22,35,0.12)';
+          ctx.fillRect(w * 0.72, 0, w * 0.12, h);
+        }
+        if (theme.motif === 'industrial') {
+          ctx.fillStyle = '#2f343d';
+          for (let x = -w; x < w * 2; x += w * 0.18) {
+            ctx.save();
+            ctx.translate(x, 0);
+            ctx.rotate(-0.55);
+            ctx.fillRect(0, 0, w * 0.06, h * 1.8);
+            ctx.restore();
+          }
+          ctx.fillStyle = 'rgba(227,6,19,0.16)';
+          ctx.fillRect(0, 0, w, h * 0.08);
+        }
+        if (theme.motif === 'club') {
+          ctx.fillStyle = '#111216';
+          ctx.fillRect(0, h * 0.68, w, h * 0.32);
+          ctx.fillStyle = 'rgba(255,255,255,0.16)';
+          ctx.fillRect(w * 0.70, 0, w * 0.18, h);
+          ctx.fillRect(w * 0.10, h * 0.12, w * 0.06, h * 0.56);
+        }
+        if (theme.motif === 'lab') {
+          ctx.fillStyle = 'rgba(227,6,19,0.12)';
+          ctx.fillRect(0, h * 0.68, w, h * 0.32);
+          ctx.fillStyle = theme.accent;
+          ctx.fillRect(0, 0, w, Math.max(10, h * 0.014));
+          ctx.fillRect(w * 0.84, 0, w * 0.04, h);
+        }
+        if (theme.motif === 'blueprint') {
+          ctx.strokeStyle = 'rgba(104,216,255,0.16)';
+          ctx.lineWidth = Math.max(1, w * 0.0015);
+          for (let x = 0; x < w; x += w * 0.08) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke(); }
+          for (let y = 0; y < h; y += h * 0.06) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
+        }
+      }
+
+      function currentImageMode() {
+        const file = form.elements.imageFile.files[0];
+        const url = form.elements.imageUrl.value.trim();
+        if (file || url) return 'photo';
+        return 'icon';
+      }
+
+      function drawVisualBox(x, y, width, height, theme, mode) {
+        ctx.fillStyle = theme.media;
+        roundedRect(x, y, width, height, Math.max(10, width * 0.025));
+        ctx.fill();
+        ctx.strokeStyle = theme.line;
+        ctx.lineWidth = Math.max(2, Math.min(width, height) * 0.008);
+        ctx.stroke();
+        ctx.save();
+        roundedRect(x + 10, y + 10, width - 20, height - 20, Math.max(8, width * 0.02));
+        ctx.clip();
+        if (mode === 'photo') {
+          drawCover(ctx, posterImage, x + 10, y + 10, width - 20, height - 20);
+        } else {
+          drawContained(ctx, posterImage, x + width * 0.16, y + height * 0.16, width * 0.68, height * 0.68);
+        }
+        ctx.restore();
+      }
+
+      async function drawPoster() {
+        const token = ++drawToken;
+        const data = new FormData(form);
+        const format = formats[data.get('format')] || formats.feed;
+        const activePreset = posterPresets.find(item => item.id === data.get('posterPreset')) || posterPresets[0];
+        const theme = themes[activePreset.theme] || themes.tecnico;
+        const w = format.width;
+        const h = format.height;
+        const s = Math.min(w, h) / 1080;
+        const landscape = w / h > 1.45;
+        const mode = currentImageMode();
+        const title = clampText(data.get('title'), 'Taller Robotech');
+        const date = clampText(data.get('date'), 'Fecha por confirmar');
+        const time = clampText(data.get('time'), 'Hora por confirmar');
+        const place = clampText(data.get('place'), 'Campus de Fuenlabrada');
+        const credit = clampText(data.get('credits'), '0,1 créditos RAC solicitados');
+        const qrCanvas = await buildQr(data.get('link'), 520);
+        if (token !== drawToken) return;
+
+        canvas.width = w;
+        canvas.height = h;
+        drawMotif(theme, w, h);
+
+        const m = Math.round(Math.min(w, h) * (landscape ? 0.055 : 0.067));
+        const logoW = Math.round(Math.min(w * (landscape ? 0.23 : 0.34), 370 * s));
+        const logoH = Math.round(82 * s);
+        drawLogoPlate(m, m * 0.70, logoW, logoH, s);
+
+        if (landscape) {
+          const leftX = m;
+          const leftY = m * 2.25;
+          const leftW = Math.round(w * 0.54);
+          const leftH = h - leftY - m;
+          const pad = Math.round(m * 0.44);
+          const visualX = leftX + leftW + m * 0.75;
+          const visualY = m * 0.78;
+          const visualW = w - visualX - m;
+          const visualH = Math.round(h * 0.53);
+          const qrSize = Math.round(Math.min(h * 0.23, visualW * 0.36));
+          const bottomY = visualY + visualH + m * 0.42;
+          const bottomH = h - bottomY - m;
+
+          drawInfoPanel(leftX, leftY, leftW, leftH, theme, s);
+          drawLabel(ctx, 'ROBOTECH URJC · TALLER', leftX + pad, leftY + pad * 1.05, Math.round(22 * s), theme.accent === '#ffffff' ? '#ffbec2' : theme.accent);
+          drawTextBox(ctx, title, { x: leftX + pad, y: leftY + pad * 1.45, w: leftW - pad * 2, h: leftH * 0.47 }, {
+            color: theme.panelText, size: 64 * s, minSize: 31 * s, weight: 900, maxLines: 3, firstBaseline: 58 * s, topPad: 20 * s, fallback: 'Taller Robotech'
+          });
+          const scheduleTop = leftY + leftH * 0.66;
+          drawTextBox(ctx, date, { x: leftX + pad, y: scheduleTop, w: leftW - pad * 2, h: leftH * 0.14 }, {
+            color: theme.panelText, size: 31 * s, minSize: 20 * s, weight: 850, maxLines: 1, firstBaseline: 32 * s, topPad: 0, fallback: 'Fecha por confirmar'
+          });
+          drawTextBox(ctx, time, { x: leftX + pad, y: scheduleTop + leftH * 0.14, w: leftW - pad * 2, h: leftH * 0.13 }, {
+            color: theme.panelText, size: 31 * s, minSize: 20 * s, weight: 850, maxLines: 1, firstBaseline: 32 * s, topPad: 0, fallback: 'Hora por confirmar'
+          });
+
+          drawVisualBox(visualX, visualY, visualW, visualH, theme, mode);
+          drawLabel(ctx, 'QR', visualX, bottomY - 8 * s, Math.round(24 * s), theme.ink);
+          drawQrBlock(qrCanvas, visualX, bottomY, qrSize, s);
+          drawLabel(ctx, 'Escanea', visualX + qrSize + m * 0.36, bottomY + 26 * s, Math.round(24 * s), theme.ink);
+          drawTextBox(ctx, place, { x: visualX + qrSize + m * 0.36, y: bottomY + 42 * s, w: w - visualX - qrSize - m * 1.45, h: bottomH * 0.52 }, {
+            color: theme.ink, size: 23 * s, minSize: 15 * s, weight: 650, maxLines: 3, firstBaseline: 24 * s, topPad: 0, fallback: 'Campus de Fuenlabrada'
+          });
+          if (data.get('showCredits')) drawCreditPill(credit, visualX + qrSize + m * 0.36, bottomY + bottomH - 48 * s, w - visualX - qrSize - m * 1.45, theme, s);
+        } else {
+          const topY = m + logoH + m * 0.62;
+          const footerH = Math.round(46 * s);
+          const showCredits = Boolean(data.get('showCredits'));
+          const creditsH = showCredits ? Math.round(58 * s) : 0;
+          const qrSize = Math.round(Math.min(w * 0.22, h * 0.145));
+          const detailH = Math.round(Math.max(qrSize + 28 * s, h * 0.19));
+          const gap = Math.round(m * 0.48);
+          const available = h - topY - detailH - creditsH - footerH - m * 1.65 - gap * 2;
+          const titleH = Math.round(Math.min(Math.max(h * 0.17, 175 * s), available * 0.34));
+          const visualY = topY + titleH + gap;
+          const visualH = Math.round(Math.max(220 * s, available - titleH));
+          const detailY = visualY + visualH + gap;
+          const textX = m;
+          const textW = w - m * 2;
+
+          drawLabel(ctx, 'ROBOTECH URJC · TALLER', textX, topY + 28 * s, Math.round(27 * s), theme.accent === '#ffffff' ? theme.ink : theme.accent);
+          drawTextBox(ctx, title, { x: textX, y: topY + 44 * s, w: textW, h: titleH - 44 * s }, {
+            color: theme.ink, size: 76 * s, minSize: 38 * s, weight: 900, maxLines: 4, firstBaseline: 70 * s, topPad: 10 * s, fallback: 'Taller Robotech'
+          });
+
+          drawVisualBox(m, visualY, w - m * 2, visualH, theme, mode);
+          const qrX = w - m - qrSize;
+          const qrY = detailY + 10 * s;
+          drawLabel(ctx, 'QR', qrX, qrY - 8 * s, Math.round(24 * s), theme.ink);
+          drawQrBlock(qrCanvas, qrX, qrY, qrSize, s);
+          drawLabel(ctx, 'Escanea', m, detailY + 6 * s, Math.round(24 * s), theme.ink);
+          drawTextBox(ctx, date, { x: m, y: detailY + 8 * s, w: w - m * 3 - qrSize, h: detailH * 0.24 }, {
+            color: theme.ink, size: 37 * s, minSize: 22 * s, weight: 850, maxLines: 1, firstBaseline: 37 * s, topPad: 0, fallback: 'Fecha por confirmar'
+          });
+          drawTextBox(ctx, time, { x: m, y: detailY + detailH * 0.25, w: w - m * 3 - qrSize, h: detailH * 0.22 }, {
+            color: theme.ink, size: 34 * s, minSize: 21 * s, weight: 800, maxLines: 1, firstBaseline: 34 * s, topPad: 0, fallback: 'Hora por confirmar'
+          });
+          drawLabel(ctx, 'Dónde', m, detailY + detailH * 0.58, Math.round(29 * s), theme.ink);
+          drawTextBox(ctx, place, { x: m, y: detailY + detailH * 0.61, w: w - m * 3 - qrSize, h: detailH * 0.35 }, {
+            color: theme.ink, size: 28 * s, minSize: 18 * s, weight: 650, maxLines: 3, firstBaseline: 31 * s, topPad: 0, fallback: 'Campus de Fuenlabrada'
+          });
+          if (showCredits) drawCreditPill(credit, m, detailY + detailH + gap * 0.2, w - m * 2, theme, s);
+        }
+
+        ctx.fillStyle = theme.motif === 'club' ? '#ffffff' : theme.accent;
+        const footer = normalizeLink(data.get('link'));
+        drawTextBox(ctx, footer, { x: m, y: h - Math.max(38 * s, m * 0.42), w: w - m * 2, h: 34 * s }, {
+          color: theme.motif === 'club' ? '#ffffff' : theme.accent, size: (landscape ? 18 : 22) * s, minSize: 13 * s, weight: 850, maxLines: 1, firstBaseline: 23 * s, topPad: 0, fallback: 'robotech-urjc.github.io'
+        });
+      }
+
+      async function drawMiniPoster(canvasEl, preset, linkValue) {
+        const context = canvasEl.getContext('2d');
+        const theme = themes[preset.theme];
+        const data = new FormData(form);
+        const link = normalizeLink(linkValue || data.get('link'));
+        const qrCanvas = await buildQr(link, 120);
+        const w = canvasEl.width;
+        const h = canvasEl.height;
+        context.fillStyle = theme.bg;
+        context.fillRect(0, 0, w, h);
+        if (theme.motif === 'night') {
+          const gradient = context.createLinearGradient(0, 0, w, h);
+          gradient.addColorStop(0, '#0d1017');
+          gradient.addColorStop(1, '#232837');
+          context.fillStyle = gradient;
+          context.fillRect(0, 0, w, h);
+        }
+        if (theme.motif === 'club') {
+          context.fillStyle = '#111216';
+          context.fillRect(0, h * 0.68, w, h * 0.32);
+        }
+        if (theme.motif === 'industrial') {
+          context.fillStyle = '#3a404a';
+          for (let x = -w; x < w * 2; x += w * 0.26) {
+            context.save();
+            context.translate(x, 0);
+            context.rotate(-0.5);
+            context.fillRect(0, 0, w * 0.08, h * 1.8);
+            context.restore();
+          }
+        }
+        if (theme.motif === 'blueprint') {
+          context.strokeStyle = 'rgba(104,216,255,0.18)';
+          context.lineWidth = 1;
+          for (let x = 0; x < w; x += 14) { context.beginPath(); context.moveTo(x, 0); context.lineTo(x, h); context.stroke(); }
+          for (let y = 0; y < h; y += 14) { context.beginPath(); context.moveTo(0, y); context.lineTo(w, y); context.stroke(); }
+        }
+        context.fillStyle = theme.accent;
+        context.fillRect(0, 0, w, 7);
+        context.fillStyle = '#ffffff';
+        roundedRectOn(context, 12, 14, 62, 18, 5);
+        context.fill();
+        context.fillStyle = '#111216';
+        context.fillRect(19, 21, 48, 3);
+        context.fillStyle = theme.panel;
+        roundedRectOn(context, 12, 44, w - 24, 86, 8);
+        context.fill();
+        context.fillStyle = theme.accent;
+        context.fillRect(12, 44, 7, 86);
+        context.fillStyle = theme.panelText;
+        context.font = '900 11px Inter, sans-serif';
+        const title = String(data.get('title') || 'Taller Robotech').slice(0, 32);
+        const titleLines = splitText(context, title, w - 54).slice(0, 3);
+        titleLines.forEach((line, index) => context.fillText(line, 28, 66 + index * 13));
+        context.fillStyle = theme.media;
+        roundedRectOn(context, w - 48, 58, 28, 28, 5);
+        context.fill();
+        drawContained(context, posterImage, w - 44, 62, 20, 20);
+        context.fillStyle = theme.ink;
+        context.font = '800 9px Inter, sans-serif';
+        context.fillText(String(data.get('date') || 'Fecha').slice(0, 18), 14, 148);
+        context.fillText(String(data.get('time') || 'Hora').slice(0, 18), 14, 160);
+        context.fillStyle = '#ffffff';
+        roundedRectOn(context, w - 42, h - 48, 30, 30, 4);
+        context.fill();
+        context.drawImage(qrCanvas, w - 39, h - 45, 24, 24);
+        context.fillStyle = theme.accent;
+        roundedRectOn(context, 12, h - 28, Math.min(w - 62, 86), 16, 8);
+        context.fill();
+      }
+
+      async function refreshPresetPreviews() {
+        const link = normalizeLink(form.elements.link.value);
+        const items = Array.from(document.querySelectorAll('[data-poster-preset]'));
+        for (const button of items) {
+          const preset = posterPresets.find(item => item.id === button.dataset.posterPreset);
+          const canvasEl = button.querySelector('canvas');
+          if (preset && canvasEl) await drawMiniPoster(canvasEl, preset, link);
+          button.classList.toggle('is-active', form.elements.posterPreset.value === button.dataset.posterPreset);
+        }
+      }
+
+      function buildPresetGrid() {
+        presetGrid.innerHTML = '';
+        posterPresets.forEach((preset, index) => {
+          const button = document.createElement('button');
+          button.className = 'poster-mini-card';
+          button.type = 'button';
+          button.dataset.posterPreset = preset.id;
+          button.setAttribute('aria-label', `Ampliar cartel ${preset.name}`);
+          const mini = document.createElement('canvas');
+          mini.width = 150;
+          mini.height = 190;
+          const label = document.createElement('span');
+          label.textContent = `${index + 1}. ${preset.name}`;
+          button.append(mini, label);
+          button.addEventListener('click', () => {
+            form.elements.posterPreset.value = preset.id;
+            form.elements.theme.value = preset.theme;
+            void refreshPresetPreviews();
+            drawPoster();
+          });
+          presetGrid.append(button);
+        });
+        void refreshPresetPreviews();
+      }
+
+      function loadPosterImageFromFields() {
+        const file = form.elements.imageFile.files[0];
+        const url = form.elements.imageUrl.value.trim();
+        if (file) {
+          if (objectImageUrl) URL.revokeObjectURL(objectImageUrl);
+          objectImageUrl = URL.createObjectURL(file);
+          posterImage.removeAttribute('crossorigin');
+          posterImage.src = objectImageUrl;
+          return;
+        }
+        if (url) {
+          if (objectImageUrl) URL.revokeObjectURL(objectImageUrl);
+          objectImageUrl = '';
+          posterImage.crossOrigin = 'anonymous';
+          posterImage.src = normalizeLink(url);
+          return;
+        }
+        if (objectImageUrl) URL.revokeObjectURL(objectImageUrl);
+        objectImageUrl = '';
+        posterImage.crossOrigin = 'anonymous';
+        posterImage.src = form.elements.image.value;
+      }
+
+      logo.onload = () => drawPoster();
+      posterImage.onload = () => { void refreshPresetPreviews(); drawPoster(); };
+      posterImage.onerror = () => {
+        posterImage.crossOrigin = 'anonymous';
+        posterImage.src = form.elements.image.value;
+      };
+      buildPresetGrid();
+      void refreshPresetPreviews();
+      form.elements.image.addEventListener('change', loadPosterImageFromFields);
+      form.elements.imageUrl.addEventListener('change', loadPosterImageFromFields);
+      form.elements.imageFile.addEventListener('change', loadPosterImageFromFields);
+      form.addEventListener('input', event => {
+        if (event.target.name !== 'imageUrl') {
+          void refreshPresetPreviews();
+          drawPoster();
+        }
+      });
+      form.addEventListener('change', event => {
+        if (!['image', 'imageUrl', 'imageFile'].includes(event.target.name)) {
+          void refreshPresetPreviews();
+          drawPoster();
+        }
+      });
+      form.addEventListener('submit', e => { e.preventDefault(); drawPoster(); });
+      document.getElementById('downloadPoster').addEventListener('click', async () => {
+        await drawPoster();
+        const data = new FormData(form);
+        const format = formats[data.get('format')] || formats.feed;
+        const slug = String(data.get('title') || 'cartel').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+        const a = document.createElement('a');
+        a.download = `cartel-${slug || 'robotech'}-${format.label}.png`;
+        try {
+          a.href = canvas.toDataURL('image/png');
+          a.click();
+        } catch (error) {
+          alert('No se puede descargar con esa imagen externa porque el servidor no permite usarla en canvas. Sube el archivo desde tu equipo para descargar el cartel.');
+        }
+      });
+      drawPoster();
+    </script>
+  </body>
+</html>

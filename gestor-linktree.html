@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Gestor estático del linktree de Robotech URJC.">
+    <title>Gestor Linktree | Robotech URJC</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="container admin-tool linktree-admin">
+      <section class="page-hero">
+        <p class="eyebrow">Gestor Linktree</p>
+        <h1>Editar la página del QR.</h1>
+        <p>Herramienta estática para modificar perfil, apariencia, entradas, iconos e imágenes. Descarga el <code>linktree-data.js</code> generado y súbelo al repo.</p>
+        <div class="button-row"><a class="button secondary" href="qr.html">Ver linktree</a><a class="button secondary" href="gestor-contenido.html">Gestor general</a></div>
+      </section>
+
+      <section class="section linktree-admin-grid">
+        <div class="linktree-admin-forms">
+          <form class="panel admin-panel" data-profile-form>
+            <div class="section-title"><p class="eyebrow">Perfil</p><h2>Cabecera y estilo</h2></div>
+            <label>Título<input name="title"></label>
+            <label>Kicker<input name="kicker"></label>
+            <label>Descripción<textarea name="description" rows="3"></textarea></label>
+            <div class="field-grid"><label>Logo<input name="logo"></label><label>Mascota/footer<input name="mascot"></label></div>
+            <label>Texto footer<input name="footer"></label>
+            <div class="field-grid"><label>Fondo<input name="backgroundImage"></label><label>Color acento<input name="accent" type="color"></label></div>
+            <label>Estilo
+              <select name="theme"><option value="dark">Oscuro técnico</option><option value="light">Claro limpio</option></select>
+            </label>
+            <button class="button primary" type="submit">Actualizar perfil</button>
+          </form>
+
+          <form class="panel admin-panel" data-main-form>
+            <div class="section-title"><p class="eyebrow">Principal</p><h2>Enlace grande</h2></div>
+            <label>Título<input name="title"></label>
+            <label>Descripción<input name="description"></label>
+            <div class="field-grid"><label>URL<input name="href"></label><label>Imagen<input name="image"></label></div>
+            <label>Alt imagen<input name="alt"></label>
+            <button class="button primary" type="submit">Actualizar principal</button>
+          </form>
+
+          <form class="panel admin-panel" data-entry-form>
+            <div class="section-title"><p class="eyebrow">Entradas</p><h2>Añadir o editar link</h2></div>
+            <input type="hidden" name="editingIndex" value="">
+            <label>Tipo
+              <select name="type"><option value="links">Lista principal</option><option value="iconLinks">Fila de iconos</option><option value="quickLinks">Acceso rápido</option><option value="featured">Destacado visual</option></select>
+            </label>
+            <div class="field-grid"><label>Clave<input name="key" placeholder="instagram"></label><label>Título<input name="title" required></label></div>
+            <label>Descripción<input name="description" placeholder="Solo para lista principal"></label>
+            <div class="field-grid"><label>URL<input name="href" placeholder="Opcional para iconos"></label><label>Icono<select name="icon"><option value="mail">Email</option><option value="github">GitHub</option><option value="instagram">Instagram</option><option value="linkedin">LinkedIn</option><option value="discord">Discord</option><option value="web">Web</option><option value="heart">Apoyar</option><option value="x">X</option></select></label></div>
+            <div class="field-grid"><label>Imagen<input name="image" placeholder="img/..."></label><label>Alt<input name="alt"></label></div>
+            <div class="field-grid"><label>Color destacado<input name="color" type="color" value="#e30613"></label><label class="checkbox-line"><input type="checkbox" name="useColor"> Usar color propio</label></div>
+            <label class="checkbox-line"><input type="checkbox" name="featuredFlag"> Resaltar con estilo rojo</label>
+            <button class="button primary" type="submit">Guardar entrada</button>
+          </form>
+
+          <section class="panel admin-panel">
+            <div class="section-title"><p class="eyebrow">Entradas actuales</p><h2>Ordenar y borrar</h2></div>
+            <div class="linktree-admin-lists" data-entry-lists></div>
+          </section>
+        </div>
+
+        <aside class="linktree-admin-preview">
+          <div class="section-title"><p class="eyebrow">Preview</p><h2>Así queda.</h2></div>
+          <div class="linktree-phone">
+            <main class="qr-shell" data-preview-root aria-label="Preview linktree"></main>
+          </div>
+          <div class="button-row"><button class="button secondary" type="button" id="copyLinktreeData">Copiar JS</button><button class="button secondary" type="button" id="saveLinktreeLocal">Actualizar linktree-data.js</button><button class="button primary" type="button" id="downloadLinktreeData">Descargar linktree-data.js</button></div>
+          <label class="admin-code-label">linktree-data.js generado<textarea id="linktreeOutput" rows="12" spellcheck="false"></textarea></label>
+        </aside>
+      </section>
+    </main>
+
+    <script src="linktree-data.js"></script>
+    <script>
+      const linktree = structuredClone(window.ROBOTECH_LINKTREE || { profile: {}, appearance: {}, main: {}, quickLinks: [], iconLinks: [], links: [], featured: [] });
+      linktree.iconLinks ||= [];
+      linktree.quickLinks ||= [];
+      linktree.links ||= [];
+      linktree.featured ||= [];
+      const output = document.getElementById('linktreeOutput');
+      const listsRoot = document.querySelector('[data-entry-lists]');
+      const esc = value => String(value || '').replace(/[&<>\"]/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[char]));
+      const slug = value => String(value || '').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+      const dataFile = () => `window.ROBOTECH_LINKTREE = ${JSON.stringify(linktree, null, 2)};\n`;
+
+      const iconPaths = {
+        mail: '<path d="M4 6h16v12H4z"></path><path d="m4 7 8 6 8-6"></path>',
+        github: '<path d="M9 19c-4 1.5-4-2-6-2.5"></path><path d="M15 22v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6A4.6 4.6 0 0 0 18.7 7c.1-.3.6-1.6-.1-3.3 0 0-1.1-.3-3.5 1.3a12.2 12.2 0 0 0-6.2 0C6.5 3.4 5.4 3.7 5.4 3.7 4.7 5.4 5.2 6.7 5.3 7A4.6 4.6 0 0 0 4 10.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V22"></path>',
+        instagram: '<rect x="4" y="4" width="16" height="16" rx="4"></rect><circle cx="12" cy="12" r="3.2"></circle><path d="M17.5 6.5h.01"></path>',
+        linkedin: '<path d="M6.5 10v8"></path><path d="M6.5 6v.01"></path><path d="M10.5 18v-8"></path><path d="M10.5 13.5c0-2 1.2-3.8 3.5-3.8 2 0 3.5 1.3 3.5 4V18"></path><rect x="3" y="3" width="18" height="18" rx="2"></rect>',
+        discord: '<path d="M8.7 8.6c2.2-.7 4.4-.7 6.6 0"></path><path d="M7.4 16.8c3.1 1.4 6.1 1.4 9.2 0"></path><path d="M9.2 13.4h.01"></path><path d="M14.8 13.4h.01"></path><path d="M7.2 5.5c3.4-1.3 6.9-1.3 10.3 0 1.7 2.7 2.5 5.6 2.4 8.8-2.1 1.8-4.2 2.9-6.3 3.3l-.8-1.5"></path><path d="M6.5 5.8C4.8 8.4 4 11.2 4.1 14.3c2.1 1.8 4.2 2.9 6.3 3.3l.8-1.5"></path>',
+        web: '<path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Z"></path><path d="M2 12h20"></path><path d="M12 2c2.5 2.7 3.8 6 3.8 10S14.5 19.3 12 22c-2.5-2.7-3.8-6-3.8-10S9.5 4.7 12 2Z"></path>',
+        heart: '<path d="M12 21s-7-4.4-9-10.2C1.9 7.5 3.9 4 7.4 4c2 0 3.5 1.1 4.6 2.7C13.1 5.1 14.6 4 16.6 4c3.5 0 5.5 3.5 4.4 6.8C19 16.6 12 21 12 21Z"></path>',
+        x: '<path d="m4 4 16 16"></path><path d="M20 4 4 20"></path>'
+      };
+      const iconSvg = name => `<svg viewBox="0 0 24 24">${iconPaths[name] || iconPaths.web}</svg>`;
+      const itemStyle = item => item.color ? ` style="--item-accent: ${esc(item.color)}"` : '';
+
+      const profileForm = document.querySelector('[data-profile-form]');
+      const mainForm = document.querySelector('[data-main-form]');
+      const entryForm = document.querySelector('[data-entry-form]');
+
+      function fillForms() {
+        const p = linktree.profile || {};
+        const a = linktree.appearance || {};
+        Object.assign(profileForm.elements, {});
+        profileForm.elements.title.value = p.title || '';
+        profileForm.elements.kicker.value = p.kicker || '';
+        profileForm.elements.description.value = p.description || '';
+        profileForm.elements.logo.value = p.logo || '';
+        profileForm.elements.mascot.value = p.mascot || '';
+        profileForm.elements.footer.value = p.footer || '';
+        profileForm.elements.backgroundImage.value = a.backgroundImage || '';
+        profileForm.elements.accent.value = a.accent || '#e30613';
+        profileForm.elements.theme.value = a.theme || 'dark';
+        const m = linktree.main || {};
+        mainForm.elements.title.value = m.title || '';
+        mainForm.elements.description.value = m.description || '';
+        mainForm.elements.href.value = m.href || '';
+        mainForm.elements.image.value = m.image || '';
+        mainForm.elements.alt.value = m.alt || '';
+      }
+
+      function renderPreview() {
+        const root = document.querySelector('[data-preview-root]');
+        const p = linktree.profile || {}, a = linktree.appearance || {}, m = linktree.main || {};
+        root.style.setProperty('--qr-accent', a.accent || '#e30613');
+        root.innerHTML = `
+          <section class="qr-profile"><a class="qr-logo"><img src="${esc(p.logo || 'img/logo_no_underscore.png')}" alt="Robotech URJC"></a><p class="qr-kicker">${esc(p.kicker)}</p><h1>${esc(p.title)}</h1><p>${esc(p.description)}</p></section>
+          <a class="qr-main-link" href="${esc(m.href)}"><span class="qr-main-link__media"><img src="${esc(m.image)}" alt="${esc(m.alt)}"></span><span class="qr-main-link__copy"><strong>${esc(m.title)}</strong><small>${esc(m.description)}</small></span></a>
+          <nav class="qr-icon-row">${(linktree.iconLinks || []).map(item => `<a title="${esc(item.title)}"${itemStyle(item)}>${iconSvg(item.icon)}</a>`).join('')}</nav>
+          <section class="qr-quick-grid">${(linktree.quickLinks || []).map(item => `<a${itemStyle(item)}><img src="${esc(item.image)}" alt=""><span>${esc(item.title)}</span></a>`).join('')}</section>
+          <section class="qr-link-stack">${(linktree.links || []).map(item => `<a class="qr-link ${item.featured ? 'qr-link--discord' : ''}"${itemStyle(item)}><span class="qr-link__icon">${item.image ? `<img src="${esc(item.image)}" alt="">` : (item.icon || 'web').slice(0,2).toUpperCase()}</span><span><strong>${esc(item.title)}</strong><small>${esc(item.description)}</small></span></a>`).join('')}</section>
+          <section class="qr-feature-strip">${(linktree.featured || []).map(item => `<a${itemStyle(item)}><img src="${esc(item.image)}" alt=""><span>${esc(item.title)}</span></a>`).join('')}</section>
+          <footer class="qr-footer"><img src="${esc(p.mascot || 'img/PET.png')}" alt=""><span>${esc(p.footer)}</span></footer>`;
+      }
+
+      function renderLists() {
+        listsRoot.replaceChildren();
+        ['iconLinks', 'quickLinks', 'links', 'featured'].forEach(type => {
+          const group = document.createElement('section');
+          group.className = 'admin-list-group';
+          group.innerHTML = `<h3>${type}</h3>`;
+          (linktree[type] || []).forEach((item, index) => {
+            const row = document.createElement('article');
+            row.className = 'admin-row admin-row--draggable';
+            row.draggable = true;
+            row.dataset.type = type;
+            row.dataset.index = String(index);
+            row.innerHTML = `<span class="drag-handle" aria-hidden="true">⋮⋮</span><strong>${esc(item.title || item.key)}</strong><span>${esc(item.href || item.image || '')}</span>`;
+            const edit = document.createElement('button');
+            edit.className = 'button secondary'; edit.type = 'button'; edit.textContent = 'Editar';
+            edit.addEventListener('click', () => loadEntry(type, index));
+            const up = document.createElement('button');
+            up.className = 'button secondary'; up.type = 'button'; up.textContent = '↑';
+            up.disabled = index === 0;
+            up.addEventListener('click', () => { const arr = linktree[type]; [arr[index - 1], arr[index]] = [arr[index], arr[index - 1]]; sync(); });
+            const remove = document.createElement('button');
+            remove.className = 'button secondary'; remove.type = 'button'; remove.textContent = 'Quitar';
+            remove.addEventListener('click', () => { linktree[type].splice(index, 1); sync(); });
+            row.append(edit, up, remove);
+            group.append(row);
+          });
+          listsRoot.append(group);
+        });
+      }
+
+      function attachDragSorting() {
+        let dragged = null;
+        listsRoot.querySelectorAll('.admin-row--draggable').forEach(row => {
+          row.addEventListener('dragstart', event => {
+            dragged = row;
+            row.classList.add('is-dragging');
+            event.dataTransfer.effectAllowed = 'move';
+            event.dataTransfer.setData('text/plain', `${row.dataset.type}:${row.dataset.index}`);
+          });
+          row.addEventListener('dragend', () => {
+            row.classList.remove('is-dragging');
+            dragged = null;
+          });
+          row.addEventListener('dragover', event => {
+            if (!dragged || dragged.dataset.type !== row.dataset.type) return;
+            event.preventDefault();
+            row.classList.add('is-drop-target');
+          });
+          row.addEventListener('dragleave', () => row.classList.remove('is-drop-target'));
+          row.addEventListener('drop', event => {
+            event.preventDefault();
+            row.classList.remove('is-drop-target');
+            const [fromType, fromRaw] = event.dataTransfer.getData('text/plain').split(':');
+            const toType = row.dataset.type;
+            if (fromType !== toType) return;
+            const from = Number(fromRaw);
+            const to = Number(row.dataset.index);
+            if (!Number.isInteger(from) || !Number.isInteger(to) || from === to) return;
+            const arr = linktree[toType];
+            const [item] = arr.splice(from, 1);
+            arr.splice(to, 0, item);
+            sync();
+          });
+        });
+      }
+
+      function loadEntry(type, index) {
+        const item = linktree[type][index];
+        entryForm.elements.type.value = type;
+        entryForm.elements.editingIndex.value = index;
+        entryForm.elements.key.value = item.key || '';
+        entryForm.elements.title.value = item.title || '';
+        entryForm.elements.description.value = item.description || '';
+        entryForm.elements.href.value = item.href || '';
+        entryForm.elements.icon.value = item.icon || '';
+        entryForm.elements.image.value = item.image || '';
+        entryForm.elements.alt.value = item.alt || '';
+        entryForm.elements.color.value = item.color || '#e30613';
+        entryForm.elements.useColor.checked = Boolean(item.color);
+        entryForm.elements.featuredFlag.checked = Boolean(item.featured);
+      }
+
+      function sync() {
+        output.value = dataFile();
+        renderPreview();
+        renderLists();
+        attachDragSorting();
+      }
+
+      profileForm.addEventListener('submit', event => {
+        event.preventDefault();
+        const data = Object.fromEntries(new FormData(profileForm).entries());
+        linktree.profile = { title: data.title, kicker: data.kicker, description: data.description, logo: data.logo, mascot: data.mascot, footer: data.footer };
+        linktree.appearance = { ...(linktree.appearance || {}), backgroundImage: data.backgroundImage, accent: data.accent, theme: data.theme, layout: 'visual' };
+        sync();
+      });
+
+      mainForm.addEventListener('submit', event => {
+        event.preventDefault();
+        linktree.main = Object.fromEntries(new FormData(mainForm).entries());
+        sync();
+      });
+
+      entryForm.addEventListener('submit', event => {
+        event.preventDefault();
+        const data = Object.fromEntries(new FormData(entryForm).entries());
+        const type = data.type;
+        const item = { key: slug(data.key || data.title), title: data.title, description: data.description, href: data.href || '#', icon: data.icon || 'web', image: data.image, alt: data.alt };
+        if (entryForm.elements.useColor.checked) item.color = data.color || '#e30613';
+        if (type === 'links') item.featured = entryForm.elements.featuredFlag.checked;
+        if (type === 'iconLinks') { delete item.description; delete item.image; delete item.alt; delete item.featured; }
+        const index = data.editingIndex === '' ? -1 : Number(data.editingIndex);
+        linktree[type] ||= [];
+        if (index >= 0) linktree[type][index] = item;
+        else linktree[type].push(item);
+        entryForm.reset();
+        sync();
+      });
+
+      document.getElementById('copyLinktreeData').addEventListener('click', async () => navigator.clipboard.writeText(output.value));
+
+      const localSaveButton = document.getElementById('saveLinktreeLocal');
+      const canSaveLocal = ['', 'localhost', '127.0.0.1'].includes(location.hostname) && 'showSaveFilePicker' in window;
+      localSaveButton.disabled = !canSaveLocal;
+      localSaveButton.title = canSaveLocal ? 'Guarda directamente el linktree-data.js generado' : 'Disponible en local con un navegador compatible';
+      localSaveButton.addEventListener('click', async () => {
+        if (!canSaveLocal) {
+          alert('Para actualizar localmente necesitas abrir el gestor en localhost y usar un navegador con File System Access API. Mientras tanto, usa Descargar linktree-data.js.');
+          return;
+        }
+        const handle = await window.showSaveFilePicker({
+          suggestedName: 'linktree-data.js',
+          types: [{ description: 'JavaScript', accept: { 'text/javascript': ['.js'], 'application/javascript': ['.js'] } }]
+        });
+        const writable = await handle.createWritable();
+        await writable.write(output.value);
+        await writable.close();
+        localSaveButton.textContent = 'Actualizado';
+        setTimeout(() => { localSaveButton.textContent = 'Actualizar linktree-data.js'; }, 1400);
+      });
+
+      document.getElementById('downloadLinktreeData').addEventListener('click', () => {
+        const blob = new Blob([output.value], { type: 'text/javascript' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'linktree-data.js';
+        link.click();
+        URL.revokeObjectURL(link.href);
+      });
+
+
+      function enableLocalImageButtons() {
+        const isLocal = ['', 'localhost', '127.0.0.1'].includes(location.hostname);
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = 'image/*';
+        fileInput.hidden = true;
+        document.body.append(fileInput);
+        let target = null;
+        document.querySelectorAll('input[name="logo"], input[name="mascot"], input[name="backgroundImage"], input[name="image"]').forEach(input => {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'button secondary local-image-button';
+          button.textContent = 'Añadir local';
+          button.disabled = !isLocal;
+          button.title = isLocal ? 'Carga una imagen local como data URL en este campo' : 'Disponible solo en local';
+          button.addEventListener('click', () => { target = input; fileInput.click(); });
+          input.insertAdjacentElement('afterend', button);
+        });
+        fileInput.addEventListener('change', () => {
+          const file = fileInput.files && fileInput.files[0];
+          if (!file || !target) return;
+          const reader = new FileReader();
+          reader.addEventListener('load', () => {
+            target.value = reader.result;
+            target.dispatchEvent(new Event('input', { bubbles: true }));
+          });
+          reader.readAsDataURL(file);
+          fileInput.value = '';
+        });
+      }
+
+      enableLocalImageButtons();
+      fillForms();
+      sync();
+    </script>
+  </body>
+</html>

@@ -1,375 +1,55 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Taller de Instalación de Linux - Robotech Asociación</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    :root {
-      --negro: #1a1a1a;
-      --blanco: #fff;
-      --rojo: #fd0010;
-      --rojo-oscuro: #c9000c;
-      --gris-claro: #f8f9fa;
-      --gris-medio: #e0e0e0;
-      --sombra: rgba(0, 0, 0, 0.15);
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: var(--gris-claro);
-      color: var(--negro);
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    header {
-      background: linear-gradient(135deg, var(--rojo), var(--rojo-oscuro));
-      color: var(--blanco);
-      text-align: center;
-      padding: 20px;
-      box-shadow: 0 4px 12px var(--sombra);
-    }
-
-    .hero {
-      position: relative;
-      background: url('https://images.unsplash.com/photo-1516321310766-61b7b8c99e01?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') no-repeat center/cover;
-      padding: 80px 20px;
-      color: var(--blanco);
-      text-align: center;
-      margin-bottom: 40px;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 1;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .hero h1 {
-      font-size: 2.8rem;
-      margin-bottom: 15px;
-      animation: fadeInDown 1s ease-out;
-    }
-
-    .logo {
-      width: 200px;
-      height: auto;
-      margin-top: 10px;
-      filter: drop-shadow(0 2px 4px var(--sombra));
-    }
-
-    nav {
-      margin-top: 20px;
-      background: var(--blanco);
-      padding: 15px;
-      border-radius: 50px;
-      box-shadow: 0 2px 8px var(--sombra);
-    }
-
-    nav ul {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      list-style: none;
-      gap: 15px;
-    }
-
-    nav a {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: linear-gradient(90deg, var(--rojo), var(--rojo-oscuro));
-      color: var(--blanco);
-      text-decoration: none;
-      padding: 12px 25px;
-      border-radius: 25px;
-      font-weight: 500;
-      transition: all 0.3s ease;
-    }
-
-    nav a:hover {
-      background: linear-gradient(90deg, var(--rojo-oscuro), var(--rojo));
-      transform: translateY(-2px);
-    }
-
-    main {
-      flex: 1;
-      padding: 40px 20px;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .section {
-      background-color: var(--blanco);
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 4px 12px var(--sombra);
-      text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .section:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px var(--sombra);
-    }
-
-    .section h2 {
-      color: var(--rojo);
-      margin-bottom: 15px;
-      font-size: 1.8rem;
-    }
-
-    .section i {
-      font-size: 2.5rem;
-      color: var(--rojo);
-      margin-bottom: 10px;
-    }
-
-    .section ul {
-      list-style: none;
-      margin: 20px 0;
-      text-align: left;
-    }
-
-    .section ul li {
-      margin-bottom: 10px;
-    }
-
-    .section a {
-      color: var(--rojo);
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s ease;
-    }
-
-    .section a:hover {
-      color: var(--rojo-oscuro);
-    }
-
-    .cta-button {
-        display: inline-block;
-        background-color: var(--rojo);
-        color: var(--blanco) !important; /* Ensure text is always white */
-        padding: 12px 30px;
-        border-radius: 50px;
-        text-decoration: none;
-        font-weight: 600;
-        transition: background-color 0.3s ease, transform 0.3s ease;
-      }
-
-      .cta-button:hover {
-        background-color: var(--rojo-oscuro);
-        color: var(--blanco) !important; /* Ensure text remains white on hover */
-        transform: scale(1.05);
-      }
-
-    .popup {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: var(--blanco);
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px var(--sombra);
-      z-index: 1000;
-      text-align: center;
-    }
-
-    .popup.show {
-      display: block;
-    }
-
-    .popup p {
-      margin-bottom: 20px;
-      color: var(--negro);
-    }
-
-    .popup button {
-      background-color: var(--rojo);
-      color: var(--blanco);
-      border: none;
-      padding: 10px 20px;
-      border-radius: 25px;
-      cursor: pointer;
-      font-weight: 500;
-      transition: background-color 0.3s ease;
-    }
-
-    .popup button:hover {
-      background-color: var(--rojo-oscuro);
-    }
-
-    .overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 999;
-    }
-
-    .overlay.show {
-      display: block;
-    }
-        footer {
-            background-color: var(--gris-medio);
-            color: var(--negro);
-            text-align: center;
-            padding: 20px;
-            font-size: 0.8rem;
-        }
-
-        .social-icons {
-            margin-top: 10px;
-        }
-
-        .social-icons a {
-            color: var(--rojo);
-            margin: 0 8px;
-            font-size: 1rem;
-            transition: color 0.3s ease;
-        }
-
-        .social-icons a:hover {
-            color: var(--rojo-oscuro);
-        }
-
-    @keyframes fadeInDown {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @media (min-width: 768px) {
-      .hero h1 {
-        font-size: 3.5rem;
-      }
-
-      .logo {
-        width: 250px;
-      }
-    }
-
-    @media (min-width: 1024px) {
-      nav ul {
-        gap: 30px;
-      }
-
-      .section {
-        padding: 40px;
-      }
-
-      .logo {
-        width: 300px;
-      }
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <div class="hero">
-      <div class="hero-content">
-        <h1>Taller de Instalación de Linux</h1>
-        <img src="./img/logo_no_underscore.png" alt="Logo Robotech" class="logo">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Linux y setup de Robotech URJC.">
+    <title>Linux y setup | Robotech URJC</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="index.html"><img src="img/logo_no_underscore.png" alt=""><span>Robotech URJC <small>Talleres</small></span></a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+        <nav class="nav-menu" aria-label="Navegación principal">
+          <a href="index.html">Inicio</a><a href="aboutus.html">Quiénes somos</a><a href="proyectos.html">Proyectos</a><a href="talleres.html" aria-current="page">Talleres</a><a href="colabora.html">Colabora</a><a href="contacto.html">Contacto</a><a class="nav-cta" href="https://discord.gg/k9nKDrDQaC" target="_blank" rel="noreferrer">Discord</a>
+        </nav>
       </div>
-    </div>
-    <nav>
-      <ul>
-        <li><a href="acogida.html"><i class="fas fa-home"></i> Inicio</a></li>
-        <li><a href="taller-shell.html"><i class="fas fa-terminal"></i> Taller Shell y Git</a></li>
-        <li><a href="https://forms.office.com/e/1vMng2vBzd"><i class="fas fa-users"></i> Forma Parte</a></li>
-        <li><a href="index.html"><i class="fas fa-globe"></i> Visita Nuestra Web</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <main>
-    <section class="section">
-      <i class="fas fa-laptop-code"></i>
-      <h2>Taller de Instalación de Linux</h2>
-      <p>Aprende a instalar y configurar sistemas Linux con nuestro taller práctico. Ideal para principiantes y entusiastas.</p>
-      <ul>
-        <li><a href="https://rufus.ie/" target="_blank">Descarga Rufus</a> - Herramienta para crear USBs booteables.</li>
-        <li><a href="https://ubuntu.com/download/desktop" target="_blank">Descarga Ubuntu 24.04 ISO</a> - Imagen oficial de Ubuntu.</li>
-        <li><a href="materials_acogida/linux.pdf" target="_blank">Presentación del Taller</a> - Material de apoyo en PDF.</li>
-        <li><a href="https://robotech-urjc.github.io/control-talleress/attendee.html" target="_blank">Control de asistencia</a> - El código se entregará en el aula el día del taller.</li>
-        <li><a href="https://forms.office.com/e/TheHVPHD35" target="_blank">Encuesta de satisfacción</a> - Ayúdanos a mejorar.</li>
-        <li><a href="https://forms.office.com/e/pWhGJ3WHyT" target="_blank" class="cta-button" class="registration-button">Inscríbete Ahora</a></li>
-      </ul>
-    </section>
-  </main>
-
-  <div class="overlay" id="overlay"></div>
-  <div class="popup" id="popup">
-    <p>Lo sentimos, este enlace está temporalmente bloqueado.</p>
-    <button onclick="closePopup()">Cerrar</button>
-  </div>
-
-    <footer id="contact">
-        <h2>Ponte en contacto con nosotros</h2>
-        <div class="social-icons">
-            <a href="https://twitter.com/robotech_urjc"><i class="fab fa-twitter"></i> robotech_urjc</a>
-            <a href="mailto:asociacion.robotech@urjc.es"><i class="fas fa-envelope"></i> asociacion.robotech@urjc.es</a>
-            <a href="https://github.com/robotech-urjc"><i class="fab fa-github"></i> robotech-urjc</a>
-            <a href="https://www.instagram.com/robotech_urjc"><i class="fab fa-instagram"></i> robotech_urjc</a>
-            <a href="https://es.linkedin.com/company/robotech-urjc"><i class="fab fa-linkedin"></i> robotech-urjc</a>
-            <a href="https://linktr.ee/Robotech_URJC"><i class="fas fa-info-circle"></i> Más información</a>
+    </header>
+    <main id="contenido" class="container">
+      <section class="page-hero workshop-hero">
+        <div>
+          <p class="eyebrow">Instalación y entorno</p>
+          <h1>Instalación de Linux</h1>
+          <p>Sesión pensada para dejar un portátil listo para trabajar en proyectos de Robotech sin perder la tarde configurando herramientas básicas.</p>
+          <div class="button-row"><a class="button primary" href="contacto.html">Inscribirse</a><a class="button secondary" href="talleres.html">Volver a talleres</a></div>
         </div>
-        <p>&copy; 2025 Robotech URJC.</p>
-    </footer>
+        <img src="img/workshops/linux.png" alt="Icono de Linux">
+      </section>
 
-  <script>
-    function showPopup() {
-      document.getElementById('popup').classList.add('show');
-      document.getElementById('overlay').classList.add('show');
-    }
+      <section class="workshop-meta" aria-label="Datos del taller"><div><strong>Fecha</strong><span>Por confirmar</span></div><div><strong>Lugar</strong><span>Campus de Fuenlabrada · Aulario I, sótano</span></div><div><strong>Duración</strong><span>90-120 min</span></div><div><strong>Nivel</strong><span>Inicial</span></div><div><strong>Créditos RAC</strong><span>0,1 solicitados</span></div><div><strong>Imparte</strong><span>Equipo de formación de Robotech URJC</span></div></section>
 
-    function closePopup() {
-      document.getElementById('popup').classList.remove('show');
-      document.getElementById('overlay').classList.remove('show');
-    }
-
-    // Add event listeners to registration buttons
-    /*
-    document.querySelectorAll('.registration-button').forEach(button => {
-      button.addEventListener('click', (e) => {
-        e.preventDefault();
-        showPopup();
-      });
-    });
-    */
-  </script>
-</body>
+      <section class="section workshop-brief" aria-label="Resumen práctico del taller">
+        <article class="workshop-brief-card">
+          <p class="eyebrow">Qué harás</p>
+          <ul class="check-list"><li>Elegir entre Linux nativo, dual boot, máquina virtual o WSL según tu portátil.</li>
+            <li>Preparar USB de instalación y entender qué se va a modificar antes de hacerlo.</li>
+            <li>Actualizar el sistema e instalar paquetes con el gestor correspondiente.</li></ul>
+        </article>
+        <article class="workshop-brief-card">
+          <p class="eyebrow">Qué traer</p>
+          <ul class="check-list"><li>Portátil propio y cargador.</li>
+            <li>Copia de seguridad hecha antes del taller.</li>
+            <li>Al menos 25 GB libres si quieres instalación nativa o dual boot.</li></ul>
+        </article>
+      </section>
+    </main>
+    <footer class="site-footer"><div class="container footer-inner"><div><a class="brand" href="index.html"><img src="img/logo_no_underscore.png" alt=""><span>Robotech URJC</span></a><p class="muted">Talleres y aprendizaje práctico.</p></div><div class="footer-links contact-links"><a href="mailto:asociacion.robotech@urjc.es"><span class="footer-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6h16v12H4z"></path><path d="m4 7 8 6 8-6"></path></svg></span>Email</a><a href="https://github.com/robotech-urjc" target="_blank" rel="noreferrer"><span class="footer-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 19c-4 1.5-4-2-6-2.5"></path><path d="M15 22v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6A4.6 4.6 0 0 0 18.7 7c.1-.3.6-1.6-.1-3.3 0 0-1.1-.3-3.5 1.3a12.2 12.2 0 0 0-6.2 0C6.5 3.4 5.4 3.7 5.4 3.7 4.7 5.4 5.2 6.7 5.3 7A4.6 4.6 0 0 0 4 10.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V22"></path></svg></span>GitHub</a><a href="https://www.instagram.com/robotech_urjc" target="_blank" rel="noreferrer"><span class="footer-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4"></rect><circle cx="12" cy="12" r="3.2"></circle><path d="M17.5 6.5h.01"></path></svg></span>Instagram</a><a href="https://es.linkedin.com/company/robotech-urjc" target="_blank" rel="noreferrer"><span class="footer-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.5 10v8"></path><path d="M6.5 6v.01"></path><path d="M10.5 18v-8"></path><path d="M10.5 13.5c0-2 1.2-3.8 3.5-3.8 2 0 3.5 1.3 3.5 4V18"></path><rect x="3" y="3" width="18" height="18" rx="2"></rect></svg></span>LinkedIn</a></div></div></footer>
+    <script src="app.js"></script>
+  </body>
 </html>
