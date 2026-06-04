@@ -1442,7 +1442,8 @@ initProjectImageCarousel();
 
     const scrollCardIntoView = (card, behavior = "smooth") => {
       if (!card) return;
-      card.scrollIntoView({ behavior, block: "nearest", inline: "center" });
+      const targetLeft = card.offsetLeft - (featuredProjectsRoot.clientWidth - card.offsetWidth) / 2;
+      featuredProjectsRoot.scrollTo({ left: targetLeft, behavior });
       updateActiveCard(card);
     };
 
