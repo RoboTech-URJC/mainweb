@@ -790,16 +790,32 @@ async function translateDocument(language) {
   }
 }
 
-const projectsWithoutDossier = new Set(["noah", "servidor-red", "oasis"]);
+const projectsWithoutDossier = new Set(["noah", "servidor-red", "oasis", "led-race"]);
+const projectDossierFileKeys = {
+  "flip-flop": "flipflop",
+  hormiga: "hexabot"
+};
 
-function getProjectDossierHref(projectKey) {
-  const safeKey = String(projectKey || "proyecto").trim() || "proyecto";
-  return currentLanguage === "es" ? `pdf/${safeKey}.pdf` : `pdf/${safeKey}_english.pdf`;
+function getProjectDossierHref(projectKey, language = currentLanguage) {
+  const fileKey = projectDossierFileKeys[projectKey] || projectKey;
+  const safeKey = String(fileKey || "proyecto").trim() || "proyecto";
+  return language === "es" ? "pdf/" + safeKey + ".pdf" : "pdf/" + safeKey + "_english.pdf";
+}
+
+function createProjectDossierLink(projectKey, language, buttonClass = "") {
+  const link = document.createElement("a");
+  link.className = (buttonClass ? buttonClass + " " : "") + "project-dossier-link";
+  link.dataset.projectDossier = projectKey || "proyecto";
+  link.dataset.projectDossierLanguage = language;
+  link.href = getProjectDossierHref(projectKey, language);
+  link.textContent = language === "es" ? "Ficha Técnica ES" : "Ficha Técnica EN";
+  link.setAttribute("download", "");
+  return link;
 }
 
 function updateProjectDossierLinks() {
   document.querySelectorAll("[data-project-dossier]").forEach((link) => {
-    link.href = getProjectDossierHref(link.dataset.projectDossier);
+    link.href = getProjectDossierHref(link.dataset.projectDossier, link.dataset.projectDossierLanguage || currentLanguage);
   });
 }
 
@@ -807,13 +823,10 @@ function injectProjectDossierButtons() {
   document.querySelectorAll(".project-detail[id] .detail-actions").forEach((actions) => {
     const detail = actions.closest(".project-detail[id]");
     if (!detail || projectsWithoutDossier.has(detail.id) || actions.querySelector("[data-project-dossier]")) return;
-    const link = document.createElement("a");
-    link.className = "button secondary project-dossier-link";
-    link.dataset.projectDossier = detail.id;
-    link.href = getProjectDossierHref(detail.id);
-    link.textContent = "Dossier técnico";
-    link.setAttribute("download", "");
-    actions.append(link);
+    actions.append(
+      createProjectDossierLink(detail.id, "es", "button secondary"),
+      createProjectDossierLink(detail.id, "en", "button secondary")
+    );
   });
 }
 
@@ -1370,13 +1383,10 @@ initProjectImageCarousel();
         links.append(repo);
       }
       if (!projectsWithoutDossier.has(project.key)) {
-        const dossier = document.createElement("a");
-        dossier.href = getProjectDossierHref(project.key);
-        dossier.dataset.projectDossier = project.key || "proyecto";
-        dossier.className = "project-dossier-link";
-        dossier.textContent = "Dossier técnico";
-        dossier.setAttribute("download", "");
-        links.append(dossier);
+        links.append(
+          createProjectDossierLink(project.key, "es"),
+          createProjectDossierLink(project.key, "en")
+        );
       }
 
       body.append(meta, makeText("h3", "", project.title || "Proyecto"), makeText("p", "", project.description || ""), links);
