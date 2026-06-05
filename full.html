@@ -1,0 +1,1370 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Página completa de Robotech URJC con inicio, quiénes somos, proyectos, talleres, colabora, contacto y fototeca.">
+    <title>Full | Robotech URJC</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      .full-page { scroll-behavior: smooth; }
+      .full-page .site-header { position: sticky; top: 0; }
+      .full-nav-note { color: var(--muted); font-size: 0.92rem; margin-top: 1rem; max-width: 760px; }
+      .full-section { padding-block: clamp(3.5rem, 7vw, 6.5rem); border-top: 1px solid var(--line); }
+      .full-section:first-child { border-top: 0; }
+      .full-section > .section-title, .full-section > .page-hero { margin-bottom: 2rem; }
+      .full-subsection { margin-top: 0; }
+      .full-index { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0.75rem; margin-top: 1.75rem; }
+      .full-index a { border: 1px solid var(--line); border-radius: 8px; padding: 0.85rem 0.9rem; color: var(--text); font-weight: 800; text-decoration: none; background: var(--surface); box-shadow: var(--shadow-soft); }
+      .full-index a:hover { border-color: var(--brand); color: var(--brand); }
+      .full-workshop-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1rem; }
+      .full-workshop-card { display: grid; gap: 0.9rem; align-content: start; min-height: 100%; padding: 1.1rem; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); text-decoration: none; color: var(--text); }
+      .full-workshop-card img { width: 96px; height: 96px; object-fit: contain; }
+      .full-workshop-card strong { color: var(--brand); text-transform: uppercase; font-size: 0.78rem; letter-spacing: 0.04em; }
+      .full-workshop-card h3 { margin: 0; }
+      .full-workshop-card p { margin: 0; color: var(--muted); }
+      .full-photo-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+      .full-photo-count { color: var(--muted); font-weight: 700; }
+      .full-photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.85rem; }
+      .full-photo-card { display: grid; grid-template-rows: 150px auto; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--muted); text-decoration: none; }
+      .full-photo-card img { width: 100%; height: 100%; object-fit: cover; background: var(--surface-strong); }
+      .full-photo-card span { padding: 0.6rem; font-size: 0.72rem; line-height: 1.25; overflow-wrap: anywhere; }
+      .full-contact-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: start; }
+      .full-contact-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+      @media (max-width: 900px) {
+        .full-index, .full-workshop-grid, .full-contact-row { grid-template-columns: 1fr; }
+        .full-contact-links { grid-template-columns: 1fr; }
+        .full-photo-grid { grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); }
+        .full-photo-card { grid-template-rows: 118px auto; }
+      }
+    </style>
+  </head>
+  <body class="full-page">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="index.html"><img src="img/logo_no_underscore.png" alt=""><span>Robotech URJC <small>Full HTML</small></span></a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+        <nav class="nav-menu" aria-label="Navegación principal">
+          <a href="#inicio">Inicio</a><a href="#quienes-somos">Quiénes somos</a><a href="#proyectos">Proyectos</a><a href="#talleres">Talleres</a><a href="#colabora">Colabora</a><a href="#contacto">Contacto</a><a href="#fotos">Fotos</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="contenido">
+      <section id="inicio" class="container hero full-section">
+        <div>
+          <p class="eyebrow">Universidad Rey Juan Carlos · Campus de Fuenlabrada</p>
+          <h1>El futuro no se estudia, se construye.</h1>
+          <p class="hero-lead">Robotech URJC reúne a estudiantes que quieren aprender robótica, electrónica, programación, fabricación digital y visión artificial mediante proyectos reales y abiertos.</p>
+          <div class="hero-actions"><a class="button primary" href="#proyectos">Explorar proyectos</a><a class="button secondary" href="#talleres">Ver talleres</a></div>
+          <p class="full-nav-note">Esta página agrupa el contenido principal de la web para revisión, edición y trabajo con IAs en un solo HTML.</p>
+          <div class="full-index" aria-label="Índice de la página completa"><a href="#inicio">Inicio</a><a href="#quienes-somos">Quiénes somos</a><a href="#proyectos">Proyectos</a><a href="#talleres">Talleres</a><a href="#colabora">Colabora</a><a href="#contacto">Contacto</a></div>
+        </div>
+        <aside class="hero-media" aria-label="Imagen del taller de Robotech"><img src="img/header.jpg" alt="Equipo y espacio de trabajo de Robotech URJC"></aside>
+      </section>
+
+      <section class="container trust-bar" aria-label="Resumen">
+        <div><strong>Proyectos reales</strong><span>Robots, drones, juegos electrónicos y visión artificial.</span></div>
+        <div><strong>Talleres prácticos</strong><span>Linux, shell, Git, impresión 3D y fundamentos técnicos.</span></div>
+        <div><strong>Comunidad técnica</strong><span>Mentoría entre estudiantes y colaboración abierta.</span></div>
+        <div><strong>Campus Fuenlabrada</strong><span>Nos encontramos en el sótano del Aulario I.</span></div>
+      </section>
+
+      <section id="quienes-somos" class="container full-section">
+        <div class="page-hero about-hero">
+          <div><p class="eyebrow">Quiénes somos</p><h1>Un taller universitario para aprender construyendo.</h1><p>Robotech URJC es una asociación de estudiantes de la Universidad Rey Juan Carlos centrada en robótica, electrónica, software y fabricación digital.</p><div class="button-row"><a class="button primary" href="#talleres">Ver talleres</a><a class="button secondary" href="#proyectos">Ver proyectos</a></div></div>
+          <img src="img/header.jpg" alt="Espacio de trabajo de Robotech URJC">
+        </div>
+        <div class="about-values" aria-label="Resumen de Robotech"><div><strong>Hands-on</strong><span>Aprendemos con prototipos, pruebas y errores reales.</span></div><div><strong>Abierto</strong><span>Documentamos proyectos y compartimos repositorios.</span></div><div><strong>Comunidad</strong><span>Mentoría entre estudiantes y equipos de trabajo.</span></div></div>
+        <div class="section two-col about-story"><div class="section-title"><p class="eyebrow">Nuestra forma de trabajar</p><h2>De la idea al prototipo, sin quedarse solo en teoría.</h2></div><div class="panel"><p>La asociación existe para cubrir el espacio entre clase y proyecto funcional: planteamos objetivos pequeños, repartimos tareas, probamos piezas, versionamos código y documentamos lo que funciona.</p><p>Puede entrar gente con experiencia o desde cero. Lo importante es tener curiosidad técnica, respeto por el trabajo compartido y ganas de aprender con otras personas.</p></div></div>
+        <div class="section fabrication-spotlight" aria-label="Fabricación digital e impresión 3D"><div class="fabrication-spotlight__copy"><p class="eyebrow">Fabricación digital</p><h2>También hacemos impresión 3D.</h2><p>En el local trabajamos con dos Ender 3 para fabricar piezas de proyectos, hacer iteraciones rápidas y aprender diseño pensando en montaje real, tolerancias y mantenimiento.</p><p>Ahora mismo estamos buscando financiación para dar el salto a una Bambu Lab de gama alta. Nos permitiría imprimir más rápido, con más fiabilidad y con materiales más exigentes para prototipos que hoy nos cuestan demasiado tiempo.</p><div class="fabrication-spotlight__stats" aria-label="Recursos de impresión 3D"><span><strong>2</strong> Ender 3 en uso</span><span><strong>24/7</strong> cuando hay proyecto</span><span><strong>Objetivo</strong> Bambu Lab</span></div></div><figure class="fabrication-spotlight__media"><img src="img/printers/printers_1.jpeg" alt="Dos impresoras Ender 3 del local de Robotech URJC"><figcaption>Prototipos, piezas de repuesto y muchas pruebas antes de que algo encaje.</figcaption></figure></div>
+        <div class="section about-location"><div><p class="eyebrow">Visítanos</p><h2>Pásate por el local en el Campus de Fuenlabrada.</h2><p>Estamos en el sótano del Aulario I. Puedes venir a conocernos, preguntar por proyectos o ver cómo trabajamos antes de apuntarte a nada.</p></div><div class="button-row"><a class="button primary" href="#contacto">Contactar</a><a class="button secondary" href="https://discord.gg/k9nKDrDQaC" target="_blank" rel="noreferrer">Discord</a></div></div>
+      </section>
+
+      <section id="proyectos" class="container full-section">
+        <div class="page-hero projects-hero"><p class="eyebrow">Proyectos</p><h1>Prototipos, código y pruebas reales.</h1><p>Una vista rápida de lo que está en marcha y de proyectos históricos que siguen sirviendo como referencia para nuevos equipos.</p></div>
+      <section class="section projects-section full-subsection">
+        <div class="project-grid" data-projects-render>
+
+<article class="project-card" data-tags="robótica arduino 3d-printed automatización mecánica">
+            <img src="img/scara/scara_24.jpeg" alt="Robot Scara">
+            <div class="project-body">
+              <div class="project-meta"><span class="tag">Robótica</span><span class="tag">Arduino</span><span class="tag">3D printed</span></div>
+              <h3>Robot Scara</h3>
+              <p>Brazo robótico para operaciones complejas, manipulación de objetos, repetición de movimientos y experimentos de automatización.</p>
+              <div class="project-links"><a href="#scara">Ver detalle</a><a href="https://github.com/RoboTech-URJC/Robot-Scara" target="_blank" rel="noreferrer">Repositorio</a></div>
+            </div>
+          </article>
+
+<article class="project-card" data-tags="robótica arduino python opencv 3d-printed salud humanoide">
+            <img src="img/zeus/zeus_1.png" alt="Proyecto Zeus">
+            <div class="project-body">
+              <div class="project-meta"><span class="tag">Humanoide</span><span class="tag">Python</span><span class="tag">Salud</span></div>
+              <h3>Proyecto Zeus</h3>
+              <p>Robot humanoide open-source basado en InMoov. Incluye manos, antebrazos, control con Arduino y visión artificial con Python y OpenCV.</p>
+              <div class="project-links"><a href="#zeus">Ver detalle</a><a href="https://github.com/RoboTech-URJC/Mano-Zeus" target="_blank" rel="noreferrer">Repositorio</a></div>
+            </div>
+          </article>
+
+<article class="project-card" data-tags="robótica arduino educativo sensores 3d-printed">
+            <img src="img/hirobot/hiro_2.jpeg" alt="Proyecto HiroBot">
+            <div class="project-body">
+              <div class="project-meta"><span class="tag">Educativo</span><span class="tag">Arduino</span><span class="tag">Sensores</span></div>
+              <h3>HiroBot</h3>
+              <p>Robot tipo tanque para aprender programación y robótica con sensores, motores, servos y una librería propia para Arduino.</p>
+              <div class="project-links"><a href="#hirobot">Ver detalle</a><a href="https://github.com/RoboTech-URJC/HiroBot" target="_blank" rel="noreferrer">Repositorio</a></div>
+            </div>
+          </article>
+
+<article class="project-card" data-tags="robótica hexápodo 3d-printed servos cinemática-inversa visión">
+            <img src="img/hexabot/hexabot_chassis.jpg" alt="Chasis hexápodo de referencia para Hexabot">
+            <div class="project-body">
+              <div class="project-meta"><span class="tag">Hexápodo</span><span class="tag">Cinemática inversa</span><span class="tag">3D printed</span></div>
+              <h3>Hexabot</h3>
+              <p>Rediseño del proyecto Hormiga hacia una plataforma hexápoda más modular, robusta y preparada para cinemática inversa y futuras ampliaciones con visión.</p>
+              <div class="project-links"><a href="#hexabot">Ver detalle</a><a href="https://github.com/RoboTech-URJC/HexaBot" target="_blank" rel="noreferrer">Repositorio</a></div>
+            </div>
+          </article>
+
+<article class="project-card" data-tags="electrónica arduino juego lógica-digital educativo">
+            <img src="img/portfolio/flipflop.png" alt="Proyecto Flip-Flop">
+            <div class="project-body">
+              <div class="project-meta"><span class="tag">Electrónica</span><span class="tag">Juego</span><span class="tag">Arduino</span></div>
+              <h3>Proyecto Flip-Flop</h3>
+              <p>Juego electrónico para practicar lógica digital, montaje y programación mediante mecánicas sencillas y componentes accesibles.</p>
+              <div class="project-links"><a href="#flip-flop">Ver detalle</a><a href="https://github.com/RoboTech-URJC/Flip-Flop" target="_blank" rel="noreferrer">Repositorio</a></div>
+            </div>
+          </article>
+
+<article class="project-card" data-tags="aérea robótica python raspberry-pi autonomía sensores">
+            <img src="img/drone/drone_3.jpeg" alt="Proyecto Drone">
+            <div class="project-body">
+              <div class="project-meta"><span class="tag">Aérea</span><span class="tag">Python</span><span class="tag">Raspberry Pi</span></div>
+              <h3>Drone SwarmX</h3>
+              <p>Dron RC de desarrollo modular para control manual, integración con Raspberry Pi y misiones programadas.</p>
+              <div class="project-links"><a href="#drone">Ver detalle</a><a href="https://github.com/RoboTech-URJC/Icarus-Project" target="_blank" rel="noreferrer">Repositorio</a></div>
+            </div>
+          </article>
+
+<article class="project-card" data-tags="electrónica esp32 raspberry-pi neumática visión-artificial juego">
+            <img src="img/futbolin/fase1_ia.png" alt="Concepto visual de la fase 1 del Futbolín Automatizado" onerror="this.onerror=null;this.src='img/futbolin/futbolin_cover.jpg';">
+            <div class="project-body">
+              <div class="project-meta"><span class="tag">ESP32</span><span class="tag">Neumática</span><span class="tag">Visión artificial</span></div>
+              <h3>Futbolín Automatizado</h3>
+              <p>Futbolín interactivo con iluminación LED, detección de goles, marcador digital, relanzamiento automático y futuras funciones de visión artificial.</p>
+              <div class="project-links"><a href="#futbolin">Ver detalle</a><a href="https://github.com/RoboTech-URJC/Futbolin" target="_blank" rel="noreferrer">Repositorio</a></div>
+            </div>
+          </article>
+
+<article class="project-card" data-tags="electrónica arduino neopixel juego firmware soldadura">
+            <img src="img/led_race/led_race_1.jpeg" alt="Proyecto LED Race">
+            <div class="project-body">
+              <div class="project-meta"><span class="tag">Electrónica</span><span class="tag">Juego</span><span class="tag">NeoPixel</span></div>
+              <h3>LED Race</h3>
+              <p>Juego competitivo con tiras NeoPixel y pulsadores para practicar soldadura, firmware y montaje.</p>
+              <div class="project-links"><a href="#led-race">Ver detalle</a><a href="https://github.com/RoboTech-URJC/led-race" target="_blank" rel="noreferrer">Repositorio</a></div>
+            </div>
+          </article>
+
+<article class="project-card" data-tags="robótica biomecánica 3d-printed servos mecánica">
+            <img src="img/portfolio/hormiga.jpeg" alt="Proyecto Hormiga">
+            <div class="project-body">
+              <div class="project-meta"><span class="tag">Biomecánica</span><span class="tag">3D printed</span><span class="tag">Servos</span></div>
+              <h3>Proyecto Hormiga</h3>
+              <p>Exploración de locomoción y diseño mecánico inspirado en insectos para estudiar movimiento y control.</p>
+              <div class="project-links"><a href="#hormiga">Ver detalle</a><a href="https://github.com/RoboTech-URJC/Ant-Project" target="_blank" rel="noreferrer">Repositorio</a></div>
+            </div>
+          </article>
+
+<article class="project-card" data-tags="robótica ros 3d-printed software sensores">
+            <img src="img/noah/noah_2.jpeg" alt="Robot Noah">
+            <div class="project-body">
+              <div class="project-meta"><span class="tag">ROS</span><span class="tag">3D printed</span><span class="tag">Robótica</span></div>
+              <h3>Robot Noah</h3>
+              <p>Flota de robots impresos en 3D y programados en ROS, pensada para comunicarse entre unidades y realizar varias misiones.</p>
+              <div class="project-links"><a href="#noah">Ver detalle</a><a href="https://github.com/RoboTech-URJC/noah_hardware" target="_blank" rel="noreferrer">Repositorio</a></div>
+            </div>
+          </article>
+
+<article class="project-card" data-tags="software web servidor redes infraestructura linux">
+            <img src="img/portfolio/server.jpg" alt="Proyecto Servidor-Red">
+            <div class="project-body">
+              <div class="project-meta"><span class="tag">Servidor</span><span class="tag">Linux</span><span class="tag">Web</span></div>
+              <h3>Proyecto Servidor-Red</h3>
+              <p>Servidor de red para alojar y probar proyectos en la nube. El proyecto se conserva como referencia aunque ya no está en servicio.</p>
+              <div class="project-links"><a href="#servidor-red">Ver detalle</a><a href="https://github.com/RoboTech-URJC/RobotechServer-Project" target="_blank" rel="noreferrer">Repositorio</a></div>
+            </div>
+          </article>
+
+<article class="project-card" data-tags="robótica prototipo 3d-printed investigación">
+            <img src="img/portfolio/oasis.jpeg" alt="Proyecto Oasis">
+            <div class="project-body">
+              <div class="project-meta"><span class="tag">Prototipo</span><span class="tag">Investigación</span><span class="tag">3D printed</span></div>
+              <h3>Proyecto Oasis</h3>
+              <p>Proyecto histórico de Robotech conservado en el archivo de la asociación.</p>
+              <div class="project-links"><a href="#oasis">Ver detalle</a></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section project-details-section" aria-label="Detalle de proyectos">
+        <div class="section-title split">
+          <div>
+            <p class="eyebrow">Detalle de proyectos</p>
+            <h2>Que se construye, como funciona y por donde empezar.</h2>
+          </div>
+          <a class="text-link" href="#contenido">Volver arriba</a>
+        </div>
+      </section>
+
+      <section class="project-detail" id="scara">
+        <div class="detail-copy">
+          <p class="eyebrow">Robótica</p>
+          <h2>Robot Scara</h2>
+          <p>El SCARA es un brazo robótico pensado para aprender cinemática, control de actuadores y automatización mediante un prototipo físico que pueda repetir trayectorias con precisión.</p>
+          <div class="detail-columns">
+            <div><h3>Objetivo</h3><p>Construir una plataforma estable para manipular piezas ligeras, probar rutinas de movimiento y documentar el proceso mecánico, electrónico y de software.</p></div>
+            <div><h3>Trabajo técnico</h3><ul><li>Modelado y ajuste de piezas impresas en 3D.</li><li>Control de motores, finales de carrera y calibración.</li><li>Programacion de trayectorias y pruebas repetibles.</li></ul></div>
+          </div>
+          <div class="detail-actions"><a class="button primary" href="https://github.com/RoboTech-URJC/Robot-Scara" target="_blank" rel="noreferrer">Repositorio</a><a class="button secondary" href="#contacto">Unirme al equipo</a></div>
+        </div>
+        <div class="detail-gallery"><img src="img/scara/scara_5.jpg" alt="Robot Scara montado"><img src="img/scara/scara_4.jpg" alt="Pruebas URDF Robot Scara"><img src="img/scara/scara_6.jpg" alt="Conectando los cables"><img src="img/scara/scara_16.jpg" alt="Interfaz Gráfica del Robot Scara"><img src="img/scara/scara_19.jpg" alt="Pruebas del Robot Scara"></div>
+      </section>
+
+      <section class="project-detail" id="zeus">
+        <div class="detail-copy">
+          <p class="eyebrow">Humanoide</p>
+          <h2>Proyecto Zeus</h2>
+          <p>Zeus parte de la filosofía open-source de InMoov para trabajar manos, antebrazos y percepción visual. Es un proyecto amplio, ideal para dividir tareas entre mecanica, electrónica y software.</p>
+          <div class="detail-columns">
+            <div><h3>Objetivo</h3><p>Desarrollar módulos humanoides imprimibles, controlados con Arduino y capaces de integrarse con visión artificial en Python y OpenCV.</p></div>
+            <div><h3>Trabajo técnico</h3><ul><li>Montaje de dedos, tendones, servos y antebrazos.</li><li>Firmware para movimientos coordinados.</li><li>Visión artificial para reconocer gestos, objetos o referencias.</li></ul></div>
+          </div>
+          <div class="detail-actions"><a class="button primary" href="https://github.com/RoboTech-URJC/Mano-Zeus" target="_blank" rel="noreferrer">Repositorio</a><a class="button secondary" href="#contacto">Unirme al equipo</a></div>
+        </div>
+        <div class="detail-gallery"><img src="img/zeus/zeus_72.JPEG" alt="Vista general del Proyecto Zeus"><img src="img/zeus/zeus_70.JPEG" alt="Montaje del Proyecto Zeus"><img src="img/zeus/zeus_51.JPEG" alt="Detalle de piezas del Proyecto Zeus"><img src="img/zeus/zeus_79.JPEG" alt="Pruebas del Proyecto Zeus"><img src="img/zeus/zeus_1.png" alt="Vista vertical del Proyecto Zeus"></div>
+      </section>
+
+      <section class="project-detail" id="hirobot">
+        <div class="detail-copy">
+          <p class="eyebrow">Educativo</p>
+          <h2>HiroBot</h2>
+          <p>HiroBot es un robot tipo tanque orientado a aprendizaje. Sirve para entrar en robótica desde tareas concretas: sensores, motores, servos, librería Arduino y documentación para nuevos miembros.</p>
+          <div class="detail-columns">
+            <div><h3>Objetivo</h3><p>Crear una plataforma didáctica robusta que permita probar fundamentos de movimiento, lectura de sensores y control desde código sencillo.</p></div>
+            <div><h3>Trabajo técnico</h3><ul><li>Integracion de sensores y actuadores.</li><li>Mejora de la librería propia para Arduino.</li><li>Pruebas guiadas para talleres y demos.</li></ul></div>
+          </div>
+          <div class="detail-actions"><a class="button primary" href="https://github.com/RoboTech-URJC/HiroBot" target="_blank" rel="noreferrer">Repositorio</a><a class="button secondary" href="#contacto">Unirme al equipo</a></div>
+        </div>
+        <div class="detail-gallery"><img src="img/hirobot/hiro_1.jpeg" alt="HiroBot"><img src="img/hirobot/hiro_2.jpeg" alt="Mando para Teleop"><img src="img/hirobot/hiro_febrero.jpeg" alt="Primer diseño de oruga (Febrero 2026)"><img src="img/hirobot/ultima_prueba_oruga.jpeg" alt="Último diseño para las ruedas de oruga"><img src="img/hirobot/motores_nuevos.jpeg" alt="Nuevos motores"></div>
+      </section>
+
+      <section class="project-detail" id="hexabot">
+        <div class="detail-copy">
+          <p class="eyebrow">Hexápodo</p>
+          <h2>Hexabot</h2>
+          <p>Hexabot es la evolución técnica del proyecto Hormiga. Parte de una base ya terminada y la actualiza con un frame hexagonal, piezas rediseñadas, electrónica renovada y control por cinemática inversa.</p>
+          <div class="detail-columns">
+            <div><h3>Objetivo</h3><p>Convertir la antigua araña robótica en una plataforma hexápoda más modular, cómoda de manejar y preparada para crecer hacia percepción y autonomía.</p></div>
+            <div><h3>Trabajo técnico</h3><ul><li>Rediseño del frame y de las piezas mecánicas.</li><li>Actualización de la arquitectura electrónica.</li><li>Nuevo control basado en cinemática inversa.</li><li>Preparación para Jetson Nano, cámaras y visión por computador.</li></ul></div>
+          </div>
+          <div class="detail-actions"><a class="button primary" href="https://github.com/RoboTech-URJC/HexaBot" target="_blank" rel="noreferrer">Repositorio</a><a class="button secondary" href="#contacto">Unirme al equipo</a></div>
+        </div>
+        <div class="detail-gallery detail-gallery--single detail-gallery--credited"><img src="img/hexabot/hexabot_chassis.jpg" alt="Chasis hexápodo de referencia para Hexabot"><p class="image-credit">Frame hexápodo tomado como referencia desde Printables. Autor: Tom Knox.</p></div>
+      </section>
+
+      <section class="project-detail" id="flip-flop">
+        <div class="detail-copy">
+          <p class="eyebrow">Electrónica</p>
+          <h2>Proyecto Flip-Flop</h2>
+          <p>Juego electrónico para aprender lógica digital con una mecanica accesible. Permite trabajar componentes, montaje, programación y explicacion pedagógica del circuito.</p>
+          <div class="detail-columns">
+            <div><h3>Objetivo</h3><p>Convertir conceptos de electrónica digital en una pieza jugable, documentada y reútilizable en talleres introductorios.</p></div>
+            <div><h3>Trabajo técnico</h3><ul><li>Diseno y prueba del circuito.</li><li>Montaje de pulsadores, LEDs y placa de control.</li><li>Reglas de juego y material didáctico.</li></ul></div>
+          </div>
+          <div class="detail-actions"><a class="button primary" href="https://github.com/RoboTech-URJC/Flip-Flop" target="_blank" rel="noreferrer">Repositorio</a><a class="button secondary" href="#contacto">Unirme al equipo</a></div>
+        </div>
+        <div class="detail-gallery"><img src="img/flipflop/flipflop.png" alt="Proyecto Flip-Flop"><img src="img/flipflop/3DdesingFlop.png" alt="Diseño 3D"><img src="img/flipflop/SmileFlop.png" alt=":)"><img src="img/flipflop/ArduinoFLop2.png" alt="Arduino"><img src="img/flipflop/titlepic.png" alt="Objetico del proyecto"></div>
+      </section>
+
+      <section class="project-detail" id="drone">
+        <div class="detail-copy">
+          <p class="eyebrow">Autonomía</p>
+          <h2>Drone SwarmX</h2>
+          <p>Plataforma RC modular para aprender integración de hardware, pruebas de vuelo y misiones programadas. El foco está en avanzar por etapas sin comprometer seguridad ni trazabilidad.</p>
+          <div class="detail-columns">
+            <div><h3>Objetivo</h3><p>Pasar de control manual a una arquitectura capaz de integrar Raspberry Pi, sensores y rutinas autónomás controladas.</p></div>
+            <div><h3>Trabajo técnico</h3><ul><li>Montaje y mantenimiento del chasis.</li><li>Integracion de electrónica embarcada.</li><li>Planificacion de pruebas, telemetría y seguridad.</li></ul></div>
+          </div>
+          <div class="detail-actions"><a class="button primary" href="https://github.com/RoboTech-URJC/Icarus-Project" target="_blank" rel="noreferrer">Repositorio</a><a class="button secondary" href="#contacto">Unirme al equipo</a></div>
+        </div>
+        <div class="detail-gallery"><img src="img/drone/drone_1.jpeg" alt="Drone de Robotech"><img src="img/drone/drone_2.jpeg" alt="Detalle del Drone"><img src="img/drone/drone_3.jpeg" alt="Montaje del Drone"><img src="img/drone/drone_4.jpeg" alt="Pruebas del Drone"><img src="img/drone/drone_5.jpeg" alt="Vista adicional del Drone"></div>
+      </section>
+
+      <section class="project-detail" id="futbolin">
+        <div class="detail-copy">
+          <p class="eyebrow">Interactividad</p>
+          <h2>Futbolín Automatizado</h2>
+          <p>El Futbolín Automatizado convierte un futbolín tradicional en una plataforma interactiva con electrónica, control distribuido, neumática y futuras capacidades de visión artificial.</p>
+          <div class="detail-columns">
+            <div><h3>Objetivo</h3><p>Construir una demo técnica atractiva para eventos, capaz de mostrar iluminación reactiva, detección automática de goles, marcador digital y automatización progresiva del juego.</p></div>
+            <div><h3>Trabajo técnico</h3><ul><li>Arquitectura distribuida con ESP32 y Raspberry Pi.</li><li>Sensores de gol, tiras LED y marcador digital.</li><li>Relanzamiento automático mediante neumática.</li><li>Visión artificial y portero autónomo como fases futuras.</li></ul></div>
+          </div>
+          <div class="detail-actions"><a class="button primary" href="https://github.com/RoboTech-URJC/Futbolin" target="_blank" rel="noreferrer">Repositorio</a><a class="button secondary" href="#contacto">Unirme al equipo</a></div>
+        </div>
+        <div class="detail-gallery detail-gallery--credited"><img src="img/futbolin/fase1_ia.png" alt="Concepto visual de la fase 1 del Futbolín Automatizado" onerror="this.onerror=null;this.src='img/futbolin/futbolin_cover.jpg';"><img src="img/futbolin/fase2_ia.png" alt="Concepto visual de la fase 2 del Futbolín Automatizado" onerror="this.onerror=null;this.src='img/futbolin/futbolin_cover.jpg';"><img src="img/futbolin/fase3_ia.png" alt="Concepto visual de la fase 3 del Futbolín Automatizado" onerror="this.onerror=null;this.src='img/futbolin/futbolin_cover.jpg';"><p class="image-credit">Imágenes generadas como referencia visual de las fases del proyecto. No representan el modelo real construido; muestran el aspecto objetivo del Futbolín Automatizado.</p></div>
+      </section>
+
+      <section class="project-detail" id="led-race">
+        <div class="detail-copy">
+          <p class="eyebrow">Electrónica</p>
+          <h2>LED Race</h2>
+          <p>Juego competitivo con tiras NeoPixel y pulsadores. Es un proyecto perfecto para practicar soldadura, firmware, montaje limpio y diseño de una experiencia interactiva para eventos.</p>
+          <div class="detail-columns">
+            <div><h3>Objetivo</h3><p>Construir un juego fiable, fácil de transportar y preparado para demostraciones, talleres o competiciones rápidas entre participantes.</p></div>
+            <div><h3>Trabajo técnico</h3><ul><li>Soldadura y organización del cableado.</li><li>Firmware para reglas, puntuación y efectos LED.</li><li>Carcasa, botones y pruebas de resistencia.</li></ul></div>
+          </div>
+          <div class="detail-actions"><a class="button primary" href="https://github.com/RoboTech-URJC/led-race" target="_blank" rel="noreferrer">Repositorio</a><a class="button secondary" href="#contacto">Unirme al equipo</a></div>
+        </div>
+        <div class="detail-gallery"><img src="img/led_race/led_race_1.jpeg" alt="LED Race"><img src="img/led_race/led_Race_2.png" alt="Montaje de LED Race"><img src="img/led_race/led_race_3.jpeg" alt="Pruebas de LED Race"><img src="img/led_race/led_race_4.jpeg" alt="Detalle de LED Race"><img src="img/led_race/led_race_5.jpeg" alt="Vista adicional de LED Race"></div>
+      </section>
+
+      <section class="project-detail" id="hormiga">
+        <div class="detail-copy">
+          <p class="eyebrow">Biomecánica</p>
+          <h2>Proyecto Hormiga</h2>
+          <p>Proyecto de locomoción inspirado en insectos. Combina diseño mecánico, prototipado e iteracion de movimientos para entender como coordinar patas, estabilidad y control.</p>
+          <div class="detail-columns">
+            <div><h3>Objetivo</h3><p>Construir un robot caminante experimental y usarlo como banco de pruebas para mecanismos, marchas y control de locomoción.</p></div>
+            <div><h3>Trabajo técnico</h3><ul><li>Diseno de patas y transmision de movimiento.</li><li>Pruebas de estabilidad y cadencia.</li><li>Control de servos y rutinas de marcha.</li></ul></div>
+          </div>
+          <div class="detail-actions"><a class="button primary" href="https://github.com/RoboTech-URJC/Ant-Project" target="_blank" rel="noreferrer">Repositorio</a><a class="button secondary" href="#contacto">Unirme al equipo</a></div>
+        </div>
+        <div class="detail-gallery detail-gallery--single"><img src="img/portfolio/hormiga.jpeg" alt="Proyecto Hormiga"></div>
+      </section>
+
+      
+      <section class="project-detail is-archived" id="noah">
+        <div class="detail-copy">
+          <p class="eyebrow">ROS</p>
+          <h2>Robot Noah</h2>
+          <p>Noah fue una flota de robots impresos en 3D y programados con ROS. Se conserva como referencia para equipos que quieran estudiar robots móviles, comunicación entre unidades y arquitectura distribuida.</p>
+          <div class="detail-columns">
+            <div><h3>Valor actual</h3><p>El proyecto sirve para revisar decisiones de hardware, estructura de repositorios, documentación y limites prácticos de una flota pequeña.</p></div>
+            <div><h3>Qué se puede reutilizar</h3><ul><li>Modelos mecánicos y piezas impresas.</li><li>Organizacion de nodos y paquetes ROS.</li><li>Lecciones aprendidas para robots móviles nuevos.</li></ul></div>
+          </div>
+          <div class="detail-actions"><a class="button primary" href="https://github.com/RoboTech-URJC/noah_hardware" target="_blank" rel="noreferrer">Repositorio</a><a class="button secondary" href="#proyectos">Volver a proyectos</a></div>
+        </div>
+        <div class="detail-gallery"><img src="img/noah/noah_2.jpeg" alt="Robot Noah"><img src="img/noah/noah_3.jpeg" alt="Referencia visual de robot móvil"><img src="img/noah/noah_1.jpeg" alt="Robot móvil de aprendizaje"><img src="img/noah/noah_4.jpeg" alt="Vista de robot móvil"><img src="img/noah/noah_5.png" alt="Espacio de trabajo de robots móviles"></div>
+      </section>
+
+      <section class="project-detail is-archived" id="servidor-red">
+        <div class="detail-copy">
+          <p class="eyebrow">Infraestructura</p>
+          <h2>Proyecto Servidor-Red</h2>
+          <p>Proyecto de infraestructura para alojar, probar y mantener servicios vinculados a la asociación. Aunque ya no está en servicio, deja aprendizajes útiles sobre despliegue y mantenimiento.</p>
+          <div class="detail-columns">
+            <div><h3>Valor actual</h3><p>Ayuda a entender requisitos de red, copias de seguridad, permisos, servicios internos y documentación de administración.</p></div>
+            <div><h3>Qué se puede reutilizar</h3><ul><li>Checklist de instalación y configuración.</li><li>Buenas prácticas para servicios pequeños.</li><li>Ideas para una nueva infraestructura reproducible.</li></ul></div>
+          </div>
+          <div class="detail-actions"><a class="button primary" href="https://github.com/RoboTech-URJC/RobotechServer-Project" target="_blank" rel="noreferrer">Repositorio</a><a class="button secondary" href="#proyectos">Volver a proyectos</a></div>
+        </div>
+        <div class="detail-gallery detail-gallery--single"><img src="img/portfolio/server.jpg" alt="Proyecto Servidor-Red"></div>
+      </section>
+
+      <section class="project-detail is-archived" id="oasis">
+        <div class="detail-copy">
+          <p class="eyebrow">Histórico</p>
+          <h2>Proyecto Oasis</h2>
+          <p>Oasis forma parte del archivo histórico de Robotech. Su funcion dentro de la web es conservar contexto, imágenes y memoria técnica para que las nuevas generaciones no empiecen siempre desde cero.</p>
+          <div class="detail-columns">
+            <div><h3>Valor actual</h3><p>Recoger que se intento construir, que materiales se usaron y que decisiones deberian revisarse si alguien quiere reactivarlo.</p></div>
+            <div><h3>Próximos pasos posibles</h3><ul><li>Localizar documentación y componentes restantes.</li><li>Preparar una ficha técnica breve.</li><li>Decidir si se archiva definitivamente o se convierte en nuevo reto.</li></ul></div>
+          </div>
+          <div class="detail-actions"><a class="button secondary" href="#proyectos">Volver a proyectos</a></div>
+        </div>
+        <div class="detail-gallery detail-gallery--single"><img src="img/portfolio/oasis.jpeg" alt="Proyecto Oasis"></div>
+      </section>
+
+
+      <section id="talleres" class="container full-section">
+        <div class="page-hero"><p class="eyebrow">Formación práctica</p><h1>Talleres para empezar con herramientas reales de proyecto.</h1><p>Linux, shell, Git y modelado 3D aplicados a robots, piezas y prototipos reales.</p></div>
+        <div class="full-workshop-grid">
+          <a class="full-workshop-card" href="taller-linux.html"><img src="img/workshops/linux.png" alt="Icono de Linux"><strong>Linux y setup</strong><h3>Preparar el entorno</h3><p>Instalación, terminal, estructura de archivos, permisos y herramientas básicas para trabajar sin fricción.</p></a>
+          <a class="full-workshop-card" href="taller-shell.html"><img src="img/workshops/shell.png" alt="Icono de shell"><strong>Shell</strong><h3>Trabajar desde consola</h3><p>Navegación, scripts sencillos, automatización de tareas y comandos útiles para proyectos de ingeniería.</p></a>
+          <a class="full-workshop-card" href="taller-git.html"><img src="img/workshops/git.png" alt="Icono de Git"><strong>Git y GitHub</strong><h3>Colaborar sin pisarse</h3><p>Ramas, commits, pull requests, issues y buenas prácticas para documentar avances.</p></a>
+          <a class="full-workshop-card" href="taller-blender.html"><img src="img/workshops/blender.png" alt="Icono de Blender"><strong>Blender</strong><h3>Modelado de robots</h3><p>Formas, proporciones, piezas y renders rápidos para comunicar ideas de robots antes de fabricarlas.</p></a>
+          <a class="full-workshop-card" href="taller-fusion.html"><img src="img/workshops/fusion.png" alt="Icono de Fusion"><strong>Fusion</strong><h3>Modelado técnico</h3><p>Diseño paramétrico de piezas imprimibles, tolerancias, ensamblajes y preparación para fabricación.</p></a>
+        </div>
+        <div class="section cta-band"><div><p class="eyebrow">Inscripción</p><h2>Pregunta por el próximo taller o entra al Discord.</h2><p>Publicamos convocatorias y materiales para que puedas prepararte antes de venir.</p></div><div class="button-row"><a class="button primary" href="https://discord.gg/k9nKDrDQaC" target="_blank" rel="noreferrer">Entrar a Discord</a><a class="button secondary" href="cartel.html">Generar cartel</a></div></div>
+      </section>
+
+      <section id="colabora" class="container full-section">
+        <div class="page-hero"><p class="eyebrow">Partners y patrocinadores</p><h1>Ayuda a que más estudiantes construyan tecnología real.</h1><p>Buscamos colaboraciones técnicas, donación de material, mentoría, retos aplicados y apoyo económico para proyectos, talleres y demostraciones.</p></div>
+        <div class="cards collaboration-values"><article class="card"><span class="number">01</span><h3>Material y herramientas</h3><p>Componentes, sensores, placas, filamento, herramientas o equipos que puedan tener segunda vida en el taller.</p></article><article class="card"><span class="number">02</span><h3>Mentoría técnica</h3><p>Charlas, revisiones de arquitectura, sesiones de CAD, electrónica, visión artificial o control.</p></article><article class="card"><span class="number">03</span><h3>Retos y patrocinio</h3><p>Proponer un reto real, financiar materiales o apoyar la participación en eventos y competiciones.</p></article></div>
+        <div class="section two-col"><div class="section-title"><p class="eyebrow">Qué obtiene el colaborador</p><h2>Visibilidad, contacto con talento y proyectos documentados.</h2></div><div class="panel"><h3>Colaboración con impacto concreto</h3><p>Podemos incluir presencia de marca en materiales, menciones en redes, demostraciones públicas y documentación del uso del material o apoyo recibido.</p><p>También podemos trabajar con retos acotados para que el resultado sea evaluable: prototipo, informe, repositorio, demo o taller impartido.</p><div class="button-row"><a class="button primary" href="#contacto">Contáctanos</a></div></div></div>
+      </section>
+
+      <section id="contacto" class="container full-section">
+        <div class="page-hero"><p class="eyebrow">Contacto</p><h1>Cuéntanos qué quieres construir, aprender o proponer.</h1><p>Responderemos por email. También puedes encontrarnos en redes o pasarte por el sótano del Aulario I del Campus de Fuenlabrada.</p></div>
+        <div class="full-contact-row">
+          <div class="full-contact-links contact-grid">
+            <a class="contact-card" href="mailto:asociacion.robotech@urjc.es"><span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6h16v12H4z"></path><path d="m4 7 8 6 8-6"></path></svg></span><h3>Email</h3><p>asociacion.robotech@urjc.es</p></a>
+            <a class="contact-card" href="https://github.com/robotech-urjc" target="_blank" rel="noreferrer"><span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 19c-4 1.5-4-2-6-2.5"></path><path d="M15 22v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6A4.6 4.6 0 0 0 18.7 7c.1-.3.6-1.6-.1-3.3 0 0-1.1-.3-3.5 1.3a12.2 12.2 0 0 0-6.2 0C6.5 3.4 5.4 3.7 5.4 3.7 4.7 5.4 5.2 6.7 5.3 7A4.6 4.6 0 0 0 4 10.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V22"></path></svg></span><h3>GitHub</h3><p>Repositorios públicos y proyectos abiertos.</p></a>
+            <a class="contact-card" href="https://www.instagram.com/robotech_urjc" target="_blank" rel="noreferrer"><span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4"></rect><circle cx="12" cy="12" r="3.2"></circle><path d="M17.5 6.5h.01"></path></svg></span><h3>Instagram</h3><p>Actividad, talleres y demostraciones.</p></a>
+            <a class="contact-card" href="https://es.linkedin.com/company/robotech-urjc" target="_blank" rel="noreferrer"><span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.5 10v8"></path><path d="M6.5 6v.01"></path><path d="M10.5 18v-8"></path><path d="M10.5 13.5c0-2 1.2-3.8 3.5-3.8 2 0 3.5 1.3 3.5 4V18"></path><rect x="3" y="3" width="18" height="18" rx="2"></rect></svg></span><h3>LinkedIn</h3><p>Perfil institucional y colaboraciones.</p></a>
+          </div>
+          <form class="panel" data-contact-form><div class="field-grid"><label>Nombre<input name="name" autocomplete="name" required></label><label>Email<input name="email" type="email" autocomplete="email" required></label></div><label>Tipo de contacto<select name="type"><option>Quiero unirme</option><option>Propongo un proyecto</option><option>Colaboración o patrocinio</option><option>Consulta general</option></select></label><label>Asunto<input name="subject"></label><label>Mensaje<textarea name="message" required placeholder="Cuéntanos el contexto, objetivo y cualquier enlace útil."></textarea></label><button class="button primary" type="submit">Preparar email</button></form>
+        </div>
+      </section>
+
+      <section id="fotos" class="container full-section">
+        <div class="section-title split"><div><p class="eyebrow">Fototeca</p><h2>Todas las imágenes encontradas en <code>img/</code>.</h2><p>Listado generado desde los archivos actuales para que esta página sirva como inventario visual de la web.</p></div><span class="full-photo-count">233 imágenes</span></div>
+        <div class="full-photo-tools"><p class="muted">Incluye logos, iconos, fotos de proyectos, talleres, local y recursos auxiliares.</p><a class="text-link" href="#inicio">Volver arriba</a></div>
+        <div class="full-photo-grid">
+            <a class="full-photo-card" href="img/PET.png" target="_blank" rel="noreferrer" data-folder="img">
+              <img src="img/PET.png" alt="PET.png" loading="lazy">
+              <span>img/PET.png</span>
+            </a>
+            <a class="full-photo-card" href="img/blender.png" target="_blank" rel="noreferrer" data-folder="img">
+              <img src="img/blender.png" alt="blender.png" loading="lazy">
+              <span>img/blender.png</span>
+            </a>
+            <a class="full-photo-card" href="img/dash/about.png" target="_blank" rel="noreferrer" data-folder="dash">
+              <img src="img/dash/about.png" alt="about.png" loading="lazy">
+              <span>img/dash/about.png</span>
+            </a>
+            <a class="full-photo-card" href="img/dash/contact.png" target="_blank" rel="noreferrer" data-folder="dash">
+              <img src="img/dash/contact.png" alt="contact.png" loading="lazy">
+              <span>img/dash/contact.png</span>
+            </a>
+            <a class="full-photo-card" href="img/dash/dron_cuadrado.png" target="_blank" rel="noreferrer" data-folder="dash">
+              <img src="img/dash/dron_cuadrado.png" alt="dron_cuadrado.png" loading="lazy">
+              <span>img/dash/dron_cuadrado.png</span>
+            </a>
+            <a class="full-photo-card" href="img/dash/hirobot_cuadrado.png" target="_blank" rel="noreferrer" data-folder="dash">
+              <img src="img/dash/hirobot_cuadrado.png" alt="hirobot_cuadrado.png" loading="lazy">
+              <span>img/dash/hirobot_cuadrado.png</span>
+            </a>
+            <a class="full-photo-card" href="img/dash/hormiga_cuadrado.png" target="_blank" rel="noreferrer" data-folder="dash">
+              <img src="img/dash/hormiga_cuadrado.png" alt="hormiga_cuadrado.png" loading="lazy">
+              <span>img/dash/hormiga_cuadrado.png</span>
+            </a>
+            <a class="full-photo-card" href="img/dash/idea.png" target="_blank" rel="noreferrer" data-folder="dash">
+              <img src="img/dash/idea.png" alt="idea.png" loading="lazy">
+              <span>img/dash/idea.png</span>
+            </a>
+            <a class="full-photo-card" href="img/dash/inscribete.png" target="_blank" rel="noreferrer" data-folder="dash">
+              <img src="img/dash/inscribete.png" alt="inscribete.png" loading="lazy">
+              <span>img/dash/inscribete.png</span>
+            </a>
+            <a class="full-photo-card" href="img/dash/led_cuadrado.png" target="_blank" rel="noreferrer" data-folder="dash">
+              <img src="img/dash/led_cuadrado.png" alt="led_cuadrado.png" loading="lazy">
+              <span>img/dash/led_cuadrado.png</span>
+            </a>
+            <a class="full-photo-card" href="img/dash/proyects.png" target="_blank" rel="noreferrer" data-folder="dash">
+              <img src="img/dash/proyects.png" alt="proyects.png" loading="lazy">
+              <span>img/dash/proyects.png</span>
+            </a>
+            <a class="full-photo-card" href="img/dash/scara_cuadrado.png" target="_blank" rel="noreferrer" data-folder="dash">
+              <img src="img/dash/scara_cuadrado.png" alt="scara_cuadrado.png" loading="lazy">
+              <span>img/dash/scara_cuadrado.png</span>
+            </a>
+            <a class="full-photo-card" href="img/dash/zeus_cuadrado.png" target="_blank" rel="noreferrer" data-folder="dash">
+              <img src="img/dash/zeus_cuadrado.png" alt="zeus_cuadrado.png" loading="lazy">
+              <span>img/dash/zeus_cuadrado.png</span>
+            </a>
+            <a class="full-photo-card" href="img/drone/drone_1.jpeg" target="_blank" rel="noreferrer" data-folder="drone">
+              <img src="img/drone/drone_1.jpeg" alt="drone_1.jpeg" loading="lazy">
+              <span>img/drone/drone_1.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/drone/drone_2.jpeg" target="_blank" rel="noreferrer" data-folder="drone">
+              <img src="img/drone/drone_2.jpeg" alt="drone_2.jpeg" loading="lazy">
+              <span>img/drone/drone_2.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/drone/drone_3.jpeg" target="_blank" rel="noreferrer" data-folder="drone">
+              <img src="img/drone/drone_3.jpeg" alt="drone_3.jpeg" loading="lazy">
+              <span>img/drone/drone_3.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/drone/drone_4.jpeg" target="_blank" rel="noreferrer" data-folder="drone">
+              <img src="img/drone/drone_4.jpeg" alt="drone_4.jpeg" loading="lazy">
+              <span>img/drone/drone_4.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/drone/drone_5.jpeg" target="_blank" rel="noreferrer" data-folder="drone">
+              <img src="img/drone/drone_5.jpeg" alt="drone_5.jpeg" loading="lazy">
+              <span>img/drone/drone_5.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/flipflop/3DdesingFlop.png" target="_blank" rel="noreferrer" data-folder="flipflop">
+              <img src="img/flipflop/3DdesingFlop.png" alt="3DdesingFlop.png" loading="lazy">
+              <span>img/flipflop/3DdesingFlop.png</span>
+            </a>
+            <a class="full-photo-card" href="img/flipflop/ArduinoFLop2.png" target="_blank" rel="noreferrer" data-folder="flipflop">
+              <img src="img/flipflop/ArduinoFLop2.png" alt="ArduinoFLop2.png" loading="lazy">
+              <span>img/flipflop/ArduinoFLop2.png</span>
+            </a>
+            <a class="full-photo-card" href="img/flipflop/ArduinoFlop.png" target="_blank" rel="noreferrer" data-folder="flipflop">
+              <img src="img/flipflop/ArduinoFlop.png" alt="ArduinoFlop.png" loading="lazy">
+              <span>img/flipflop/ArduinoFlop.png</span>
+            </a>
+            <a class="full-photo-card" href="img/flipflop/SmileFlop.png" target="_blank" rel="noreferrer" data-folder="flipflop">
+              <img src="img/flipflop/SmileFlop.png" alt="SmileFlop.png" loading="lazy">
+              <span>img/flipflop/SmileFlop.png</span>
+            </a>
+            <a class="full-photo-card" href="img/flipflop/flipflop.png" target="_blank" rel="noreferrer" data-folder="flipflop">
+              <img src="img/flipflop/flipflop.png" alt="flipflop.png" loading="lazy">
+              <span>img/flipflop/flipflop.png</span>
+            </a>
+            <a class="full-photo-card" href="img/flipflop/titlepic.png" target="_blank" rel="noreferrer" data-folder="flipflop">
+              <img src="img/flipflop/titlepic.png" alt="titlepic.png" loading="lazy">
+              <span>img/flipflop/titlepic.png</span>
+            </a>
+            <a class="full-photo-card" href="img/fusion.png" target="_blank" rel="noreferrer" data-folder="img">
+              <img src="img/fusion.png" alt="fusion.png" loading="lazy">
+              <span>img/fusion.png</span>
+            </a>
+            <a class="full-photo-card" href="img/fusion_transparent.png" target="_blank" rel="noreferrer" data-folder="img">
+              <img src="img/fusion_transparent.png" alt="fusion_transparent.png" loading="lazy">
+              <span>img/fusion_transparent.png</span>
+            </a>
+            <a class="full-photo-card" href="img/futbolin/fase1_ia.png" target="_blank" rel="noreferrer" data-folder="futbolin">
+              <img src="img/futbolin/fase1_ia.png" alt="fase1_ia.png" loading="lazy">
+              <span>img/futbolin/fase1_ia.png</span>
+            </a>
+            <a class="full-photo-card" href="img/futbolin/fase2_ia.png" target="_blank" rel="noreferrer" data-folder="futbolin">
+              <img src="img/futbolin/fase2_ia.png" alt="fase2_ia.png" loading="lazy">
+              <span>img/futbolin/fase2_ia.png</span>
+            </a>
+            <a class="full-photo-card" href="img/futbolin/fase3_ia.png" target="_blank" rel="noreferrer" data-folder="futbolin">
+              <img src="img/futbolin/fase3_ia.png" alt="fase3_ia.png" loading="lazy">
+              <span>img/futbolin/fase3_ia.png</span>
+            </a>
+            <a class="full-photo-card" href="img/futbolin/futbolin_cover.jpg" target="_blank" rel="noreferrer" data-folder="futbolin">
+              <img src="img/futbolin/futbolin_cover.jpg" alt="futbolin_cover.jpg" loading="lazy">
+              <span>img/futbolin/futbolin_cover.jpg</span>
+            </a>
+            <a class="full-photo-card" href="img/git.png" target="_blank" rel="noreferrer" data-folder="img">
+              <img src="img/git.png" alt="git.png" loading="lazy">
+              <span>img/git.png</span>
+            </a>
+            <a class="full-photo-card" href="img/git_transparent.png" target="_blank" rel="noreferrer" data-folder="img">
+              <img src="img/git_transparent.png" alt="git_transparent.png" loading="lazy">
+              <span>img/git_transparent.png</span>
+            </a>
+            <a class="full-photo-card" href="img/header.jpg" target="_blank" rel="noreferrer" data-folder="img">
+              <img src="img/header.jpg" alt="header.jpg" loading="lazy">
+              <span>img/header.jpg</span>
+            </a>
+            <a class="full-photo-card" href="img/hexabot/hexabot_chassis.jpg" target="_blank" rel="noreferrer" data-folder="hexabot">
+              <img src="img/hexabot/hexabot_chassis.jpg" alt="hexabot_chassis.jpg" loading="lazy">
+              <span>img/hexabot/hexabot_chassis.jpg</span>
+            </a>
+            <a class="full-photo-card" href="img/hexabot/hexabot_cover.jpg" target="_blank" rel="noreferrer" data-folder="hexabot">
+              <img src="img/hexabot/hexabot_cover.jpg" alt="hexabot_cover.jpg" loading="lazy">
+              <span>img/hexabot/hexabot_cover.jpg</span>
+            </a>
+            <a class="full-photo-card" href="img/hirobot/hiro_1.jpeg" target="_blank" rel="noreferrer" data-folder="hirobot">
+              <img src="img/hirobot/hiro_1.jpeg" alt="hiro_1.jpeg" loading="lazy">
+              <span>img/hirobot/hiro_1.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/hirobot/hiro_2.jpeg" target="_blank" rel="noreferrer" data-folder="hirobot">
+              <img src="img/hirobot/hiro_2.jpeg" alt="hiro_2.jpeg" loading="lazy">
+              <span>img/hirobot/hiro_2.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/hirobot/hiro_3.jpeg" target="_blank" rel="noreferrer" data-folder="hirobot">
+              <img src="img/hirobot/hiro_3.jpeg" alt="hiro_3.jpeg" loading="lazy">
+              <span>img/hirobot/hiro_3.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/hirobot/hiro_febrero.jpeg" target="_blank" rel="noreferrer" data-folder="hirobot">
+              <img src="img/hirobot/hiro_febrero.jpeg" alt="hiro_febrero.jpeg" loading="lazy">
+              <span>img/hirobot/hiro_febrero.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/hirobot/hiro_marzo.jpeg" target="_blank" rel="noreferrer" data-folder="hirobot">
+              <img src="img/hirobot/hiro_marzo.jpeg" alt="hiro_marzo.jpeg" loading="lazy">
+              <span>img/hirobot/hiro_marzo.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/hirobot/hiro_marzo2.jpeg" target="_blank" rel="noreferrer" data-folder="hirobot">
+              <img src="img/hirobot/hiro_marzo2.jpeg" alt="hiro_marzo2.jpeg" loading="lazy">
+              <span>img/hirobot/hiro_marzo2.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/hirobot/hiro_marzo3.jpeg" target="_blank" rel="noreferrer" data-folder="hirobot">
+              <img src="img/hirobot/hiro_marzo3.jpeg" alt="hiro_marzo3.jpeg" loading="lazy">
+              <span>img/hirobot/hiro_marzo3.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/hirobot/hiro_mayo.jpeg" target="_blank" rel="noreferrer" data-folder="hirobot">
+              <img src="img/hirobot/hiro_mayo.jpeg" alt="hiro_mayo.jpeg" loading="lazy">
+              <span>img/hirobot/hiro_mayo.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/hirobot/hiro_mayo2.jpeg" target="_blank" rel="noreferrer" data-folder="hirobot">
+              <img src="img/hirobot/hiro_mayo2.jpeg" alt="hiro_mayo2.jpeg" loading="lazy">
+              <span>img/hirobot/hiro_mayo2.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/hirobot/hiro_mayo3.jpeg" target="_blank" rel="noreferrer" data-folder="hirobot">
+              <img src="img/hirobot/hiro_mayo3.jpeg" alt="hiro_mayo3.jpeg" loading="lazy">
+              <span>img/hirobot/hiro_mayo3.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/hirobot/hiro_mayo4.jpeg" target="_blank" rel="noreferrer" data-folder="hirobot">
+              <img src="img/hirobot/hiro_mayo4.jpeg" alt="hiro_mayo4.jpeg" loading="lazy">
+              <span>img/hirobot/hiro_mayo4.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/hirobot/hiro_mayo5.jpeg" target="_blank" rel="noreferrer" data-folder="hirobot">
+              <img src="img/hirobot/hiro_mayo5.jpeg" alt="hiro_mayo5.jpeg" loading="lazy">
+              <span>img/hirobot/hiro_mayo5.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/hirobot/hiro_sin_pantalla.jpeg" target="_blank" rel="noreferrer" data-folder="hirobot">
+              <img src="img/hirobot/hiro_sin_pantalla.jpeg" alt="hiro_sin_pantalla.jpeg" loading="lazy">
+              <span>img/hirobot/hiro_sin_pantalla.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/hirobot/motores_nuevos.jpeg" target="_blank" rel="noreferrer" data-folder="hirobot">
+              <img src="img/hirobot/motores_nuevos.jpeg" alt="motores_nuevos.jpeg" loading="lazy">
+              <span>img/hirobot/motores_nuevos.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/hirobot/orugas.jpeg" target="_blank" rel="noreferrer" data-folder="hirobot">
+              <img src="img/hirobot/orugas.jpeg" alt="orugas.jpeg" loading="lazy">
+              <span>img/hirobot/orugas.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/hirobot/primera_oruga.jpeg" target="_blank" rel="noreferrer" data-folder="hirobot">
+              <img src="img/hirobot/primera_oruga.jpeg" alt="primera_oruga.jpeg" loading="lazy">
+              <span>img/hirobot/primera_oruga.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/hirobot/prueba_oruga2.jpeg" target="_blank" rel="noreferrer" data-folder="hirobot">
+              <img src="img/hirobot/prueba_oruga2.jpeg" alt="prueba_oruga2.jpeg" loading="lazy">
+              <span>img/hirobot/prueba_oruga2.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/hirobot/ruedas_tanque.jpeg" target="_blank" rel="noreferrer" data-folder="hirobot">
+              <img src="img/hirobot/ruedas_tanque.jpeg" alt="ruedas_tanque.jpeg" loading="lazy">
+              <span>img/hirobot/ruedas_tanque.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/hirobot/ultima_prueba_oruga.jpeg" target="_blank" rel="noreferrer" data-folder="hirobot">
+              <img src="img/hirobot/ultima_prueba_oruga.jpeg" alt="ultima_prueba_oruga.jpeg" loading="lazy">
+              <span>img/hirobot/ultima_prueba_oruga.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/hirobot/ultrasonido.jpeg" target="_blank" rel="noreferrer" data-folder="hirobot">
+              <img src="img/hirobot/ultrasonido.jpeg" alt="ultrasonido.jpeg" loading="lazy">
+              <span>img/hirobot/ultrasonido.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/led_race/led_Race_2.png" target="_blank" rel="noreferrer" data-folder="led_race">
+              <img src="img/led_race/led_Race_2.png" alt="led_Race_2.png" loading="lazy">
+              <span>img/led_race/led_Race_2.png</span>
+            </a>
+            <a class="full-photo-card" href="img/led_race/led_race_1.jpeg" target="_blank" rel="noreferrer" data-folder="led_race">
+              <img src="img/led_race/led_race_1.jpeg" alt="led_race_1.jpeg" loading="lazy">
+              <span>img/led_race/led_race_1.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/led_race/led_race_3.jpeg" target="_blank" rel="noreferrer" data-folder="led_race">
+              <img src="img/led_race/led_race_3.jpeg" alt="led_race_3.jpeg" loading="lazy">
+              <span>img/led_race/led_race_3.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/led_race/led_race_4.jpeg" target="_blank" rel="noreferrer" data-folder="led_race">
+              <img src="img/led_race/led_race_4.jpeg" alt="led_race_4.jpeg" loading="lazy">
+              <span>img/led_race/led_race_4.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/led_race/led_race_5.jpeg" target="_blank" rel="noreferrer" data-folder="led_race">
+              <img src="img/led_race/led_race_5.jpeg" alt="led_race_5.jpeg" loading="lazy">
+              <span>img/led_race/led_race_5.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/linux.png" target="_blank" rel="noreferrer" data-folder="img">
+              <img src="img/linux.png" alt="linux.png" loading="lazy">
+              <span>img/linux.png</span>
+            </a>
+            <a class="full-photo-card" href="img/linux_transparent.png" target="_blank" rel="noreferrer" data-folder="img">
+              <img src="img/linux_transparent.png" alt="linux_transparent.png" loading="lazy">
+              <span>img/linux_transparent.png</span>
+            </a>
+            <a class="full-photo-card" href="img/local/local_1.jpeg" target="_blank" rel="noreferrer" data-folder="local">
+              <img src="img/local/local_1.jpeg" alt="local_1.jpeg" loading="lazy">
+              <span>img/local/local_1.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/local/local_10.jpeg" target="_blank" rel="noreferrer" data-folder="local">
+              <img src="img/local/local_10.jpeg" alt="local_10.jpeg" loading="lazy">
+              <span>img/local/local_10.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/local/local_11.jpeg" target="_blank" rel="noreferrer" data-folder="local">
+              <img src="img/local/local_11.jpeg" alt="local_11.jpeg" loading="lazy">
+              <span>img/local/local_11.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/local/local_12.jpeg" target="_blank" rel="noreferrer" data-folder="local">
+              <img src="img/local/local_12.jpeg" alt="local_12.jpeg" loading="lazy">
+              <span>img/local/local_12.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/local/local_2.jpeg" target="_blank" rel="noreferrer" data-folder="local">
+              <img src="img/local/local_2.jpeg" alt="local_2.jpeg" loading="lazy">
+              <span>img/local/local_2.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/local/local_3.jpeg" target="_blank" rel="noreferrer" data-folder="local">
+              <img src="img/local/local_3.jpeg" alt="local_3.jpeg" loading="lazy">
+              <span>img/local/local_3.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/local/local_4.jpeg" target="_blank" rel="noreferrer" data-folder="local">
+              <img src="img/local/local_4.jpeg" alt="local_4.jpeg" loading="lazy">
+              <span>img/local/local_4.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/local/local_5.jpeg" target="_blank" rel="noreferrer" data-folder="local">
+              <img src="img/local/local_5.jpeg" alt="local_5.jpeg" loading="lazy">
+              <span>img/local/local_5.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/local/local_6.jpeg" target="_blank" rel="noreferrer" data-folder="local">
+              <img src="img/local/local_6.jpeg" alt="local_6.jpeg" loading="lazy">
+              <span>img/local/local_6.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/local/local_7.jpeg" target="_blank" rel="noreferrer" data-folder="local">
+              <img src="img/local/local_7.jpeg" alt="local_7.jpeg" loading="lazy">
+              <span>img/local/local_7.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/local/local_8.jpeg" target="_blank" rel="noreferrer" data-folder="local">
+              <img src="img/local/local_8.jpeg" alt="local_8.jpeg" loading="lazy">
+              <span>img/local/local_8.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/local/local_9.jpeg" target="_blank" rel="noreferrer" data-folder="local">
+              <img src="img/local/local_9.jpeg" alt="local_9.jpeg" loading="lazy">
+              <span>img/local/local_9.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/local/local_pano.jpeg" target="_blank" rel="noreferrer" data-folder="local">
+              <img src="img/local/local_pano.jpeg" alt="local_pano.jpeg" loading="lazy">
+              <span>img/local/local_pano.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/logo_no_underscore.png" target="_blank" rel="noreferrer" data-folder="img">
+              <img src="img/logo_no_underscore.png" alt="logo_no_underscore.png" loading="lazy">
+              <span>img/logo_no_underscore.png</span>
+            </a>
+            <a class="full-photo-card" href="img/noah/noah_1.jpeg" target="_blank" rel="noreferrer" data-folder="noah">
+              <img src="img/noah/noah_1.jpeg" alt="noah_1.jpeg" loading="lazy">
+              <span>img/noah/noah_1.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/noah/noah_2.jpeg" target="_blank" rel="noreferrer" data-folder="noah">
+              <img src="img/noah/noah_2.jpeg" alt="noah_2.jpeg" loading="lazy">
+              <span>img/noah/noah_2.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/noah/noah_3.jpeg" target="_blank" rel="noreferrer" data-folder="noah">
+              <img src="img/noah/noah_3.jpeg" alt="noah_3.jpeg" loading="lazy">
+              <span>img/noah/noah_3.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/noah/noah_4.jpeg" target="_blank" rel="noreferrer" data-folder="noah">
+              <img src="img/noah/noah_4.jpeg" alt="noah_4.jpeg" loading="lazy">
+              <span>img/noah/noah_4.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/noah/noah_5.png" target="_blank" rel="noreferrer" data-folder="noah">
+              <img src="img/noah/noah_5.png" alt="noah_5.png" loading="lazy">
+              <span>img/noah/noah_5.png</span>
+            </a>
+            <a class="full-photo-card" href="img/pet.png" target="_blank" rel="noreferrer" data-folder="img">
+              <img src="img/pet.png" alt="pet.png" loading="lazy">
+              <span>img/pet.png</span>
+            </a>
+            <a class="full-photo-card" href="img/pet_coffee.png" target="_blank" rel="noreferrer" data-folder="img">
+              <img src="img/pet_coffee.png" alt="pet_coffee.png" loading="lazy">
+              <span>img/pet_coffee.png</span>
+            </a>
+            <a class="full-photo-card" href="img/pet_coffee_with_bg.png" target="_blank" rel="noreferrer" data-folder="img">
+              <img src="img/pet_coffee_with_bg.png" alt="pet_coffee_with_bg.png" loading="lazy">
+              <span>img/pet_coffee_with_bg.png</span>
+            </a>
+            <a class="full-photo-card" href="img/portfolio/1.jpg" target="_blank" rel="noreferrer" data-folder="portfolio">
+              <img src="img/portfolio/1.jpg" alt="1.jpg" loading="lazy">
+              <span>img/portfolio/1.jpg</span>
+            </a>
+            <a class="full-photo-card" href="img/portfolio/2.jpg" target="_blank" rel="noreferrer" data-folder="portfolio">
+              <img src="img/portfolio/2.jpg" alt="2.jpg" loading="lazy">
+              <span>img/portfolio/2.jpg</span>
+            </a>
+            <a class="full-photo-card" href="img/portfolio/3.jpg" target="_blank" rel="noreferrer" data-folder="portfolio">
+              <img src="img/portfolio/3.jpg" alt="3.jpg" loading="lazy">
+              <span>img/portfolio/3.jpg</span>
+            </a>
+            <a class="full-photo-card" href="img/portfolio/4.jpg" target="_blank" rel="noreferrer" data-folder="portfolio">
+              <img src="img/portfolio/4.jpg" alt="4.jpg" loading="lazy">
+              <span>img/portfolio/4.jpg</span>
+            </a>
+            <a class="full-photo-card" href="img/portfolio/5.jpg" target="_blank" rel="noreferrer" data-folder="portfolio">
+              <img src="img/portfolio/5.jpg" alt="5.jpg" loading="lazy">
+              <span>img/portfolio/5.jpg</span>
+            </a>
+            <a class="full-photo-card" href="img/portfolio/6.jpg" target="_blank" rel="noreferrer" data-folder="portfolio">
+              <img src="img/portfolio/6.jpg" alt="6.jpg" loading="lazy">
+              <span>img/portfolio/6.jpg</span>
+            </a>
+            <a class="full-photo-card" href="img/portfolio/dron.jpeg" target="_blank" rel="noreferrer" data-folder="portfolio">
+              <img src="img/portfolio/dron.jpeg" alt="dron.jpeg" loading="lazy">
+              <span>img/portfolio/dron.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/portfolio/flipflop.png" target="_blank" rel="noreferrer" data-folder="portfolio">
+              <img src="img/portfolio/flipflop.png" alt="flipflop.png" loading="lazy">
+              <span>img/portfolio/flipflop.png</span>
+            </a>
+            <a class="full-photo-card" href="img/portfolio/hirobot.jpeg" target="_blank" rel="noreferrer" data-folder="portfolio">
+              <img src="img/portfolio/hirobot.jpeg" alt="hirobot.jpeg" loading="lazy">
+              <span>img/portfolio/hirobot.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/portfolio/hormiga.jpeg" target="_blank" rel="noreferrer" data-folder="portfolio">
+              <img src="img/portfolio/hormiga.jpeg" alt="hormiga.jpeg" loading="lazy">
+              <span>img/portfolio/hormiga.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/portfolio/led.png" target="_blank" rel="noreferrer" data-folder="portfolio">
+              <img src="img/portfolio/led.png" alt="led.png" loading="lazy">
+              <span>img/portfolio/led.png</span>
+            </a>
+            <a class="full-photo-card" href="img/portfolio/noah.jpeg" target="_blank" rel="noreferrer" data-folder="portfolio">
+              <img src="img/portfolio/noah.jpeg" alt="noah.jpeg" loading="lazy">
+              <span>img/portfolio/noah.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/portfolio/oasis.jpeg" target="_blank" rel="noreferrer" data-folder="portfolio">
+              <img src="img/portfolio/oasis.jpeg" alt="oasis.jpeg" loading="lazy">
+              <span>img/portfolio/oasis.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/portfolio/scara.jpeg" target="_blank" rel="noreferrer" data-folder="portfolio">
+              <img src="img/portfolio/scara.jpeg" alt="scara.jpeg" loading="lazy">
+              <span>img/portfolio/scara.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/portfolio/server.jpg" target="_blank" rel="noreferrer" data-folder="portfolio">
+              <img src="img/portfolio/server.jpg" alt="server.jpg" loading="lazy">
+              <span>img/portfolio/server.jpg</span>
+            </a>
+            <a class="full-photo-card" href="img/portfolio/zeus.jpeg" target="_blank" rel="noreferrer" data-folder="portfolio">
+              <img src="img/portfolio/zeus.jpeg" alt="zeus.jpeg" loading="lazy">
+              <span>img/portfolio/zeus.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/printers/printers_1.jpeg" target="_blank" rel="noreferrer" data-folder="printers">
+              <img src="img/printers/printers_1.jpeg" alt="printers_1.jpeg" loading="lazy">
+              <span>img/printers/printers_1.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/printers/printers_2.jpeg" target="_blank" rel="noreferrer" data-folder="printers">
+              <img src="img/printers/printers_2.jpeg" alt="printers_2.jpeg" loading="lazy">
+              <span>img/printers/printers_2.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/reto.png" target="_blank" rel="noreferrer" data-folder="img">
+              <img src="img/reto.png" alt="reto.png" loading="lazy">
+              <span>img/reto.png</span>
+            </a>
+            <a class="full-photo-card" href="img/scara/scara_1.jpg" target="_blank" rel="noreferrer" data-folder="scara">
+              <img src="img/scara/scara_1.jpg" alt="scara_1.jpg" loading="lazy">
+              <span>img/scara/scara_1.jpg</span>
+            </a>
+            <a class="full-photo-card" href="img/scara/scara_10.jpg" target="_blank" rel="noreferrer" data-folder="scara">
+              <img src="img/scara/scara_10.jpg" alt="scara_10.jpg" loading="lazy">
+              <span>img/scara/scara_10.jpg</span>
+            </a>
+            <a class="full-photo-card" href="img/scara/scara_11.jpg" target="_blank" rel="noreferrer" data-folder="scara">
+              <img src="img/scara/scara_11.jpg" alt="scara_11.jpg" loading="lazy">
+              <span>img/scara/scara_11.jpg</span>
+            </a>
+            <a class="full-photo-card" href="img/scara/scara_12.jpg" target="_blank" rel="noreferrer" data-folder="scara">
+              <img src="img/scara/scara_12.jpg" alt="scara_12.jpg" loading="lazy">
+              <span>img/scara/scara_12.jpg</span>
+            </a>
+            <a class="full-photo-card" href="img/scara/scara_13.jpg" target="_blank" rel="noreferrer" data-folder="scara">
+              <img src="img/scara/scara_13.jpg" alt="scara_13.jpg" loading="lazy">
+              <span>img/scara/scara_13.jpg</span>
+            </a>
+            <a class="full-photo-card" href="img/scara/scara_14.jpg" target="_blank" rel="noreferrer" data-folder="scara">
+              <img src="img/scara/scara_14.jpg" alt="scara_14.jpg" loading="lazy">
+              <span>img/scara/scara_14.jpg</span>
+            </a>
+            <a class="full-photo-card" href="img/scara/scara_15.jpg" target="_blank" rel="noreferrer" data-folder="scara">
+              <img src="img/scara/scara_15.jpg" alt="scara_15.jpg" loading="lazy">
+              <span>img/scara/scara_15.jpg</span>
+            </a>
+            <a class="full-photo-card" href="img/scara/scara_16.jpg" target="_blank" rel="noreferrer" data-folder="scara">
+              <img src="img/scara/scara_16.jpg" alt="scara_16.jpg" loading="lazy">
+              <span>img/scara/scara_16.jpg</span>
+            </a>
+            <a class="full-photo-card" href="img/scara/scara_17.jpg" target="_blank" rel="noreferrer" data-folder="scara">
+              <img src="img/scara/scara_17.jpg" alt="scara_17.jpg" loading="lazy">
+              <span>img/scara/scara_17.jpg</span>
+            </a>
+            <a class="full-photo-card" href="img/scara/scara_18.jpg" target="_blank" rel="noreferrer" data-folder="scara">
+              <img src="img/scara/scara_18.jpg" alt="scara_18.jpg" loading="lazy">
+              <span>img/scara/scara_18.jpg</span>
+            </a>
+            <a class="full-photo-card" href="img/scara/scara_19.jpg" target="_blank" rel="noreferrer" data-folder="scara">
+              <img src="img/scara/scara_19.jpg" alt="scara_19.jpg" loading="lazy">
+              <span>img/scara/scara_19.jpg</span>
+            </a>
+            <a class="full-photo-card" href="img/scara/scara_2.jpg" target="_blank" rel="noreferrer" data-folder="scara">
+              <img src="img/scara/scara_2.jpg" alt="scara_2.jpg" loading="lazy">
+              <span>img/scara/scara_2.jpg</span>
+            </a>
+            <a class="full-photo-card" href="img/scara/scara_20.jpg" target="_blank" rel="noreferrer" data-folder="scara">
+              <img src="img/scara/scara_20.jpg" alt="scara_20.jpg" loading="lazy">
+              <span>img/scara/scara_20.jpg</span>
+            </a>
+            <a class="full-photo-card" href="img/scara/scara_21.jpg" target="_blank" rel="noreferrer" data-folder="scara">
+              <img src="img/scara/scara_21.jpg" alt="scara_21.jpg" loading="lazy">
+              <span>img/scara/scara_21.jpg</span>
+            </a>
+            <a class="full-photo-card" href="img/scara/scara_22.jpeg" target="_blank" rel="noreferrer" data-folder="scara">
+              <img src="img/scara/scara_22.jpeg" alt="scara_22.jpeg" loading="lazy">
+              <span>img/scara/scara_22.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/scara/scara_23.jpeg" target="_blank" rel="noreferrer" data-folder="scara">
+              <img src="img/scara/scara_23.jpeg" alt="scara_23.jpeg" loading="lazy">
+              <span>img/scara/scara_23.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/scara/scara_24.jpeg" target="_blank" rel="noreferrer" data-folder="scara">
+              <img src="img/scara/scara_24.jpeg" alt="scara_24.jpeg" loading="lazy">
+              <span>img/scara/scara_24.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/scara/scara_25.jpeg" target="_blank" rel="noreferrer" data-folder="scara">
+              <img src="img/scara/scara_25.jpeg" alt="scara_25.jpeg" loading="lazy">
+              <span>img/scara/scara_25.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/scara/scara_26.jpeg" target="_blank" rel="noreferrer" data-folder="scara">
+              <img src="img/scara/scara_26.jpeg" alt="scara_26.jpeg" loading="lazy">
+              <span>img/scara/scara_26.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/scara/scara_3.jpg" target="_blank" rel="noreferrer" data-folder="scara">
+              <img src="img/scara/scara_3.jpg" alt="scara_3.jpg" loading="lazy">
+              <span>img/scara/scara_3.jpg</span>
+            </a>
+            <a class="full-photo-card" href="img/scara/scara_4.jpg" target="_blank" rel="noreferrer" data-folder="scara">
+              <img src="img/scara/scara_4.jpg" alt="scara_4.jpg" loading="lazy">
+              <span>img/scara/scara_4.jpg</span>
+            </a>
+            <a class="full-photo-card" href="img/scara/scara_5.jpg" target="_blank" rel="noreferrer" data-folder="scara">
+              <img src="img/scara/scara_5.jpg" alt="scara_5.jpg" loading="lazy">
+              <span>img/scara/scara_5.jpg</span>
+            </a>
+            <a class="full-photo-card" href="img/scara/scara_5_fixed.jpg" target="_blank" rel="noreferrer" data-folder="scara">
+              <img src="img/scara/scara_5_fixed.jpg" alt="scara_5_fixed.jpg" loading="lazy">
+              <span>img/scara/scara_5_fixed.jpg</span>
+            </a>
+            <a class="full-photo-card" href="img/scara/scara_5_original.jpg" target="_blank" rel="noreferrer" data-folder="scara">
+              <img src="img/scara/scara_5_original.jpg" alt="scara_5_original.jpg" loading="lazy">
+              <span>img/scara/scara_5_original.jpg</span>
+            </a>
+            <a class="full-photo-card" href="img/scara/scara_6.jpg" target="_blank" rel="noreferrer" data-folder="scara">
+              <img src="img/scara/scara_6.jpg" alt="scara_6.jpg" loading="lazy">
+              <span>img/scara/scara_6.jpg</span>
+            </a>
+            <a class="full-photo-card" href="img/scara/scara_7.jpg" target="_blank" rel="noreferrer" data-folder="scara">
+              <img src="img/scara/scara_7.jpg" alt="scara_7.jpg" loading="lazy">
+              <span>img/scara/scara_7.jpg</span>
+            </a>
+            <a class="full-photo-card" href="img/scara/scara_8.jpg" target="_blank" rel="noreferrer" data-folder="scara">
+              <img src="img/scara/scara_8.jpg" alt="scara_8.jpg" loading="lazy">
+              <span>img/scara/scara_8.jpg</span>
+            </a>
+            <a class="full-photo-card" href="img/scara/scara_9.jpg" target="_blank" rel="noreferrer" data-folder="scara">
+              <img src="img/scara/scara_9.jpg" alt="scara_9.jpg" loading="lazy">
+              <span>img/scara/scara_9.jpg</span>
+            </a>
+            <a class="full-photo-card" href="img/shell.png" target="_blank" rel="noreferrer" data-folder="img">
+              <img src="img/shell.png" alt="shell.png" loading="lazy">
+              <span>img/shell.png</span>
+            </a>
+            <a class="full-photo-card" href="img/workshops/blender.png" target="_blank" rel="noreferrer" data-folder="workshops">
+              <img src="img/workshops/blender.png" alt="blender.png" loading="lazy">
+              <span>img/workshops/blender.png</span>
+            </a>
+            <a class="full-photo-card" href="img/workshops/fusion.png" target="_blank" rel="noreferrer" data-folder="workshops">
+              <img src="img/workshops/fusion.png" alt="fusion.png" loading="lazy">
+              <span>img/workshops/fusion.png</span>
+            </a>
+            <a class="full-photo-card" href="img/workshops/git.png" target="_blank" rel="noreferrer" data-folder="workshops">
+              <img src="img/workshops/git.png" alt="git.png" loading="lazy">
+              <span>img/workshops/git.png</span>
+            </a>
+            <a class="full-photo-card" href="img/workshops/linux.png" target="_blank" rel="noreferrer" data-folder="workshops">
+              <img src="img/workshops/linux.png" alt="linux.png" loading="lazy">
+              <span>img/workshops/linux.png</span>
+            </a>
+            <a class="full-photo-card" href="img/workshops/shell.png" target="_blank" rel="noreferrer" data-folder="workshops">
+              <img src="img/workshops/shell.png" alt="shell.png" loading="lazy">
+              <span>img/workshops/shell.png</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_1.png" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_1.png" alt="zeus_1.png" loading="lazy">
+              <span>img/zeus/zeus_1.png</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_10.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_10.JPEG" alt="zeus_10.JPEG" loading="lazy">
+              <span>img/zeus/zeus_10.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_11.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_11.JPEG" alt="zeus_11.JPEG" loading="lazy">
+              <span>img/zeus/zeus_11.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_12.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_12.JPEG" alt="zeus_12.JPEG" loading="lazy">
+              <span>img/zeus/zeus_12.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_13.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_13.JPEG" alt="zeus_13.JPEG" loading="lazy">
+              <span>img/zeus/zeus_13.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_14.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_14.JPEG" alt="zeus_14.JPEG" loading="lazy">
+              <span>img/zeus/zeus_14.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_15.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_15.JPEG" alt="zeus_15.JPEG" loading="lazy">
+              <span>img/zeus/zeus_15.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_16.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_16.JPEG" alt="zeus_16.JPEG" loading="lazy">
+              <span>img/zeus/zeus_16.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_17.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_17.JPEG" alt="zeus_17.JPEG" loading="lazy">
+              <span>img/zeus/zeus_17.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_18.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_18.JPEG" alt="zeus_18.JPEG" loading="lazy">
+              <span>img/zeus/zeus_18.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_19.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_19.JPEG" alt="zeus_19.JPEG" loading="lazy">
+              <span>img/zeus/zeus_19.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_2.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_2.JPEG" alt="zeus_2.JPEG" loading="lazy">
+              <span>img/zeus/zeus_2.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_20.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_20.JPEG" alt="zeus_20.JPEG" loading="lazy">
+              <span>img/zeus/zeus_20.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_21.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_21.JPEG" alt="zeus_21.JPEG" loading="lazy">
+              <span>img/zeus/zeus_21.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_22.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_22.JPEG" alt="zeus_22.JPEG" loading="lazy">
+              <span>img/zeus/zeus_22.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_23.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_23.JPEG" alt="zeus_23.JPEG" loading="lazy">
+              <span>img/zeus/zeus_23.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_24.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_24.JPEG" alt="zeus_24.JPEG" loading="lazy">
+              <span>img/zeus/zeus_24.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_25.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_25.JPEG" alt="zeus_25.JPEG" loading="lazy">
+              <span>img/zeus/zeus_25.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_26.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_26.JPEG" alt="zeus_26.JPEG" loading="lazy">
+              <span>img/zeus/zeus_26.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_27.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_27.JPEG" alt="zeus_27.JPEG" loading="lazy">
+              <span>img/zeus/zeus_27.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_28.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_28.JPEG" alt="zeus_28.JPEG" loading="lazy">
+              <span>img/zeus/zeus_28.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_29.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_29.JPEG" alt="zeus_29.JPEG" loading="lazy">
+              <span>img/zeus/zeus_29.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_3.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_3.JPEG" alt="zeus_3.JPEG" loading="lazy">
+              <span>img/zeus/zeus_3.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_30.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_30.JPEG" alt="zeus_30.JPEG" loading="lazy">
+              <span>img/zeus/zeus_30.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_31.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_31.JPEG" alt="zeus_31.JPEG" loading="lazy">
+              <span>img/zeus/zeus_31.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_32.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_32.JPEG" alt="zeus_32.JPEG" loading="lazy">
+              <span>img/zeus/zeus_32.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_33.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_33.JPEG" alt="zeus_33.JPEG" loading="lazy">
+              <span>img/zeus/zeus_33.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_34.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_34.JPEG" alt="zeus_34.JPEG" loading="lazy">
+              <span>img/zeus/zeus_34.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_35.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_35.JPEG" alt="zeus_35.JPEG" loading="lazy">
+              <span>img/zeus/zeus_35.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_36.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_36.JPEG" alt="zeus_36.JPEG" loading="lazy">
+              <span>img/zeus/zeus_36.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_37.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_37.JPEG" alt="zeus_37.JPEG" loading="lazy">
+              <span>img/zeus/zeus_37.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_38.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_38.JPEG" alt="zeus_38.JPEG" loading="lazy">
+              <span>img/zeus/zeus_38.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_39.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_39.JPEG" alt="zeus_39.JPEG" loading="lazy">
+              <span>img/zeus/zeus_39.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_4.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_4.JPEG" alt="zeus_4.JPEG" loading="lazy">
+              <span>img/zeus/zeus_4.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_40.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_40.JPEG" alt="zeus_40.JPEG" loading="lazy">
+              <span>img/zeus/zeus_40.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_41.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_41.JPEG" alt="zeus_41.JPEG" loading="lazy">
+              <span>img/zeus/zeus_41.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_42.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_42.JPEG" alt="zeus_42.JPEG" loading="lazy">
+              <span>img/zeus/zeus_42.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_43.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_43.JPEG" alt="zeus_43.JPEG" loading="lazy">
+              <span>img/zeus/zeus_43.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_44.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_44.JPEG" alt="zeus_44.JPEG" loading="lazy">
+              <span>img/zeus/zeus_44.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_45.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_45.JPEG" alt="zeus_45.JPEG" loading="lazy">
+              <span>img/zeus/zeus_45.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_46.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_46.JPEG" alt="zeus_46.JPEG" loading="lazy">
+              <span>img/zeus/zeus_46.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_47.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_47.JPEG" alt="zeus_47.JPEG" loading="lazy">
+              <span>img/zeus/zeus_47.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_48.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_48.JPEG" alt="zeus_48.JPEG" loading="lazy">
+              <span>img/zeus/zeus_48.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_49.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_49.JPEG" alt="zeus_49.JPEG" loading="lazy">
+              <span>img/zeus/zeus_49.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_5.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_5.JPEG" alt="zeus_5.JPEG" loading="lazy">
+              <span>img/zeus/zeus_5.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_50.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_50.JPEG" alt="zeus_50.JPEG" loading="lazy">
+              <span>img/zeus/zeus_50.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_51.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_51.JPEG" alt="zeus_51.JPEG" loading="lazy">
+              <span>img/zeus/zeus_51.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_52.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_52.JPEG" alt="zeus_52.JPEG" loading="lazy">
+              <span>img/zeus/zeus_52.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_53.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_53.JPEG" alt="zeus_53.JPEG" loading="lazy">
+              <span>img/zeus/zeus_53.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_54.JPG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_54.JPG" alt="zeus_54.JPG" loading="lazy">
+              <span>img/zeus/zeus_54.JPG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_55.JPG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_55.JPG" alt="zeus_55.JPG" loading="lazy">
+              <span>img/zeus/zeus_55.JPG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_56.JPG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_56.JPG" alt="zeus_56.JPG" loading="lazy">
+              <span>img/zeus/zeus_56.JPG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_57.JPG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_57.JPG" alt="zeus_57.JPG" loading="lazy">
+              <span>img/zeus/zeus_57.JPG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_58.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_58.JPEG" alt="zeus_58.JPEG" loading="lazy">
+              <span>img/zeus/zeus_58.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_59.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_59.JPEG" alt="zeus_59.JPEG" loading="lazy">
+              <span>img/zeus/zeus_59.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_6.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_6.JPEG" alt="zeus_6.JPEG" loading="lazy">
+              <span>img/zeus/zeus_6.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_60.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_60.JPEG" alt="zeus_60.JPEG" loading="lazy">
+              <span>img/zeus/zeus_60.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_61.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_61.JPEG" alt="zeus_61.JPEG" loading="lazy">
+              <span>img/zeus/zeus_61.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_62.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_62.JPEG" alt="zeus_62.JPEG" loading="lazy">
+              <span>img/zeus/zeus_62.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_63.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_63.JPEG" alt="zeus_63.JPEG" loading="lazy">
+              <span>img/zeus/zeus_63.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_64.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_64.JPEG" alt="zeus_64.JPEG" loading="lazy">
+              <span>img/zeus/zeus_64.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_65.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_65.JPEG" alt="zeus_65.JPEG" loading="lazy">
+              <span>img/zeus/zeus_65.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_66.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_66.JPEG" alt="zeus_66.JPEG" loading="lazy">
+              <span>img/zeus/zeus_66.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_67.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_67.JPEG" alt="zeus_67.JPEG" loading="lazy">
+              <span>img/zeus/zeus_67.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_68.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_68.JPEG" alt="zeus_68.JPEG" loading="lazy">
+              <span>img/zeus/zeus_68.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_69.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_69.JPEG" alt="zeus_69.JPEG" loading="lazy">
+              <span>img/zeus/zeus_69.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_7.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_7.JPEG" alt="zeus_7.JPEG" loading="lazy">
+              <span>img/zeus/zeus_7.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_70.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_70.JPEG" alt="zeus_70.JPEG" loading="lazy">
+              <span>img/zeus/zeus_70.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_71.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_71.JPEG" alt="zeus_71.JPEG" loading="lazy">
+              <span>img/zeus/zeus_71.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_72.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_72.JPEG" alt="zeus_72.JPEG" loading="lazy">
+              <span>img/zeus/zeus_72.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_73.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_73.JPEG" alt="zeus_73.JPEG" loading="lazy">
+              <span>img/zeus/zeus_73.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_74.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_74.JPEG" alt="zeus_74.JPEG" loading="lazy">
+              <span>img/zeus/zeus_74.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_75.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_75.JPEG" alt="zeus_75.JPEG" loading="lazy">
+              <span>img/zeus/zeus_75.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_76.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_76.JPEG" alt="zeus_76.JPEG" loading="lazy">
+              <span>img/zeus/zeus_76.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_77.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_77.JPEG" alt="zeus_77.JPEG" loading="lazy">
+              <span>img/zeus/zeus_77.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_78.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_78.JPEG" alt="zeus_78.JPEG" loading="lazy">
+              <span>img/zeus/zeus_78.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_79.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_79.JPEG" alt="zeus_79.JPEG" loading="lazy">
+              <span>img/zeus/zeus_79.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_8.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_8.JPEG" alt="zeus_8.JPEG" loading="lazy">
+              <span>img/zeus/zeus_8.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_80.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_80.JPEG" alt="zeus_80.JPEG" loading="lazy">
+              <span>img/zeus/zeus_80.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_81.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_81.JPEG" alt="zeus_81.JPEG" loading="lazy">
+              <span>img/zeus/zeus_81.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_82.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_82.JPEG" alt="zeus_82.JPEG" loading="lazy">
+              <span>img/zeus/zeus_82.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_83.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_83.JPEG" alt="zeus_83.JPEG" loading="lazy">
+              <span>img/zeus/zeus_83.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_84.jpeg" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_84.jpeg" alt="zeus_84.jpeg" loading="lazy">
+              <span>img/zeus/zeus_84.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_85.jpeg" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_85.jpeg" alt="zeus_85.jpeg" loading="lazy">
+              <span>img/zeus/zeus_85.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_86.jpeg" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_86.jpeg" alt="zeus_86.jpeg" loading="lazy">
+              <span>img/zeus/zeus_86.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_87.jpeg" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_87.jpeg" alt="zeus_87.jpeg" loading="lazy">
+              <span>img/zeus/zeus_87.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_88.jpeg" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_88.jpeg" alt="zeus_88.jpeg" loading="lazy">
+              <span>img/zeus/zeus_88.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_89.jpeg" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_89.jpeg" alt="zeus_89.jpeg" loading="lazy">
+              <span>img/zeus/zeus_89.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_9.JPEG" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_9.JPEG" alt="zeus_9.JPEG" loading="lazy">
+              <span>img/zeus/zeus_9.JPEG</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_90.jpeg" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_90.jpeg" alt="zeus_90.jpeg" loading="lazy">
+              <span>img/zeus/zeus_90.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_91.jpeg" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_91.jpeg" alt="zeus_91.jpeg" loading="lazy">
+              <span>img/zeus/zeus_91.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_92.jpeg" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_92.jpeg" alt="zeus_92.jpeg" loading="lazy">
+              <span>img/zeus/zeus_92.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_93.jpeg" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_93.jpeg" alt="zeus_93.jpeg" loading="lazy">
+              <span>img/zeus/zeus_93.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_94.jpeg" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_94.jpeg" alt="zeus_94.jpeg" loading="lazy">
+              <span>img/zeus/zeus_94.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_95.jpeg" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_95.jpeg" alt="zeus_95.jpeg" loading="lazy">
+              <span>img/zeus/zeus_95.jpeg</span>
+            </a>
+            <a class="full-photo-card" href="img/zeus/zeus_96.jpeg" target="_blank" rel="noreferrer" data-folder="zeus">
+              <img src="img/zeus/zeus_96.jpeg" alt="zeus_96.jpeg" loading="lazy">
+              <span>img/zeus/zeus_96.jpeg</span>
+            </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><div class="container footer-inner"><div><a class="brand" href="#inicio"><img src="img/logo_no_underscore.png" alt=""><span>Robotech URJC</span></a><p class="muted">Página completa de trabajo con todo el contenido principal en un solo HTML.</p></div><div class="footer-links contact-links"><a href="mailto:asociacion.robotech@urjc.es">Email</a><a href="https://github.com/robotech-urjc" target="_blank" rel="noreferrer">GitHub</a><a href="https://www.instagram.com/robotech_urjc" target="_blank" rel="noreferrer">Instagram</a><a href="https://es.linkedin.com/company/robotech-urjc" target="_blank" rel="noreferrer">LinkedIn</a></div></div></footer>
+    <script src="site-data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
