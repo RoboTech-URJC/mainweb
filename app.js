@@ -790,10 +790,9 @@ async function translateDocument(language) {
   }
 }
 
-const projectsWithoutDossier = new Set(["noah", "servidor-red", "oasis", "led-race"]);
+const projectsWithoutDossier = new Set(["noah", "servidor-red", "oasis", "led-race", "hormiga"]);
 const projectDossierFileKeys = {
-  "flip-flop": "flipflop",
-  hormiga: "hexabot"
+  "flip-flop": "flipflop"
 };
 
 function getProjectDossierHref(projectKey, language = currentLanguage) {
@@ -1346,6 +1345,14 @@ initProjectImageCarousel();
     return el;
   };
 
+  const applyImageFallback = (image, fallback) => {
+    if (!fallback) return;
+    image.addEventListener("error", () => {
+      if (image.src.endsWith(fallback)) return;
+      image.src = fallback;
+    }, { once: true });
+  };
+
   const projectsRoot = document.querySelector("[data-projects-render]");
   if (projectsRoot && Array.isArray(data.projects)) {
     projectsRoot.replaceChildren();
@@ -1357,6 +1364,7 @@ initProjectImageCarousel();
       const image = document.createElement("img");
       image.src = project.image || "img/dash/idea.png";
       image.alt = project.alt || project.title || "Proyecto";
+      applyImageFallback(image, project.imageFallback);
 
       const body = document.createElement("div");
       body.className = "project-body";
@@ -1415,6 +1423,7 @@ initProjectImageCarousel();
       const image = document.createElement("img");
       image.src = project.image || "img/dash/idea.png";
       image.alt = project.alt || project.title || "Proyecto";
+      applyImageFallback(image, project.imageFallback);
 
       const body = document.createElement("div");
       body.className = "project-body";
