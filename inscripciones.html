@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Inscripción de socios de Robotech URJC.">
+    <title>Inscripciones | Robotech URJC</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="index.html"><img src="img/logo_no_underscore.png" alt=""><span>Robotech URJC <small>Inscripciones</small></span></a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+        <nav class="nav-menu" aria-label="Navegación principal">
+          <a href="index.html">Inicio</a><a href="aboutus.html">Quiénes somos</a><a href="proyectos.html">Proyectos</a><a href="talleres.html">Talleres</a><a href="colabora.html">Colabora</a><a href="contacto.html">Contacto</a><a class="nav-cta" href="https://discord.gg/k9nKDrDQaC" target="_blank" rel="noreferrer">Discord</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="contenido" class="container">
+      <section class="page-hero inscriptions-hero">
+        <p class="eyebrow">Inscripción</p>
+        <h1>Hazte socio de Robotech URJC.</h1>
+        <p>Rellena tus datos una vez. Guardamos la inscripción y después eliges cómo pagar: Stripe por defecto, o transferencia bancaria con revisión manual.</p>
+      </section>
+
+      <section class="section inscription-layout">
+        <form class="panel inscription-form" action="https://docs.google.com/forms/d/e/1FAIpQLScEQIPKK93mlCr2fcI90aunXWq-MuwwH5PbB6vm2BE_ZB80NA/formResponse" method="POST" target="google-form-target" data-google-inscription-form novalidate>
+          <input type="hidden" name="entry.2111624807" data-registration-id>
+          <input type="text" name="website" tabindex="-1" autocomplete="off" class="inscription-hp" aria-hidden="true">
+
+          <div class="field-grid">
+            <label>Nombre<input name="entry.1112874351" autocomplete="given-name" required placeholder="Tu nombre"></label>
+            <label>Apellidos<input name="entry.1995699558" autocomplete="family-name" required placeholder="Tus apellidos"></label>
+          </div>
+
+          <div class="field-grid">
+            <label>Correo electrónico <small>Recomendamos usar el de la URJC si lo tienes.</small><input name="entry.494630894" type="email" autocomplete="email" required placeholder="nombre@alumnos.urjc.es"></label>
+            <label>Número de teléfono<input name="entry.1748658378" type="tel" autocomplete="tel" required placeholder="600 000 000"></label>
+          </div>
+
+          <fieldset class="inscription-choice-group">
+            <legend>¿Eres alumno de la URJC?</legend>
+            <label><input type="radio" name="entry.1597679439" value="Sí" checked> Sí</label>
+            <label><input type="radio" name="entry.1597679439" value="Otras"> Otra universidad</label>
+          </fieldset>
+
+          <label>Campus de la URJC o universidad<input name="entry.236526844" placeholder="Fuenlabrada, Móstoles, otra universidad..."></label>
+
+          <fieldset class="inscription-projects">
+            <legend>Proyecto del que quieres formar parte</legend>
+            <label><input type="checkbox" name="entry.1383195833" value="Proyecto Zeus"> Proyecto Zeus</label>
+            <label><input type="checkbox" name="entry.1383195833" value="Hexabot"> Hexabot</label>
+            <label><input type="checkbox" name="entry.1383195833" value="Dron"> Dron</label>
+            <label><input type="checkbox" name="entry.1383195833" value="Hirobot"> Hirobot</label>
+            <label><input type="checkbox" name="entry.1383195833" value="Scara"> Scara</label>
+            <label><input type="checkbox" name="entry.1383195833" value="Flip Flop"> Flip Flop</label>
+            <label><input type="checkbox" name="entry.1383195833" value="Futbolín"> Futbolín</label>
+            <label><input type="checkbox" name="entry.1383195833" value="Otras"> Otras</label>
+          </fieldset>
+
+          <label>Cómo nos has conocido<input name="entry.779170402" placeholder="Instagram, clase, Discord, un amigo..."></label>
+          <label>¿Tienes alguna idea o proyecto que quieras realizar con nosotros?<textarea name="entry.1668784866" rows="4" placeholder="Cuéntanos la idea, aunque esté verde."></textarea></label>
+          <label>Cualquier otra cosa que nos quieras decir<textarea name="entry.1558622026" rows="4" placeholder="Disponibilidad, experiencia previa, dudas..."></textarea></label>
+
+          <div class="inscription-submit-row">
+            <div>
+              <strong>Primero guardamos la inscripción</strong>
+              <span>Después podrás elegir entre Stripe o transferencia bancaria.</span>
+            </div>
+            <button class="button primary inscription-submit" type="submit" data-inscription-submit>
+              <span>Guardar inscripción</span>
+              <span class="button-spinner" aria-hidden="true"></span>
+            </button>
+          </div>
+
+          <p class="inscription-message" data-inscription-message role="status" aria-live="polite"></p>
+        </form>
+
+        <section class="payment-modal" data-payment-choice hidden aria-modal="true" role="dialog" aria-labelledby="payment-modal-title">
+          <div class="payment-modal__backdrop" data-payment-close></div>
+          <div class="panel payment-choice" role="document">
+            <button class="payment-modal__close" type="button" aria-label="Cerrar opciones de pago" data-payment-close>×</button>
+            <div class="payment-choice__header">
+              <p class="eyebrow">Pago</p>
+              <h2 id="payment-modal-title">Elige cómo completar la cuota.</h2>
+              <p>Por defecto puedes pagar con tarjeta o Bizum desde Stripe. Si haces transferencia, la asociación evita comisiones y la cuota se queda en 10€, pero tenemos que revisarla a mano.</p>
+            </div>
+
+            <div class="payment-options">
+            <article class="payment-option payment-option--stripe">
+              <span class="tag">Recomendado</span>
+              <h3>Tarjeta o Bizum</h3>
+              <p>Pago inmediato de 12€ mediante Stripe. El pago queda enlazado con tu ID interno.</p>
+              <a class="button primary" href="https://buy.stripe.com/aFa28jgIk5tucNF9No38400" data-stripe-payment-link>Pagar con tarjeta o Bizum</a>
+            </article>
+
+            <article class="payment-option payment-option--transfer">
+              <span class="tag">Sin comisiones</span>
+              <h3>Transferencia bancaria</h3>
+              <p>Cuota reducida de 10€. Usa estos datos y después envía el justificante por email.</p>
+              <dl class="transfer-details">
+                <div><dt>Destinatario</dt><dd>RoboTech URJC</dd></div>
+                <div><dt>IBAN</dt><dd data-transfer-iban>ES3230170575322585609528</dd></div>
+                <div><dt>Concepto</dt><dd data-transfer-concept>RoboTech Nombre Apellidos</dd></div>
+                <div><dt>ID interno</dt><dd data-payment-registration-id>rt_...</dd></div>
+              </dl>
+              <div class="button-row payment-transfer-actions">
+                <button class="button secondary" type="button" data-copy-transfer>Copiar datos</button>
+                <a class="button secondary" href="mailto:asociacion.robotech@urjc.es" data-transfer-mail>Enviar justificante</a>
+              </div>
+              <p class="payment-note">Adjunta el justificante de la transferencia bancaria al email. El ID interno va incluido para cruzar inscripción y pago.</p>
+            </article>
+            </div>
+          </div>
+        </section>
+
+        <iframe class="google-form-target" name="google-form-target" title="Envío de inscripción" hidden></iframe>
+
+        <aside class="inscription-side panel">
+          <p class="eyebrow">Flujo</p>
+          <h2>Formulario y pago enlazados.</h2>
+          <ol>
+            <li>Generamos un identificador interno de inscripción.</li>
+            <li>Enviamos tus respuestas a Google Forms.</li>
+            <li>Elige Stripe o transferencia para completar la cuota.</li>
+          </ol>
+          <p class="muted">La transferencia tarda más porque tenemos que revisarla a mano. Stripe queda confirmado al momento.</p>
+        </aside>
+      </section>
+    </main>
+
+    <footer class="site-footer"><div class="container footer-inner"><div><a class="brand" href="index.html"><img src="img/logo_no_underscore.png" alt=""><span>Robotech URJC</span></a><p class="muted">Campus de Fuenlabrada, Universidad Rey Juan Carlos.</p></div><div class="footer-links contact-links"><a href="mailto:asociacion.robotech@urjc.es"><span class="footer-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6h16v12H4z"></path><path d="m4 7 8 6 8-6"></path></svg></span>Email</a><a href="https://github.com/robotech-urjc" target="_blank" rel="noreferrer"><span class="footer-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 19c-4 1.5-4-2-6-2.5"></path><path d="M15 22v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6A4.6 4.6 0 0 0 18.7 7c.1-.3.6-1.6-.1-3.3 0 0-1.1-.3-3.5 1.3a12.2 12.2 0 0 0-6.2 0C6.5 3.4 5.4 3.7 5.4 3.7 4.7 5.4 5.2 6.7 5.3 7A4.6 4.6 0 0 0 4 10.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V22"></path></svg></span>GitHub</a><a href="https://www.instagram.com/robotech_urjc" target="_blank" rel="noreferrer"><span class="footer-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4"></rect><circle cx="12" cy="12" r="3.2"></circle><path d="M17.5 6.5h.01"></path></svg></span>Instagram</a><a href="https://es.linkedin.com/company/robotech-urjc" target="_blank" rel="noreferrer"><span class="footer-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.5 10v8"></path><path d="M6.5 6v.01"></path><path d="M10.5 18v-8"></path><path d="M10.5 13.5c0-2 1.2-3.8 3.5-3.8 2 0 3.5 1.3 3.5 4V18"></path><rect x="3" y="3" width="18" height="18" rx="2"></rect></svg></span>LinkedIn</a></div></div></footer>
+    <script src="site-data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

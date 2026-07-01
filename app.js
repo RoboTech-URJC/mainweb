@@ -1589,3 +1589,163 @@ initProjectImageCarousel();
     });
   }
 })();
+
+// Google Forms inscription flow: submit directly to Google Forms, then show payment choices with the same registration ID.
+const GOOGLE_INSCRIPTION_STRIPE_LINK = "https://buy.stripe.com/aFa28jgIk5tucNF9No38400";
+const TRANSFER_EMAIL = "asociacion.robotech@urjc.es";
+const TRANSFER_IBAN = "ES3230170575322585609528";
+const googleInscriptionForm = document.querySelector("[data-google-inscription-form]");
+
+if (googleInscriptionForm) {
+  const submitButton = googleInscriptionForm.querySelector("[data-inscription-submit]");
+  const message = googleInscriptionForm.querySelector("[data-inscription-message]");
+  const registrationIdInput = googleInscriptionForm.querySelector("[data-registration-id]");
+  const paymentChoice = document.querySelector("[data-payment-choice]");
+  const paymentCloseButtons = document.querySelectorAll("[data-payment-close]");
+  const stripePaymentLink = document.querySelector("[data-stripe-payment-link]");
+  const transferConcept = document.querySelector("[data-transfer-concept]");
+  const paymentRegistrationId = document.querySelector("[data-payment-registration-id]");
+  const transferMail = document.querySelector("[data-transfer-mail]");
+  const copyTransferButton = document.querySelector("[data-copy-transfer]");
+  let latestTransferText = "";
+
+  const setGoogleInscriptionLoading = (isLoading) => {
+    if (!submitButton) return;
+    submitButton.disabled = isLoading;
+    submitButton.classList.toggle("is-loading", isLoading);
+  };
+
+  const setGoogleInscriptionMessage = (text, type = "") => {
+    if (!message) return;
+    message.textContent = text;
+    message.classList.toggle("is-error", type === "error");
+    message.classList.toggle("is-success", type === "success");
+  };
+
+  const createGoogleRegistrationId = () => {
+    const randomPart = Math.random().toString(16).slice(2, 10);
+    return `rt_${Date.now()}_${randomPart}`;
+  };
+
+  const buildMailto = ({ fullName, concept, registrationId }) => {
+    const subject = `Justificante transferencia RoboTech - ${fullName} - ${registrationId}`;
+    const body = [
+      "Hola,",
+      "",
+      "Aquí está la transferencia.",
+      `ID INTERNO: ${registrationId} (no modificar)`,
+      `Nombre y apellidos: ${fullName}`,
+      `Concepto usado: ${concept}`,
+      "Importe: 10€",
+      "Destinatario: RoboTech URJC",
+      `IBAN: ${TRANSFER_IBAN}`,
+      "",
+      "Adjunto el justificante de la transferencia bancaria.",
+      "",
+      "Gracias."
+    ].join("\n");
+
+    return `mailto:${TRANSFER_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
+
+  const openPaymentModal = () => {
+    if (!paymentChoice) return;
+    paymentChoice.removeAttribute("hidden");
+    document.body.classList.add("payment-modal-open");
+    stripePaymentLink?.focus({ preventScroll: true });
+  };
+
+  const closePaymentModal = () => {
+    if (!paymentChoice) return;
+    paymentChoice.setAttribute("hidden", "");
+    document.body.classList.remove("payment-modal-open");
+  };
+
+  paymentCloseButtons.forEach((button) => button.addEventListener("click", closePaymentModal));
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && paymentChoice && !paymentChoice.hasAttribute("hidden")) {
+      closePaymentModal();
+    }
+  });
+
+  const updatePaymentChoice = ({ registrationId, name, surname }) => {
+    const fullName = `${name} ${surname}`.replace(/\s+/g, " ").trim();
+    const concept = `RoboTech ${fullName}`;
+    const stripeUrl = new URL(GOOGLE_INSCRIPTION_STRIPE_LINK);
+    stripeUrl.searchParams.set("client_reference_id", registrationId);
+
+    if (stripePaymentLink) stripePaymentLink.href = stripeUrl.toString();
+    if (transferConcept) transferConcept.textContent = concept;
+    if (paymentRegistrationId) paymentRegistrationId.textContent = registrationId;
+    if (transferMail) transferMail.href = buildMailto({ fullName, concept, registrationId });
+
+    latestTransferText = [
+      "Transferencia bancaria RoboTech URJC",
+      "Importe: 10€",
+      "Destinatario: RoboTech URJC",
+      `IBAN: ${TRANSFER_IBAN}`,
+      `Concepto: ${concept}`,
+      `ID interno: ${registrationId}`,
+      "Email para justificante: asociacion.robotech@urjc.es"
+    ].join("\n");
+  };
+
+  copyTransferButton?.addEventListener("click", async () => {
+    if (!latestTransferText) return;
+    try {
+      await navigator.clipboard.writeText(latestTransferText);
+      copyTransferButton.textContent = "Datos copiados";
+      window.setTimeout(() => {
+        copyTransferButton.textContent = "Copiar datos";
+      }, 1800);
+    } catch {
+      setGoogleInscriptionMessage("No se han podido copiar los datos. Puedes seleccionarlos manualmente.", "error");
+    }
+  });
+
+  googleInscriptionForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    if (!googleInscriptionForm.checkValidity()) {
+      googleInscriptionForm.reportValidity();
+      setGoogleInscriptionMessage("Completa los campos obligatorios antes de continuar.", "error");
+      return;
+    }
+
+    const registrationId = createGoogleRegistrationId();
+    if (registrationIdInput) registrationIdInput.value = registrationId;
+
+    const formData = new FormData(googleInscriptionForm);
+    if (formData.get("website")) return;
+
+    const name = String(formData.get("entry.1112874351") || "").trim();
+    const surname = String(formData.get("entry.1995699558") || "").trim();
+    updatePaymentChoice({ registrationId, name, surname });
+
+    const googlePayload = new URLSearchParams();
+    formData.forEach((value, key) => {
+      if (key.startsWith("entry.")) {
+        googlePayload.append(key, String(value));
+      }
+    });
+
+    setGoogleInscriptionLoading(true);
+    setGoogleInscriptionMessage("Guardando inscripción...", "");
+
+    try {
+      await fetch(googleInscriptionForm.action, {
+        method: "POST",
+        mode: "no-cors",
+        body: googlePayload
+      });
+
+      setGoogleInscriptionMessage("Inscripción guardada. Elige cómo pagar la cuota.", "success");
+      openPaymentModal();
+    } catch (error) {
+      console.error("Google Forms submission failed", error);
+      setGoogleInscriptionMessage("No se ha podido guardar la inscripción. Inténtalo de nuevo.", "error");
+      setGoogleInscriptionLoading(false);
+    }
+  });
+}
+
