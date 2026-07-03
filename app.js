@@ -1610,7 +1610,6 @@ if (googleInscriptionForm) {
   const copyTransferButton = document.querySelector("[data-copy-transfer]");
   let latestTransferText = "";
   let currentRegistrationId = "";
-  let googleSubmissionPromise = null;
 
   const setGoogleInscriptionLoading = (isLoading) => {
     if (!submitButton) return;
@@ -1695,7 +1694,6 @@ if (googleInscriptionForm) {
 
   const submitGoogleInscription = (paymentMethod) => {
     if (paymentMethodInput) paymentMethodInput.value = paymentMethod;
-    if (googleSubmissionPromise) return googleSubmissionPromise;
 
     const formData = new FormData(googleInscriptionForm);
     const googlePayload = new URLSearchParams();
@@ -1705,13 +1703,11 @@ if (googleInscriptionForm) {
       }
     });
 
-    googleSubmissionPromise = fetch(googleInscriptionForm.action, {
+    return fetch(googleInscriptionForm.action, {
       method: "POST",
       mode: "no-cors",
       body: googlePayload
     });
-
-    return googleSubmissionPromise;
   };
 
   copyTransferButton?.addEventListener("click", async () => {
@@ -1767,7 +1763,6 @@ if (googleInscriptionForm) {
 
     currentRegistrationId = currentRegistrationId || createGoogleRegistrationId();
     if (registrationIdInput) registrationIdInput.value = currentRegistrationId;
-    googleSubmissionPromise = null;
 
     const name = String(formData.get("entry.1112874351") || "").trim();
     const surname = String(formData.get("entry.1995699558") || "").trim();
