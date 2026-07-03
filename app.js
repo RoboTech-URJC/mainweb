@@ -1695,18 +1695,19 @@ if (googleInscriptionForm) {
   const submitGoogleInscription = (paymentMethod) => {
     if (paymentMethodInput) paymentMethodInput.value = paymentMethod;
 
-    const formData = new FormData(googleInscriptionForm);
-    const googlePayload = new URLSearchParams();
-    formData.forEach((value, key) => {
-      if (key.startsWith("entry.")) {
-        googlePayload.append(key, String(value));
-      }
-    });
+    const targetFrame = document.querySelector('iframe[name="google-form-target"]');
+    return new Promise((resolve) => {
+      let settled = false;
+      const finish = () => {
+        if (settled) return;
+        settled = true;
+        targetFrame?.removeEventListener("load", finish);
+        resolve();
+      };
 
-    return fetch(googleInscriptionForm.action, {
-      method: "POST",
-      mode: "no-cors",
-      body: googlePayload
+      targetFrame?.addEventListener("load", finish, { once: true });
+      googleInscriptionForm.submit();
+      window.setTimeout(finish, 2600);
     });
   };
 
