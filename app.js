@@ -1611,6 +1611,26 @@ if (googleInscriptionForm) {
   let latestTransferText = "";
   let currentRegistrationId = "";
 
+  const syncOtherOptionFields = () => {
+    ["urjc", "project"].forEach((group) => {
+      const toggles = Array.from(googleInscriptionForm.querySelectorAll(`[data-other-toggle="${group}"]`));
+      const field = googleInscriptionForm.querySelector(`[data-other-field="${group}"]`);
+      const input = field?.querySelector("input");
+      const isOtherSelected = toggles.some((toggle) => toggle.checked && toggle.value === "__other_option__");
+      if (field) field.hidden = !isOtherSelected;
+      if (input) {
+        input.disabled = !isOtherSelected;
+        input.required = isOtherSelected;
+        if (!isOtherSelected) input.value = "";
+      }
+    });
+  };
+
+  googleInscriptionForm.querySelectorAll("[data-other-toggle]").forEach((toggle) => {
+    toggle.addEventListener("change", syncOtherOptionFields);
+  });
+  syncOtherOptionFields();
+
   const setGoogleInscriptionLoading = (isLoading) => {
     if (!submitButton) return;
     submitButton.disabled = isLoading;
@@ -1693,6 +1713,7 @@ if (googleInscriptionForm) {
   };
 
   const submitGoogleInscription = (paymentMethod) => {
+    syncOtherOptionFields();
     if (paymentMethodInput) paymentMethodInput.value = paymentMethod;
 
     const targetFrame = document.querySelector('iframe[name="google-form-target"]');
@@ -1752,6 +1773,7 @@ if (googleInscriptionForm) {
 
   googleInscriptionForm.addEventListener("submit", (event) => {
     event.preventDefault();
+    syncOtherOptionFields();
 
     if (!googleInscriptionForm.checkValidity()) {
       googleInscriptionForm.reportValidity();

@@ -9002,3 +9002,11 @@ html[data-theme="dark"] .payment-modal__close {
   }
 }
 
+.inscription-other-field {
+  margin-top: -8px;
+}
+
+.inscription-other-field[hidden] {
+  display: none;
+}
+

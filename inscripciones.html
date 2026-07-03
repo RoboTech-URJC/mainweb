@@ -47,9 +47,10 @@
 
           <fieldset class="inscription-choice-group">
             <legend>¿Eres alumno de la URJC?</legend>
-            <label><input type="radio" name="entry.1597679439" value="Sí" checked> Sí</label>
-            <label><input type="radio" name="entry.1597679439" value="Otras"> Otra universidad</label>
+            <label><input type="radio" name="entry.1597679439" value="Sí" checked data-other-toggle="urjc"> Sí</label>
+            <label><input type="radio" name="entry.1597679439" value="__other_option__" data-other-toggle="urjc"> Otra universidad</label>
           </fieldset>
+          <label class="inscription-other-field" data-other-field="urjc" hidden>Indica tu universidad<input name="entry.1597679439.other_option_response" placeholder="Nombre de tu universidad" disabled></label>
 
           <label>Campus de la URJC o universidad<input name="entry.236526844" placeholder="Fuenlabrada, Móstoles, otra universidad..."></label>
 
@@ -62,8 +63,9 @@
             <label><input type="checkbox" name="entry.1383195833" value="Scara"> Scara</label>
             <label><input type="checkbox" name="entry.1383195833" value="Flip Flop"> Flip Flop</label>
             <label><input type="checkbox" name="entry.1383195833" value="Futbolín"> Futbolín</label>
-            <label><input type="checkbox" name="entry.1383195833" value="Otras"> Otras</label>
+            <label><input type="checkbox" name="entry.1383195833" value="__other_option__" data-other-toggle="project"> Otro proyecto</label>
           </fieldset>
+          <label class="inscription-other-field" data-other-field="project" hidden>Indica el proyecto<input name="entry.1383195833.other_option_response" placeholder="Nombre del proyecto" disabled></label>
 
           <label>Cómo nos has conocido<input name="entry.779170402" placeholder="Instagram, clase, Discord, un amigo..."></label>
           <label>¿Tienes alguna idea o proyecto que quieras realizar con nosotros?<textarea name="entry.1668784866" rows="4" placeholder="Cuéntanos la idea, aunque esté verde."></textarea></label>
