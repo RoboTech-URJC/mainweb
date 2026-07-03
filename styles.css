@@ -9006,7 +9006,12 @@ html[data-theme="dark"] .payment-modal__close {
   margin-top: -8px;
 }
 
-.inscription-other-field[hidden] {
-  display: none;
+.inscription-other-field[hidden],
+.inscription-other-field:not(.is-visible) {
+  display: none !important;
+}
+
+.inscription-other-field.is-visible {
+  display: grid;
 }
 

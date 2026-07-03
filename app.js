@@ -1615,19 +1615,33 @@ if (googleInscriptionForm) {
     ["urjc", "project"].forEach((group) => {
       const toggles = Array.from(googleInscriptionForm.querySelectorAll(`[data-other-toggle="${group}"]`));
       const field = googleInscriptionForm.querySelector(`[data-other-field="${group}"]`);
-      const input = field?.querySelector("input");
+      const input = field ? field.querySelector("input") : null;
       const isOtherSelected = toggles.some((toggle) => toggle.checked && toggle.value === "__other_option__");
-      if (field) field.hidden = !isOtherSelected;
+
+      if (field) {
+        field.hidden = !isOtherSelected;
+        field.classList.toggle("is-visible", isOtherSelected);
+        field.setAttribute("aria-hidden", String(!isOtherSelected));
+      }
+
       if (input) {
         input.disabled = !isOtherSelected;
         input.required = isOtherSelected;
-        if (!isOtherSelected) input.value = "";
+        input.tabIndex = isOtherSelected ? 0 : -1;
+        if (!isOtherSelected) {
+          input.value = "";
+          input.blur();
+        }
       }
     });
   };
 
-  googleInscriptionForm.querySelectorAll("[data-other-toggle]").forEach((toggle) => {
-    toggle.addEventListener("change", syncOtherOptionFields);
+  ["change", "input", "click"].forEach((eventName) => {
+    googleInscriptionForm.addEventListener(eventName, (event) => {
+      if (event.target instanceof Element && event.target.matches("[data-other-toggle], [data-other-field] input")) {
+        window.requestAnimationFrame(syncOtherOptionFields);
+      }
+    });
   });
   syncOtherOptionFields();
 
