@@ -1055,23 +1055,83 @@ function injectMascotAssistant() {
   const form = assistant.querySelector(".pet-assistant__form");
   const input = assistant.querySelector("#petAssistantInput");
   const chips = assistant.querySelector(".pet-assistant__chips");
-  let replyTimer = null;
+  const submitButton = form.querySelector("button");
+  const bitSessionIdKey = "robotech-bit-session-id";
 
-  const linkMarkup = (links = []) => links.map((link) => {
-    const attrs = link.external ? ' target="_blank" rel="noreferrer"' : "";
-    return `<a href="${link.href}"${attrs}>${link.label}</a>`;
-  }).join("");
+  const getBitSessionId = () => {
+    const existingId = localStorage.getItem(bitSessionIdKey);
+    if (existingId) return existingId;
+    const newId = (window.crypto && crypto.randomUUID)
+      ? crypto.randomUUID()
+      : `bit-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    localStorage.setItem(bitSessionIdKey, newId);
+    return newId;
+  };
+
+  const normalizeLink = (link = {}) => {
+    const href = link.path || link.url || link.href;
+    if (!href) return null;
+    return {
+      href,
+      label: link.label || link.title || link.text || link.name || href,
+      external: !link.path && /^https?:\/\//i.test(href)
+    };
+  };
+
+  const appendLinks = (container, links = []) => {
+    links.map(normalizeLink).filter(Boolean).forEach((link) => {
+      const anchor = document.createElement("a");
+      anchor.href = link.href;
+      anchor.textContent = link.label;
+      if (link.external) {
+        anchor.target = "_blank";
+        anchor.rel = "noreferrer";
+      }
+      container.appendChild(anchor);
+    });
+  };
+
+  const getTextBlocks = (text) => {
+    const blocks = String(text || "").split(/\n{2,}/).map((part) => part.trim()).filter(Boolean);
+    if (blocks.length !== 1 || blocks[0].length < 280) return blocks;
+    return blocks[0]
+      .replace(/\s+/g, " ")
+      .split(/(?<=[.!?])\s+(?=(?:Además|También|Si|Puedes|El|La|Los|Las|Este|Esta|¿))/)
+      .map((part) => part.trim())
+      .filter(Boolean);
+  };
+
+  const appendFormattedText = (container, text) => {
+    getTextBlocks(text).forEach((part) => {
+      const paragraph = document.createElement("p");
+      const pieces = part.split(/(\*\*[^*]+\*\*)/g).filter(Boolean);
+      pieces.forEach((piece) => {
+        if (piece.startsWith("**") && piece.endsWith("**")) {
+          const strong = document.createElement("strong");
+          strong.textContent = piece.slice(2, -2);
+          paragraph.appendChild(strong);
+        } else {
+          paragraph.appendChild(document.createTextNode(piece.replace(/\n/g, " ")));
+        }
+      });
+      container.appendChild(paragraph);
+    });
+  };
 
   const addMessage = ({ text, links = [] }, type = "bot") => {
     const message = document.createElement("div");
     message.className = `pet-message pet-message--${type}`;
-    const paragraph = document.createElement("p");
-    paragraph.textContent = text;
-    message.appendChild(paragraph);
+    if (type === "bot") {
+      appendFormattedText(message, text);
+    } else {
+      const paragraph = document.createElement("p");
+      paragraph.textContent = text;
+      message.appendChild(paragraph);
+    }
     if (links.length) {
       const actions = document.createElement("div");
       actions.className = "pet-message__links";
-      actions.innerHTML = linkMarkup(links);
+      appendLinks(actions, links);
       message.appendChild(actions);
     }
     messages.appendChild(message);
@@ -1090,90 +1150,49 @@ function injectMascotAssistant() {
     if (!isTyping && typing) typing.remove();
   };
 
-  const getReply = (rawText) => {
-    const text = rawText.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-
-    if (/(proyecto|robot|scara|zeus|drone|dron|hirobot|led|flip|hormiga|noah)/.test(text)) {
-      return {
-        text: "Aquí tienes los proyectos. Si estás empezando, mira los activos y pide una primera tarea pequeña.",
-        links: [
-          { label: "Ver proyectos", href: "proyectos.html" },
-          { label: "Zeus", href: "proyectos.html#zeus" },
-          { label: "Scara", href: "proyectos.html#scara" }
-        ]
-      };
+  const getReply = async (question) => {
+    const response = await fetch("/api/bit-chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        question,
+        sessionId: getBitSessionId()
+      })
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok || data.ok === false) {
+      throw new Error(data.error || "No se pudo contactar con BIT.");
     }
-    if (/(taller|curso|linux|git|shell|fabricacion|impresion|aprender)/.test(text)) {
-      return {
-        text: "Los talleres son la entrada más directa para empezar con herramientas reales.",
-        links: [
-          { label: "Ver talleres", href: "talleres.html" },
-          { label: "Linux", href: "taller-linux.html" },
-          { label: "Git", href: "taller-git.html" }
-        ]
-      };
-    }
-    if (/(unir|entro|entrar|apuntar|miembro|participar|discord)/.test(text)) {
-      return {
-        text: "Puedes entrar sin experiencia previa. Lo más rápido es pasar por Discord o escribirnos.",
-        links: [
-          { label: "Entrar a Discord", href: "https://discord.gg/k9nKDrDQaC", external: true },
-          { label: "Contacto", href: "contacto.html" }
-        ]
-      };
-    }
-    if (/(donde|ubicacion|local|campus|aulario|fuenlabrada)/.test(text)) {
-      return {
-        text: "Estamos en el Campus de Fuenlabrada, en el sótano del Aulario I.",
-        links: [
-          { label: "Quiénes somos", href: "aboutus.html" },
-          { label: "Contacto", href: "contacto.html" }
-        ]
-      };
-    }
-    if (/(contact|correo|email|mail|empresa|colabora|patrocin)/.test(text)) {
-      return {
-        text: "Para contacto, colaboraciones o patrocinio, usa estos enlaces.",
-        links: [
-          { label: "Email", href: "mailto:asociacion.robotech@urjc.es" },
-          { label: "Colabora", href: "colabora.html" },
-          { label: "LinkedIn", href: "https://es.linkedin.com/company/robotech-urjc", external: true }
-        ]
-      };
-    }
-    if (/(qr|link|red|instagram|github|linkedin)/.test(text)) {
-      return {
-        text: "Aquí tienes el hub rápido con redes y enlaces principales.",
-        links: [
-          { label: "Enlaces", href: "qr.html" },
-          { label: "Instagram", href: "https://www.instagram.com/robotech_urjc", external: true },
-          { label: "GitHub", href: "https://github.com/robotech-urjc", external: true }
-        ]
-      };
-    }
-    if (/(hola|buenas|hey|ola)/.test(text)) {
-      return { text: "¡Hola! Puedo pasarte enlaces de proyectos, talleres, Discord, contacto o ubicación.", links: quickLinks };
-    }
-    return { text: "No estoy seguro de qué necesitas. Te dejo los accesos más útiles para empezar.", links: quickLinks };
+    return {
+      text: data.answer || "No tengo una respuesta para eso ahora mismo.",
+      links: Array.isArray(data.links) ? data.links : []
+    };
   };
 
-  const sendMessage = (text) => {
+  const sendMessage = async (text) => {
     const cleanText = text.trim();
     if (!cleanText) return;
-    if (replyTimer) window.clearTimeout(replyTimer);
     addMessage({ text: cleanText }, "user");
     input.value = "";
     input.disabled = true;
-    form.querySelector("button").disabled = true;
+    submitButton.disabled = true;
     setTyping(true);
-    replyTimer = window.setTimeout(() => {
+    try {
+      const reply = await getReply(cleanText);
       setTyping(false);
-      addMessage(getReply(cleanText), "bot");
+      addMessage(reply, "bot");
+    } catch (error) {
+      setTyping(false);
+      addMessage({
+        text: "Ahora mismo no puedo conectar con BIT. Inténtalo de nuevo en unos segundos.",
+        links: quickLinks
+      }, "bot");
+      console.error(error);
+    } finally {
       input.disabled = false;
-      form.querySelector("button").disabled = false;
+      submitButton.disabled = false;
       input.focus();
-      replyTimer = null;
-    }, 320);
+    }
   };
 
   const setOpen = (isOpen) => {

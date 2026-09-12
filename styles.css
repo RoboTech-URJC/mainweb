@@ -4240,10 +4240,28 @@ html[data-theme="dark"] .pet-assistant__form {
 .pet-message {
   display: grid;
   gap: 8px;
+  overflow-wrap: anywhere;
+  word-break: normal;
 }
 
 .pet-message p {
   margin: 0;
+}
+
+.pet-message--bot {
+  max-width: 92%;
+  font-size: 0.88rem;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.pet-message--bot strong {
+  font-weight: 850;
+  color: var(--ink);
+}
+
+.pet-message--bot p + p {
+  padding-top: 2px;
 }
 
 .pet-message__links {
@@ -4361,6 +4379,10 @@ html[data-theme="dark"] .pet-message__links a {
   border-color: rgba(255, 133, 139, 0.28);
   background: rgba(215, 25, 32, 0.14);
   color: #ffb4b8;
+}
+
+html[data-theme="dark"] .pet-message--bot strong {
+  color: #f4f6f8;
 }
 
 

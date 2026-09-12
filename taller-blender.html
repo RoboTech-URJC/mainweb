@@ -2,6 +2,13 @@
 <html lang="es">
   <head>
     <meta charset="utf-8">
+    <script>
+      // Redirige el antiguo alojamiento de GitHub Pages al dominio actual.
+      if (window.location.hostname === 'robotech-urjc.github.io') {
+        var path = window.location.pathname.replace(/^\/mainweb(?:\/|$)/, '/');
+        window.location.replace('https://robotech.eif.urjc.es' + path + window.location.search + window.location.hash);
+      }
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Taller de modelado de robots con Blender en Robotech URJC.">
     <title>Modelado de robots con Blender | Robotech URJC</title>
